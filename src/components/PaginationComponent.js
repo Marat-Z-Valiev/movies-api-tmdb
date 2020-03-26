@@ -4,6 +4,7 @@ import {
 	PaginationStyled,
 	PaginationBlockStyled
 } from "./styles/PaginationStyled";
+import PropTypes from "prop-types";
 
 const PaginationComponent = ({
 	currentPage,
@@ -26,6 +27,13 @@ const PaginationComponent = ({
 			</PaginationStyled>
 		</PaginationBlockStyled>
 	);
+};
+
+PaginationComponent.propTypes = {
+	currentPage: PropTypes.number.isRequired,
+	resultsPerPage: PropTypes.number.isRequired,
+	totalResults: PropTypes.string.isRequired,
+	handlePageChange: PropTypes.func.isRequired
 };
 
 export default PaginationComponent;

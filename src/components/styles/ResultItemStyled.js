@@ -8,6 +8,11 @@ const ResultItemStyled = styled.div`
 		text-align: center;
 		margin: 0;
 	}
+
+	h3 {
+		margin-bottom: 15px;
+	}
+
 	img {
 		border: 2px solid black;
 		justify-self: center;

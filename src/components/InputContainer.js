@@ -3,6 +3,7 @@ import Select from "react-select";
 import Input from "./Input";
 import Button from "./Button";
 import InputContainerStyled from "./styles/InputContainerStyled";
+import PropTypes from "prop-types";
 
 const options = [
 	{value: "movie", label: "Movie"},
@@ -35,5 +36,13 @@ const InputContainer = ({
 		</InputContainerStyled>
 	</>
 );
+
+InputContainer.propTypes = {
+	handleChange: PropTypes.func.isRequired,
+	handleClick: PropTypes.func.isRequired,
+	handleSelect: PropTypes.func,
+	isLoading: PropTypes.bool.isRequired,
+	isDisabled: PropTypes.bool.isRequired
+};
 
 export default InputContainer;

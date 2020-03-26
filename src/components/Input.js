@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const InputStyles = styled.input`
 	border: 2px solid black;
@@ -33,6 +34,11 @@ const Input = ({handleChange, handleClick}) => {
 			placeholder={placeholderText}
 		/>
 	);
+};
+
+Input.propTypes = {
+	handleChange: PropTypes.func.isRequired,
+	handleClick: PropTypes.func.isRequired
 };
 
 export default Input;

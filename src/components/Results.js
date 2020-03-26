@@ -1,6 +1,7 @@
 import React from "react";
 import ResultItem from "./ResultItem";
 import ResultsContainerStyled from "./styles/ResultsContainerStyled";
+import PropTypes from "prop-types";
 
 const Results = ({totalResults, results}) => {
 	const sortedArray = results.sort((a, b) => b.Year - a.Year);
@@ -28,6 +29,11 @@ const Results = ({totalResults, results}) => {
 			</ResultsContainerStyled>
 		</>
 	);
+};
+
+Results.propTypes = {
+	totalResults: PropTypes.string,
+	results: PropTypes.array.isRequired
 };
 
 export default Results;

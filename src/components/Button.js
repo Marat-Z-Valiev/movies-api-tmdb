@@ -1,5 +1,6 @@
 import React from "react";
 import ButtonStyled from "./styles/ButtonStyled";
+import PropTypes from "prop-types";
 
 const Button = ({handleClick, isLoading, isDisabled}) => {
 	const handleKeyPress = (event, handleFunction) => {
@@ -17,6 +18,12 @@ const Button = ({handleClick, isLoading, isDisabled}) => {
 			{isLoading ? "Loading" : "Search"}
 		</ButtonStyled>
 	);
+};
+
+Button.propTypes = {
+	handleClick: PropTypes.func,
+	isLoading: PropTypes.bool,
+	isDisabled: PropTypes.bool
 };
 
 export default Button;
