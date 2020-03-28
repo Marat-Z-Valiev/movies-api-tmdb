@@ -41604,16 +41604,7 @@ PaginationComponent.propTypes = {
 };
 var _default = PaginationComponent;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-js-pagination":"node_modules/react-js-pagination/dist/Pagination.js","./styles/PaginationStyled":"src/components/styles/PaginationStyled.js","prop-types":"node_modules/prop-types/index.js"}],"config.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.API_KEY = void 0;
-const API_KEY = "a63832b8aamsh7a85645505609ddp1be412jsn1bc17d796591";
-exports.API_KEY = API_KEY;
-},{}],"src/components/App.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-js-pagination":"node_modules/react-js-pagination/dist/Pagination.js","./styles/PaginationStyled":"src/components/styles/PaginationStyled.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/App.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -41637,8 +41628,7 @@ var _PaginationComponent = _interopRequireDefault(require("./PaginationComponent
 
 var _styledComponents = require("styled-components");
 
-var _config = require("../../config");
-
+// import {API_KEY} from "../../config";
 const baseUrl = "https://movie-database-imdb-alternative.p.rapidapi.com";
 
 const App = () => {
@@ -41695,7 +41685,7 @@ const App = () => {
       method: "get",
       headers: {
         "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-        "x-rapidapi-key": _config.API_KEY
+        "x-rapidapi-key": "a63832b8aamsh7a85645505609ddp1be412jsn1bc17d796591"
       }
     }).then(response => {
       if (response.data.Search) {
@@ -41760,7 +41750,7 @@ const App = () => {
 
 var _default = App;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./InputContainer":"src/components/InputContainer.js","./Results":"src/components/Results.js","./PaginationComponent":"src/components/PaginationComponent.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../config":"config.js"}],"src/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./InputContainer":"src/components/InputContainer.js","./Results":"src/components/Results.js","./PaginationComponent":"src/components/PaginationComponent.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
