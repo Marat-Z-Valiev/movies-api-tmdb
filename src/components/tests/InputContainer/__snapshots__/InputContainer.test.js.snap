@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputContainer should render correctly 1`] = `
+<Fragment>
+  <styled.div>
+    <Input
+      handleChange={[Function]}
+      handleClick={[Function]}
+    />
+    <h2>
+      Select category
+    </h2>
+    <StateManager
+      className="select-category"
+      defaultInputValue=""
+      defaultMenuIsOpen={false}
+      defaultValue={
+        Object {
+          "label": "Movie",
+          "value": "movie",
+        }
+      }
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "Movie",
+            "value": "movie",
+          },
+          Object {
+            "label": "Game",
+            "value": "game",
+          },
+          Object {
+            "label": "Series",
+            "value": "series",
+          },
+        ]
+      }
+    />
+    <Button
+      handleClick={[Function]}
+      isDisabled={false}
+      isLoading={false}
+    />
+  </styled.div>
+</Fragment>
+`;

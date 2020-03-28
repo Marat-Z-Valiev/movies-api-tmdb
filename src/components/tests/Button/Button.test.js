@@ -8,32 +8,32 @@ configure({adapter: new Adapter()});
 
 describe("Button", () => {
 	it("should render correctly", () => {
-		const component = shallow(
+		const wrapper = shallow(
 			<Button handleClick={() => {}} isLoading={false} isDisabled={false} />
 		);
-		expect(toJSON(component)).toMatchSnapshot();
+		expect(toJSON(wrapper)).toMatchSnapshot();
 	});
 
 	it("should trigger the handleClick function on click", () => {
 		const handleClick = jest.fn();
-		const component = shallow(
+		const wrapper = shallow(
 			<Button handleClick={handleClick} isLoading={false} isDisabled={false} />
 		);
-		component.simulate("click");
+		wrapper.simulate("click");
 		expect(handleClick).toHaveBeenCalled();
 	});
 
-	it("should have text 'Loading' when isLoading is true", () => {
-		const component = mount(
+	it("should have text Loading when isLoading is true", () => {
+		const wrapper = mount(
 			<Button handleClick={() => {}} isLoading={true} isDisabled={false} />
 		);
-		expect(component.text()).toBe("Loading");
+		expect(wrapper.text()).toBe("Loading");
 	});
 
 	it("should be disabled if isDisabled is true", () => {
-		const component = shallow(
+		const wrapper = shallow(
 			<Button handleClick={() => {}} isLoading={false} isDisabled={true} />
 		);
-		expect(component.props().disabled).toBe(true);
+		expect(wrapper.props().disabled).toBe(true);
 	});
 });

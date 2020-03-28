@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaginationComponent should render correctly 1`] = `
+<styled.div>
+  <styled.div>
+    <Pagination
+      activeClass="active"
+      activePage={1}
+      firstPageText="«"
+      getPageUrl={[Function]}
+      hideFirstLastPages={false}
+      innerClass="pagination"
+      itemsCountPerPage={10}
+      lastPageText="»"
+      nextPageText="⟩"
+      onChange={[Function]}
+      pageRangeDisplayed={10}
+      prevPageText="⟨"
+      totalItemsCount={100}
+    />
+  </styled.div>
+</styled.div>
+`;

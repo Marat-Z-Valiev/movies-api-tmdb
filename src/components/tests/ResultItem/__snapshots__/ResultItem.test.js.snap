@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultItem should render correctly 1`] = `
+<styled.div>
+  <h2 />
+  <h3 />
+  <img />
+</styled.div>
+`;
