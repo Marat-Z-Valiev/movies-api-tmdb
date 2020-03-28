@@ -40873,6 +40873,9 @@ const ResultItemStyled = _styledComponents.default.div`
 		h3 {
 			margin-bottom: 20px;
 		}
+		img {
+			margin-bottom: 20px;
+		}
 	}
 `;
 var _default = ResultItemStyled;
@@ -41790,7 +41793,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50520" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49651" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

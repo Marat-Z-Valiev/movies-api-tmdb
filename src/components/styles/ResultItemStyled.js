@@ -22,6 +22,9 @@ const ResultItemStyled = styled.div`
 		h3 {
 			margin-bottom: 20px;
 		}
+		img {
+			margin-bottom: 20px;
+		}
 	}
 `;
 
