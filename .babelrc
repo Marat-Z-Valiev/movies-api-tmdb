@@ -6,7 +6,6 @@
 		"@babel/plugin-syntax-import-meta",
 		"@babel/plugin-transform-modules-commonjs",
 		"@babel/plugin-transform-object-assign",
-		"@babel/plugin-transform-runtime",
-		"@babel/plugin-syntax-dynamic-import"
+		"@babel/plugin-transform-runtime"
 	]
 }
