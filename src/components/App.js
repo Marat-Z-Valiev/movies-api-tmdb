@@ -4,7 +4,6 @@ import InputContainer from "./InputContainer";
 import Results from "./Results";
 import PaginationComponent from "./PaginationComponent";
 import {createGlobalStyle} from "styled-components";
-// import {API_KEY} from "../../config";
 
 const baseUrl = "https://movie-database-imdb-alternative.p.rapidapi.com";
 
@@ -59,7 +58,7 @@ const App = () => {
 			method: "get",
 			headers: {
 				"x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-				"x-rapidapi-key": "a63832b8aamsh7a85645505609ddp1be412jsn1bc17d796591"
+				"x-rapidapi-key": `${process.env.API_KEY}`
 			}
 		})
 			.then(response => {

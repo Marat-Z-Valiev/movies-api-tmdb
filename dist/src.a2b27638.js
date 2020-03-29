@@ -41631,7 +41631,6 @@ var _PaginationComponent = _interopRequireDefault(require("./PaginationComponent
 
 var _styledComponents = require("styled-components");
 
-// import {API_KEY} from "../../config";
 const baseUrl = "https://movie-database-imdb-alternative.p.rapidapi.com";
 
 const App = () => {
@@ -41688,7 +41687,7 @@ const App = () => {
       method: "get",
       headers: {
         "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-        "x-rapidapi-key": "a63832b8aamsh7a85645505609ddp1be412jsn1bc17d796591"
+        "x-rapidapi-key": `${undefined}`
       }
     }).then(response => {
       if (response.data.Search) {
@@ -41970,4 +41969,5 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
+//# sourceMappingURL=/src.a2b27638.js.map)
 //# sourceMappingURL=/src.a2b27638.js.map
