@@ -40900,13 +40900,17 @@ const ResultItem = ({
   result
 }) => {
   const {
-    Title,
-    Year,
-    Poster
+    vote_average,
+    poster_path,
+    original_title,
+    release_date
   } = result;
-  return _react.default.createElement(_ResultItemStyled.default, null, _react.default.createElement("h2", null, Title), _react.default.createElement("h3", null, Year), Poster === "N/A" ? "" : _react.default.createElement("img", {
-    src: Poster,
-    alt: Title
+  return _react.default.createElement(_ResultItemStyled.default, null, _react.default.createElement("h2", null, vote_average == 0 ? "" : `Popularity ${vote_average} / 10`), _react.default.createElement("h2", null, original_title), _react.default.createElement("h3", null, release_date.split("-")[0]), poster_path === null ? _react.default.createElement("img", {
+    src: "../images/no-image-available.jpg",
+    alt: "no image available"
+  }) : _react.default.createElement("img", {
+    src: `https://image.tmdb.org/t/p/w342/${poster_path}`,
+    alt: original_title
   }));
 };
 
@@ -40967,14 +40971,17 @@ const Results = ({
   totalResults,
   results
 }) => {
-  const sortedArray = results.sort((a, b) => b.Year - a.Year);
+  // const modifiedReleaseDate = results.map(result => {
+  // 	result.release_date.split("-")[0];
+  // });
+  const sortedArray = results.sort((a, b) => b.release_date.split("-")[0] - a.release_date.split("-")[0]);
   return _react.default.createElement(_react.default.Fragment, null, totalResults ? _react.default.createElement("p", {
     style: {
       textAlign: "center",
       color: "#ffffff",
       fontSize: "1.5rem"
     }
-  }, "Total results is ", totalResults) : "", _react.default.createElement(_ResultsContainerStyled.default, null, Object.keys(sortedArray).map(key => results[key].Poster === "N/A" ? "" : _react.default.createElement(_ResultItem.default, {
+  }, "Total results is ", totalResults) : "", _react.default.createElement(_ResultsContainerStyled.default, null, Object.keys(sortedArray).map(key => _react.default.createElement(_ResultItem.default, {
     className: "result-tile",
     key: key,
     result: results[key]
@@ -40982,7 +40989,7 @@ const Results = ({
 };
 
 Results.propTypes = {
-  totalResults: _propTypes.default.string,
+  totalResults: _propTypes.default.number,
   results: _propTypes.default.array.isRequired
 };
 var _default = Results;
@@ -41602,7 +41609,7 @@ const PaginationComponent = ({
 PaginationComponent.propTypes = {
   currentPage: _propTypes.default.number.isRequired,
   resultsPerPage: _propTypes.default.number.isRequired,
-  totalResults: _propTypes.default.string.isRequired,
+  totalResults: _propTypes.default.number.isRequired,
   handlePageChange: _propTypes.default.func.isRequired
 };
 var _default = PaginationComponent;
@@ -41631,7 +41638,8 @@ var _PaginationComponent = _interopRequireDefault(require("./PaginationComponent
 
 var _styledComponents = require("styled-components");
 
-const baseUrl = "https://movie-database-imdb-alternative.p.rapidapi.com";
+const apiKey = "f8efee7e451d2ca98ae50114ad74aeeb";
+const baseUrl = "https://api.themoviedb.org/3/search/movie?api_key=";
 
 const App = () => {
   const GlobalStyle = (0, _styledComponents.createGlobalStyle)`
@@ -41648,7 +41656,7 @@ const App = () => {
 	`;
   let [searchQuery, setSearchQuery] = (0, _react.useState)("");
   let [results, setResults] = (0, _react.useState)([]);
-  let [totalResults, setTotalResults] = (0, _react.useState)("");
+  let [totalResults, setTotalResults] = (0, _react.useState)(0);
   let [isError, setIsError] = (0, _react.useState)(false);
   let [isLoading, setIsLoading] = (0, _react.useState)(false);
   let [isDisabled, setIsDisabled] = (0, _react.useState)(true);
@@ -41683,17 +41691,17 @@ const App = () => {
     }
 
     await (0, _axios.default)({
-      url: `${baseUrl}/?page=${currentPage}&r=json&type=${selectedCategory}&s=${searchQuery}`,
-      method: "get",
-      headers: {
-        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-        "x-rapidapi-key": `${undefined}`
-      }
+      url: `${baseUrl}${apiKey}&query=${searchQuery}&page=${currentPage}&region=US-en`,
+      method: "get" // headers: {
+      // 	"x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+      // 	"x-rapidapi-key": `${process.env.API_KEY}`
+      // }
+
     }).then(response => {
-      if (response.data.Search) {
+      if (response.data.results.length) {
         setIsError(isError = false);
-        setResults(results = response.data.Search);
-        setTotalResults(totalResults = response.data.totalResults);
+        setResults(results = response.data.results);
+        setTotalResults(totalResults = response.data.total_results);
         setIsLoading(isLoading = false);
         setShowPagination(showPagination = true);
       } else {
@@ -41792,7 +41800,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49651" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63999" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -41969,5 +41977,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
-//# sourceMappingURL=/src.a2b27638.js.map)
 //# sourceMappingURL=/src.a2b27638.js.map

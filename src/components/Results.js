@@ -4,7 +4,12 @@ import ResultsContainerStyled from "./styles/ResultsContainerStyled";
 import PropTypes from "prop-types";
 
 const Results = ({totalResults, results}) => {
-	const sortedArray = results.sort((a, b) => b.Year - a.Year);
+	// const modifiedReleaseDate = results.map(result => {
+	// 	result.release_date.split("-")[0];
+	// });
+	const sortedArray = results.sort(
+		(a, b) => b.release_date.split("-")[0] - a.release_date.split("-")[0]
+	);
 	return (
 		<>
 			{totalResults ? (
@@ -15,24 +20,16 @@ const Results = ({totalResults, results}) => {
 				""
 			)}
 			<ResultsContainerStyled>
-				{Object.keys(sortedArray).map(key =>
-					results[key].Poster === "N/A" ? (
-						""
-					) : (
-						<ResultItem
-							className="result-tile"
-							key={key}
-							result={results[key]}
-						/>
-					)
-				)}
+				{Object.keys(sortedArray).map(key => (
+					<ResultItem className="result-tile" key={key} result={results[key]} />
+				))}
 			</ResultsContainerStyled>
 		</>
 	);
 };
 
 Results.propTypes = {
-	totalResults: PropTypes.string,
+	totalResults: PropTypes.number,
 	results: PropTypes.array.isRequired
 };
 

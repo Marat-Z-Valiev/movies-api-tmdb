@@ -32,7 +32,7 @@ const PaginationComponent = ({
 PaginationComponent.propTypes = {
 	currentPage: PropTypes.number.isRequired,
 	resultsPerPage: PropTypes.number.isRequired,
-	totalResults: PropTypes.string.isRequired,
+	totalResults: PropTypes.number.isRequired,
 	handlePageChange: PropTypes.func.isRequired
 };
 

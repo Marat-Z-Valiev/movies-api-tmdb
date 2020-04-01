@@ -5,7 +5,9 @@ import Results from "./Results";
 import PaginationComponent from "./PaginationComponent";
 import {createGlobalStyle} from "styled-components";
 
-const baseUrl = "https://movie-database-imdb-alternative.p.rapidapi.com";
+const apiKey = "f8efee7e451d2ca98ae50114ad74aeeb";
+
+const baseUrl = "https://api.themoviedb.org/3/search/movie?api_key=";
 
 const App = () => {
 	const GlobalStyle = createGlobalStyle`
@@ -23,7 +25,7 @@ const App = () => {
 
 	let [searchQuery, setSearchQuery] = useState("");
 	let [results, setResults] = useState([]);
-	let [totalResults, setTotalResults] = useState("");
+	let [totalResults, setTotalResults] = useState(0);
 	let [isError, setIsError] = useState(false);
 	let [isLoading, setIsLoading] = useState(false);
 	let [isDisabled, setIsDisabled] = useState(true);
@@ -54,18 +56,18 @@ const App = () => {
 			return;
 		}
 		await axios({
-			url: `${baseUrl}/?page=${currentPage}&r=json&type=${selectedCategory}&s=${searchQuery}`,
-			method: "get",
-			headers: {
-				"x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-				"x-rapidapi-key": `${process.env.API_KEY}`
-			}
+			url: `${baseUrl}${apiKey}&query=${searchQuery}&page=${currentPage}&region=US-en`,
+			method: "get"
+			// headers: {
+			// 	"x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+			// 	"x-rapidapi-key": `${process.env.API_KEY}`
+			// }
 		})
 			.then(response => {
-				if (response.data.Search) {
+				if (response.data.results.length) {
 					setIsError((isError = false));
-					setResults((results = response.data.Search));
-					setTotalResults((totalResults = response.data.totalResults));
+					setResults((results = response.data.results));
+					setTotalResults((totalResults = response.data.total_results));
 					setIsLoading((isLoading = false));
 					setShowPagination((showPagination = true));
 				} else {
