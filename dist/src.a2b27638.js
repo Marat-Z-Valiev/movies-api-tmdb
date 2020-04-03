@@ -40869,6 +40869,11 @@ const ResultItemStyled = _styledComponents.default.div`
 		justify-self: center;
 	}
 
+	.no-image {
+		width: 346px;
+		height: 517px;
+	}
+
 	@media (min-width: 320px) and (max-width: 425px) {
 		h3 {
 			margin-bottom: 20px;
@@ -40880,7 +40885,11 @@ const ResultItemStyled = _styledComponents.default.div`
 `;
 var _default = ResultItemStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/ResultItem.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/images/no-image-available.jpg":[function(require,module,exports) {
+"use strict";
+
+module.exports = "/no-image-available.676cb25e.jpg";
+},{}],"src/components/ResultItem.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -40896,21 +40905,24 @@ var _ResultItemStyled = _interopRequireDefault(require("./styles/ResultItemStyle
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
+
 const ResultItem = ({
   result
 }) => {
   const {
     vote_average,
     poster_path,
-    original_title,
+    title,
     release_date
   } = result;
-  return _react.default.createElement(_ResultItemStyled.default, null, _react.default.createElement("h2", null, vote_average == 0 ? "" : `Popularity ${vote_average} / 10`), _react.default.createElement("h2", null, original_title), _react.default.createElement("h3", null, release_date.split("-")[0]), poster_path === null ? _react.default.createElement("img", {
-    src: "../images/no-image-available.jpg",
+  return _react.default.createElement(_ResultItemStyled.default, null, _react.default.createElement("h2", null, vote_average == 0 ? "" : `Popularity ${vote_average} / 10`), _react.default.createElement("h2", null, title), _react.default.createElement("h3", null, release_date), poster_path === null ? _react.default.createElement("img", {
+    className: "no-image",
+    src: _noImageAvailable.default,
     alt: "no image available"
   }) : _react.default.createElement("img", {
     src: `https://image.tmdb.org/t/p/w342/${poster_path}`,
-    alt: original_title
+    alt: title
   }));
 };
 
@@ -40919,7 +40931,7 @@ ResultItem.propTypes = {
 };
 var _default = ResultItem;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","./styles/ResultItemStyled":"src/components/styles/ResultItemStyled.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/styles/ResultsContainerStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","./styles/ResultItemStyled":"src/components/styles/ResultItemStyled.js","prop-types":"node_modules/prop-types/index.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/styles/ResultsContainerStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -40994,7 +41006,44 @@ Results.propTypes = {
 };
 var _default = Results;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","./ResultItem":"src/components/ResultItem.js","./styles/ResultsContainerStyled":"src/components/styles/ResultsContainerStyled.js","prop-types":"node_modules/prop-types/index.js"}],"node_modules/paginator/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","./ResultItem":"src/components/ResultItem.js","./styles/ResultsContainerStyled":"src/components/styles/ResultsContainerStyled.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/Trending.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _Results = _interopRequireDefault(require("./Results"));
+
+const Trending = () => {
+  let [returnedResults, setResult] = (0, _react.useState)([]);
+
+  const fetchTrending = async () => {
+    await _axios.default.get("https://api.themoviedb.org/3/trending/movie/week?api_key=f8efee7e451d2ca98ae50114ad74aeeb").then(response => {
+      setResult(returnedResults = response.data.results);
+    }).catch(err => console.log(`this is error ${err}`));
+  };
+
+  (0, _react.useEffect)(() => {
+    fetchTrending();
+  }, []);
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Results.default, {
+    results: returnedResults
+  }));
+};
+
+var _default = Trending;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./Results":"src/components/Results.js"}],"node_modules/paginator/index.js":[function(require,module,exports) {
 module.exports = Paginator;
 
 // Paginator constructor
@@ -41634,6 +41683,8 @@ var _InputContainer = _interopRequireDefault(require("./InputContainer"));
 
 var _Results = _interopRequireDefault(require("./Results"));
 
+var _Trending = _interopRequireDefault(require("./Trending"));
+
 var _PaginationComponent = _interopRequireDefault(require("./PaginationComponent"));
 
 var _styledComponents = require("styled-components");
@@ -41691,12 +41742,8 @@ const App = () => {
     }
 
     await (0, _axios.default)({
-      url: `${baseUrl}${apiKey}&query=${searchQuery}&page=${currentPage}&region=US-en`,
-      method: "get" // headers: {
-      // 	"x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-      // 	"x-rapidapi-key": `${process.env.API_KEY}`
-      // }
-
+      url: `${baseUrl}${apiKey}&language=en-US&query=${searchQuery}&page=${currentPage}`,
+      method: "get"
     }).then(response => {
       if (response.data.results.length) {
         setIsError(isError = false);
@@ -41739,7 +41786,7 @@ const App = () => {
     handleSelect: handleSelect,
     isLoading: isLoading,
     isDisabled: isDisabled
-  }), showPagination ? _react.default.createElement(_PaginationComponent.default, {
+  }), _react.default.createElement(_Trending.default, null), ";", showPagination ? _react.default.createElement(_PaginationComponent.default, {
     currentPage: currentPage,
     handlePageChange: handlePageChange,
     resultsPerPage: resultsPerPage,
@@ -41760,7 +41807,7 @@ const App = () => {
 
 var _default = App;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./InputContainer":"src/components/InputContainer.js","./Results":"src/components/Results.js","./PaginationComponent":"src/components/PaginationComponent.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./InputContainer":"src/components/InputContainer.js","./Results":"src/components/Results.js","./Trending":"src/components/Trending.js","./PaginationComponent":"src/components/PaginationComponent.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -41800,7 +41847,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63999" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57557" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

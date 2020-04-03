@@ -18,6 +18,11 @@ const ResultItemStyled = styled.div`
 		justify-self: center;
 	}
 
+	.no-image {
+		width: 346px;
+		height: 517px;
+	}
+
 	@media (min-width: 320px) and (max-width: 425px) {
 		h3 {
 			margin-bottom: 20px;

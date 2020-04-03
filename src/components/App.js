@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import InputContainer from "./InputContainer";
 import Results from "./Results";
+import Trending from "./Trending";
 import PaginationComponent from "./PaginationComponent";
 import {createGlobalStyle} from "styled-components";
 
@@ -56,12 +57,8 @@ const App = () => {
 			return;
 		}
 		await axios({
-			url: `${baseUrl}${apiKey}&query=${searchQuery}&page=${currentPage}&region=US-en`,
+			url: `${baseUrl}${apiKey}&language=en-US&query=${searchQuery}&page=${currentPage}`,
 			method: "get"
-			// headers: {
-			// 	"x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-			// 	"x-rapidapi-key": `${process.env.API_KEY}`
-			// }
 		})
 			.then(response => {
 				if (response.data.results.length) {
@@ -105,6 +102,7 @@ const App = () => {
 				isLoading={isLoading}
 				isDisabled={isDisabled}
 			/>
+			<Trending />;
 			{showPagination ? (
 				<PaginationComponent
 					currentPage={currentPage}
