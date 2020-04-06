@@ -1,8 +1,11 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import InputContainer from "./InputContainer";
 import Results from "./Results";
-import Trending from "./Trending";
+import Movie from "./Movie";
+import Person from "./Person";
+import Home from "./Home";
 import PaginationComponent from "./PaginationComponent";
 import {createGlobalStyle} from "styled-components";
 
@@ -94,15 +97,14 @@ const App = () => {
 	return (
 		<>
 			<GlobalStyle />
-			<h1 style={{textAlign: "center", color: "#ffffff"}}>Movies API</h1>
-			<InputContainer
-				handleChange={handleChange}
-				handleClick={handleClick}
-				handleSelect={handleSelect}
-				isLoading={isLoading}
-				isDisabled={isDisabled}
-			/>
-			<Trending />;
+			<BrowserRouter>
+				<Switch>
+					<Route exact path="/" component={Home} />
+					<Route path="/movieId=:id" component={Movie} />
+					<Route path="/personId=:id" component={Person} />
+				</Switch>
+			</BrowserRouter>
+
 			{showPagination ? (
 				<PaginationComponent
 					currentPage={currentPage}

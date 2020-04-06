@@ -1,10 +1,11 @@
 import React from "react";
-import ResultItemStyled from "./styles/ResultItemStyled";
 import PropTypes from "prop-types";
+import {Link, withRouter} from "react-router-dom";
+import ResultItemStyled from "./styles/ResultItemStyled";
 import noImage from "../images/no-image-available.jpg";
 
-const ResultItem = ({result}) => {
-	const {vote_average, poster_path, title, release_date} = result;
+const ResultItem = ({result, history}) => {
+	const {id, vote_average, title, release_date, poster_path} = result;
 	return (
 		<ResultItemStyled>
 			<h2>{vote_average == 0 ? "" : `Popularity ${vote_average} / 10`}</h2>
@@ -13,10 +14,12 @@ const ResultItem = ({result}) => {
 			{poster_path === null ? (
 				<img className="no-image" src={noImage} alt="no image available" />
 			) : (
-				<img
-					src={`https://image.tmdb.org/t/p/w342/${poster_path}`}
-					alt={title}
-				/>
+				<Link to={`/movieId=${id}`}>
+					<img
+						src={`https://image.tmdb.org/t/p/w342/${poster_path}`}
+						alt={title}
+					/>
+				</Link>
 			)}
 		</ResultItemStyled>
 	);

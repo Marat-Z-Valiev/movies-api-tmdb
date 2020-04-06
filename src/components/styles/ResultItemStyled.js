@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const ResultItemStyled = styled.div`
 	display: grid;
+	justify-items: center;
 
 	h2,
 	h3 {
