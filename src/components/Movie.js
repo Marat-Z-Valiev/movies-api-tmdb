@@ -57,7 +57,7 @@ const Movie = ({match}) => {
 					</div>
 				</div>
 			</MovieStyled>
-			<h2 style={{textAlign: "center"}}>Cast</h2>
+			<h1 style={{textAlign: "center"}}>Cast</h1>
 			<People movieId={movieId}></People>
 		</>
 	);

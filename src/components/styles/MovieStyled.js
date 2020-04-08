@@ -4,10 +4,18 @@ const MovieStyled = styled.div`
 	display: grid;
 	grid-template-columns: 30% 70%;
 
+	img {
+		margin-left: 35px;
+	}
+
 	.movie-details {
 		display: grid;
 		grid-template-columns: repeat(3, 33%);
 		grid-template-rows: 30% 70%;
+
+		h2 {
+			text-align: center;
+		}
 
 		.far,
 		.fas {
