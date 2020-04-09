@@ -21,6 +21,7 @@ const Input = ({handleChange, handleClick}) => {
 	const handleKeyPress = (event, handleFunction) => {
 		if (event.key === "Enter") {
 			handleFunction();
+			setPlaceholderText((placeholderText = "Enter search query"));
 		}
 		return;
 	};
@@ -37,7 +38,7 @@ const Input = ({handleChange, handleClick}) => {
 };
 
 Input.propTypes = {
-	handleChange: PropTypes.func.isRequired,
+	// handleChange: PropTypes.func.isRequired,
 	handleClick: PropTypes.func.isRequired
 };
 

@@ -21,13 +21,6 @@ const InputContainer = ({
 	<>
 		<InputContainerStyled>
 			<Input handleChange={handleChange} handleClick={handleClick} />
-			<h2>Select category</h2>
-			<Select
-				className="select-category"
-				defaultValue={{value: "movie", label: "Movie"}}
-				options={options}
-				onChange={handleSelect}
-			/>
 			<Button
 				handleClick={handleClick}
 				isLoading={isLoading}
@@ -38,7 +31,7 @@ const InputContainer = ({
 );
 
 InputContainer.propTypes = {
-	handleChange: PropTypes.func.isRequired,
+	// handleChange: PropTypes.func.isRequired,
 	handleClick: PropTypes.func.isRequired,
 	handleSelect: PropTypes.func,
 	isLoading: PropTypes.bool.isRequired,
