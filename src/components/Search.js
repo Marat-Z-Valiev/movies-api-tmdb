@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -20,22 +20,13 @@ const Search = ({history}) => {
 	};
 
 	const handleClick = () => {
-		// if (!searchQuery) {
-		// 	setIsLoading((isLoading = false));
-		// 	return;
-		// }
-		// setCurrentPage((currentPage = 1));
 		history.push(`/search=${searchQuery}`);
-
-		// getResults(searchQuery, currentPage);
 	};
 
 	return (
 		<>
-			{/* <Link to={`/search?searchQuery=${searchQuery}`}> */}
 			<Input handleChange={handleChange} handleClick={handleClick} />
 			<Button handleClick={handleClick} isDisabled={isDisabled} />
-			{/* </Link> */}
 		</>
 	);
 };

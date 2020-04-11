@@ -1,22 +1,28 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import Search from "./Search";
+import NavStyled from "./styles/NavStyled";
 
 const Navigation = () => {
 	return (
-		<nav>
-			<h1 style={{textAlign: "center", color: "#ffffff"}}>Movies API</h1>
-			<ul>
-				<Link to={"/"}>
-					<li>Home</li>
-				</Link>
-				<li>People</li>
-				<li>Trending</li>
+		<NavStyled>
+			<ul className="all-links">
 				<li>
+					<Link to={"/"}>
+						<h1>Movies</h1>
+					</Link>
+				</li>
+				<Link to={"/popular"}>
+					<li>Popular</li>
+				</Link>
+				<Link to="./people">
+					<li>People</li>
+				</Link>
+				<li className="search">
 					<Search />
 				</li>
 			</ul>
-		</nav>
+		</NavStyled>
 	);
 };
 

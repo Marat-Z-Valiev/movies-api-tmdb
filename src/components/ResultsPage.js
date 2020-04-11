@@ -10,7 +10,6 @@ const baseUrl = "https://api.themoviedb.org/3/search/movie?api_key=";
 
 const ResultsPage = ({match}) => {
 	const queryValue = match.params.searchQuery;
-	console.log(queryValue);
 	let [results, setResults] = useState([]);
 	let [totalResults, setTotalResults] = useState(0);
 	let [isError, setIsError] = useState(false);
@@ -47,7 +46,7 @@ const ResultsPage = ({match}) => {
 
 	return (
 		<>
-			<h2>Results page</h2>
+			<h2 style={{textAlign: "center", color: "#ffffff"}}>Results page</h2>
 			{/* {showPagination ? (
 				<PaginationComponent
 					currentPage={currentPage}

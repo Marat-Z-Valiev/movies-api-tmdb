@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link, withRouter} from "react-router-dom";
+import {Link} from "react-router-dom";
 import ResultItemStyled from "./styles/ResultItemStyled";
 import noImage from "../images/no-image-available.jpg";
 
-const ResultItem = ({result, history}) => {
+const ResultItem = ({result}) => {
 	const {id, vote_average, title, release_date, poster_path} = result;
+
 	return (
 		<ResultItemStyled>
 			<h2>{vote_average == 0 ? "" : `Popularity ${vote_average} / 10`}</h2>

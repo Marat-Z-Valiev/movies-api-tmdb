@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Results from "./Results";
+import Spinner from "./Spinner";
 
 const Home = () => {
 	let [returnedResults, setResult] = useState([]);
+	let [isLoading, setIsLoading] = useState(true);
 
 	const fetchTrending = async () => {
 		await axios
@@ -12,6 +14,7 @@ const Home = () => {
 			)
 			.then(response => {
 				setResult((returnedResults = response.data.results));
+				setIsLoading((isLoading = false));
 			})
 			.catch(err => console.log(`this is error ${err}`));
 	};
@@ -20,12 +23,7 @@ const Home = () => {
 		fetchTrending();
 	}, []);
 
-	return (
-		<>
-			<h1 style={{textAlign: "center", color: "#ffffff"}}>Movies API</h1>
-			<Results results={returnedResults}></Results>
-		</>
-	);
+	return <>{isLoading ? <Spinner /> : <Results results={returnedResults} />}</>;
 };
 
 export default Home;

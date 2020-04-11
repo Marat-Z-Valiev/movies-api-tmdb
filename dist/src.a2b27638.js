@@ -35508,12 +35508,7 @@ const Search = ({
   };
 
   const handleClick = () => {
-    // if (!searchQuery) {
-    // 	setIsLoading((isLoading = false));
-    // 	return;
-    // }
-    // setCurrentPage((currentPage = 1));
-    history.push(`/search=${searchQuery}`); // getResults(searchQuery, currentPage);
+    history.push(`/search=${searchQuery}`);
   };
 
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Input.default, {
@@ -35528,7 +35523,56 @@ const Search = ({
 var _default = (0, _reactRouterDom.withRouter)(Search);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Input":"src/components/Input.js","./Button":"src/components/Button.js"}],"src/components/Navigation.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Input":"src/components/Input.js","./Button":"src/components/Button.js"}],"src/components/styles/NavStyled.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+const NavStyled = _styledComponents.default.nav`
+	display: flex;
+	background-color: #3f51b5;
+	height: 60px;
+	z-index: 200;
+	width: 100%;
+
+	.all-links {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		width: 100vw;
+
+		* {
+			color: #ffffff;
+		}
+
+		h1 {
+			font-size: 2.3rem;
+		}
+
+		li {
+			list-style: none;
+			font-size: 1.3rem;
+		}
+		a {
+			text-decoration: none;
+
+			&:hover {
+				color: #ffffff;
+				text-decoration: underline;
+			}
+		}
+	}
+`;
+var _default = NavStyled;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Navigation.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -35544,20 +35588,25 @@ var _reactRouterDom = require("react-router-dom");
 
 var _Search = _interopRequireDefault(require("./Search"));
 
+var _NavStyled = _interopRequireDefault(require("./styles/NavStyled"));
+
 const Navigation = () => {
-  return _react.default.createElement("nav", null, _react.default.createElement("h1", {
-    style: {
-      textAlign: "center",
-      color: "#ffffff"
-    }
-  }, "Movies API"), _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
+  return _react.default.createElement(_NavStyled.default, null, _react.default.createElement("ul", {
+    className: "all-links"
+  }, _react.default.createElement("li", null, _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
-  }, _react.default.createElement("li", null, "Home")), _react.default.createElement("li", null, "People"), _react.default.createElement("li", null, "Trending"), _react.default.createElement("li", null, _react.default.createElement(_Search.default, null))));
+  }, _react.default.createElement("h1", null, "Movies"))), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/popular"
+  }, _react.default.createElement("li", null, "Popular")), _react.default.createElement(_reactRouterDom.Link, {
+    to: "./people"
+  }, _react.default.createElement("li", null, "People")), _react.default.createElement("li", {
+    className: "search"
+  }, _react.default.createElement(_Search.default, null))));
 };
 
 var _default = Navigation;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Search":"src/components/Search.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Search":"src/components/Search.js","./styles/NavStyled":"src/components/styles/NavStyled.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -37183,8 +37232,7 @@ var _ResultItemStyled = _interopRequireDefault(require("./styles/ResultItemStyle
 var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
 
 const ResultItem = ({
-  result,
-  history
+  result
 }) => {
   const {
     id,
@@ -37262,10 +37310,13 @@ const Results = ({
   totalResults,
   results
 }) => {
-  // const modifiedReleaseDate = results.map(result => {
+  const sortedArray = results.sort((a, b) => a.release_date && b.release_date ? b.release_date.split("-")[0] - a.release_date.split("-")[0] : ""); // const modifiedReleaseDate = results.map(result => {
   // 	result.release_date.split("-")[0];
   // });
-  const sortedArray = results.sort((a, b) => b.release_date.split("-")[0] - a.release_date.split("-")[0]);
+  // const sortedArray = results.sort(
+  // 	(a, b) => b.release_date.split("-")[0] - a.release_date.split("-")[0]
+  // );
+
   return _react.default.createElement(_react.default.Fragment, null, totalResults ? _react.default.createElement("p", {
     style: {
       textAlign: "center",
@@ -37285,92 +37336,7 @@ Results.propTypes = {
 };
 var _default = Results;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","./ResultItem":"src/components/ResultItem.js","./styles/ResultsContainerStyled":"src/components/styles/ResultsContainerStyled.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/Home.js":[function(require,module,exports) {
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _axios = _interopRequireDefault(require("axios"));
-
-var _Results = _interopRequireDefault(require("./Results"));
-
-const Home = () => {
-  let [returnedResults, setResult] = (0, _react.useState)([]);
-
-  const fetchTrending = async () => {
-    await _axios.default.get("https://api.themoviedb.org/3/trending/movie/week?api_key=f8efee7e451d2ca98ae50114ad74aeeb").then(response => {
-      setResult(returnedResults = response.data.results);
-    }).catch(err => console.log(`this is error ${err}`));
-  };
-
-  (0, _react.useEffect)(() => {
-    fetchTrending();
-  }, []);
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
-    style: {
-      textAlign: "center",
-      color: "#ffffff"
-    }
-  }, "Movies API"), _react.default.createElement(_Results.default, {
-    results: returnedResults
-  }));
-};
-
-var _default = Home;
-exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./Results":"src/components/Results.js"}],"src/components/styles/MovieStyled.js":[function(require,module,exports) {
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-const MovieStyled = _styledComponents.default.div`
-	display: grid;
-	grid-template-columns: 30% 70%;
-
-	img {
-		margin-left: 35px;
-	}
-
-	.movie-details {
-		display: grid;
-		grid-template-columns: repeat(3, 33%);
-		grid-template-rows: 30% 70%;
-
-		h2 {
-			text-align: center;
-		}
-
-		.far,
-		.fas {
-			margin-right: 10px;
-		}
-	}
-	.overview {
-		grid-column-start: 1;
-		grid-column-end: 4;
-		justify-self: center;
-		font-size: 1.5rem;
-	}
-`;
-var _default = MovieStyled;
-exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"node_modules/@emotion/sheet/dist/sheet.browser.esm.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","./ResultItem":"src/components/ResultItem.js","./styles/ResultsContainerStyled":"src/components/styles/ResultsContainerStyled.js","prop-types":"node_modules/prop-types/index.js"}],"node_modules/@emotion/sheet/dist/sheet.browser.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38858,7 +38824,119 @@ var Loader = /** @class */ (function (_super) {
 exports.default = Loader;
 var templateObject_1, templateObject_2, templateObject_3;
 
-},{"react":"node_modules/react/index.js","@emotion/core":"node_modules/@emotion/core/dist/core.browser.esm.js","./helpers":"node_modules/react-spinners/helpers/index.js"}],"src/components/styles/PeopleContainerStyled.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@emotion/core":"node_modules/@emotion/core/dist/core.browser.esm.js","./helpers":"node_modules/react-spinners/helpers/index.js"}],"src/components/Spinner.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _GridLoader = _interopRequireDefault(require("react-spinners/GridLoader"));
+
+const SpinnerStyled = _styledComponents.default.div`
+	div:nth-child(1) {
+		margin: 0 auto;
+	}
+`;
+
+const Spinner = () => {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(SpinnerStyled, null, _react.default.createElement(_GridLoader.default, null)), ";");
+};
+
+var _default = Spinner;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","react-spinners/GridLoader":"node_modules/react-spinners/GridLoader.js"}],"src/components/Home.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _Results = _interopRequireDefault(require("./Results"));
+
+var _Spinner = _interopRequireDefault(require("./Spinner"));
+
+const Home = () => {
+  let [returnedResults, setResult] = (0, _react.useState)([]);
+  let [isLoading, setIsLoading] = (0, _react.useState)(true);
+
+  const fetchTrending = async () => {
+    await _axios.default.get("https://api.themoviedb.org/3/trending/movie/week?api_key=f8efee7e451d2ca98ae50114ad74aeeb").then(response => {
+      setResult(returnedResults = response.data.results);
+      setIsLoading(isLoading = false);
+    }).catch(err => console.log(`this is error ${err}`));
+  };
+
+  (0, _react.useEffect)(() => {
+    fetchTrending();
+  }, []);
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_Results.default, {
+    results: returnedResults
+  }));
+};
+
+var _default = Home;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./Results":"src/components/Results.js","./Spinner":"src/components/Spinner.js"}],"src/components/styles/MovieStyled.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+const MovieStyled = _styledComponents.default.div`
+	display: grid;
+	grid-template-columns: 30% 70%;
+
+	img {
+		margin-left: 35px;
+	}
+
+	.movie-details {
+		display: grid;
+		grid-template-columns: repeat(3, 33%);
+		grid-template-rows: 30% 70%;
+
+		h2 {
+			text-align: center;
+		}
+
+		.far,
+		.fas {
+			margin-right: 10px;
+		}
+	}
+	.overview {
+		grid-column-start: 1;
+		grid-column-end: 4;
+		justify-self: center;
+		font-size: 1.5rem;
+	}
+`;
+var _default = MovieStyled;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/styles/PeopleContainerStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38897,23 +38975,19 @@ const PeopleContainerStyled = _styledComponents.default.div`
 `;
 var _default = PeopleContainerStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/People.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PeopleBlock.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
-
-var _axios = _interopRequireDefault(require("axios"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
@@ -38929,23 +39003,11 @@ const SpinnerStyled = _styledComponents.default.div`
 	}
 `;
 
-const People = ({
-  movieId
+const PeopleBlock = ({
+  people,
+  isLoading
 }) => {
-  let [people, setPeople] = (0, _react.useState)([]);
-  let [isLoading, setIsLoading] = (0, _react.useState)(true);
-
-  const getActors = async () => {
-    await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=f8efee7e451d2ca98ae50114ad74aeeb`).then(response => {
-      setPeople(people = response.data.cast);
-      setIsLoading(isLoading = false);
-    }).catch(err => console.log(`this is error ${err}`));
-  };
-
-  (0, _react.useEffect)(() => {
-    getActors();
-  }, []);
-  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(SpinnerStyled, null, _react.default.createElement(_GridLoader.default, null)) : _react.default.createElement(_PeopleContainerStyled.default, null, Object.keys(people.slice(0, 6)).map(key => _react.default.createElement("div", {
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(SpinnerStyled, null, _react.default.createElement(_GridLoader.default, null)) : _react.default.createElement(_PeopleContainerStyled.default, null, Object.keys(people).map(key => _react.default.createElement("div", {
     key: people[key].id,
     className: "person"
   }, _react.default.createElement(_reactRouterDom.Link, {
@@ -38960,9 +39022,62 @@ const People = ({
   })), _react.default.createElement("h2", null, people[key].name)))));
 };
 
-var _default = People;
+var _default = PeopleBlock;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","axios":"node_modules/axios/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","react-spinners/GridLoader":"node_modules/react-spinners/GridLoader.js","./styles/PeopleContainerStyled":"src/components/styles/PeopleContainerStyled.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Movie.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","react-spinners/GridLoader":"node_modules/react-spinners/GridLoader.js","./styles/PeopleContainerStyled":"src/components/styles/PeopleContainerStyled.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Video.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _Spinner = _interopRequireDefault(require("./Spinner"));
+
+const StyledVideo = _styledComponents.default.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const Video = ({
+  movieId
+}) => {
+  let [videos, setVideos] = (0, _react.useState)([]);
+  let [isLoading, setIsLoading] = (0, _react.useState)(true);
+
+  const getVideos = async () => {
+    await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`).then(response => {
+      setVideos(videos = response.data.results);
+      setIsLoading(isLoading = false);
+    }).catch(err => console.log(`this is error ${err}`));
+  };
+
+  (0, _react.useEffect)(() => {
+    getVideos();
+  }, []);
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledVideo, null, videos.length ? Object.keys(videos.slice(0, 1)).map(key => _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", null, videos[key].type), _react.default.createElement("iframe", {
+    title: videos[key].name,
+    width: "800",
+    height: "450",
+    src: `https://www.youtube.com/embed/${videos[key].key}?rel=0&fs=0`,
+    frameborder: "0"
+  }))) : "")));
+};
+
+var _default = Video;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./Spinner":"src/components/Spinner.js"}],"src/components/Movie.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38980,22 +39095,39 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _MovieStyled = _interopRequireDefault(require("./styles/MovieStyled"));
 
-var _People = _interopRequireDefault(require("./People"));
+var _PeopleBlock = _interopRequireDefault(require("./PeopleBlock"));
+
+var _Video = _interopRequireDefault(require("./Video"));
+
+var _Spinner = _interopRequireDefault(require("./Spinner"));
 
 const Movie = ({
   match
 }) => {
   const movieId = match.params.id;
   let [movie, setMovie] = (0, _react.useState)({});
+  let [people, setPeople] = (0, _react.useState)([]);
+  let [isLoading, setIsLoading] = (0, _react.useState)(true);
 
   const getMovie = async () => {
     await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`).then(response => {
       setMovie(movie = response.data);
+      setIsLoading(isLoading = false);
+    }).catch(err => console.log(`this is error ${err}`));
+  };
+
+  const getActors = async () => {
+    await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=f8efee7e451d2ca98ae50114ad74aeeb`).then(response => {
+      setPeople(people = response.data.cast);
+      setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));
   };
 
   (0, _react.useEffect)(() => {
     getMovie();
+  }, []);
+  (0, _react.useEffect)(() => {
+    getActors();
   }, []);
   const {
     title,
@@ -39005,7 +39137,7 @@ const Movie = ({
     runtime,
     overview
   } = movie;
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
     style: {
       textAlign: "center"
     }
@@ -39026,14 +39158,17 @@ const Movie = ({
     style: {
       textAlign: "center"
     }
-  }, "Cast"), _react.default.createElement(_People.default, {
+  }, "Cast"), _react.default.createElement(_PeopleBlock.default, {
+    people: people.slice(0, 6),
+    isLoading: isLoading
+  }), _react.default.createElement(_Video.default, {
     movieId: movieId
-  }));
+  })));
 };
 
 var _default = Movie;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./styles/MovieStyled":"src/components/styles/MovieStyled.js","./People":"src/components/People.js"}],"src/components/styles/PersonStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./styles/MovieStyled":"src/components/styles/MovieStyled.js","./PeopleBlock":"src/components/PeopleBlock.js","./Video":"src/components/Video.js","./Spinner":"src/components/Spinner.js"}],"src/components/styles/PersonStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39087,16 +39222,20 @@ var _Results = _interopRequireDefault(require("./Results"));
 
 var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
 
+var _Spinner = _interopRequireDefault(require("./Spinner"));
+
 const Person = ({
   match
 }) => {
   const personId = match.params.id;
   let [personInfo, setPersonInfo] = (0, _react.useState)({});
   let [movieCredits, setMovieCredits] = (0, _react.useState)([]);
+  let [isLoading, setIsLoading] = (0, _react.useState)(true);
 
   const getPersonInfo = async () => {
     await _axios.default.get(`https://api.themoviedb.org/3/person/${personId}?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`).then(response => {
       setPersonInfo(personInfo = response.data);
+      setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));
   };
 
@@ -39118,7 +39257,7 @@ const Person = ({
     birthday,
     biography
   } = personInfo;
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
     style: {
       textAlign: "center"
     }
@@ -39138,12 +39277,12 @@ const Person = ({
     className: "fas fa-birthday-cake"
   }), birthday) : "", _react.default.createElement("p", null, biography))), _react.default.createElement(_Results.default, {
     results: movieCredits.slice(0, 6)
-  }));
+  })));
 };
 
 var _default = Person;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./styles/PersonStyled":"src/components/styles/PersonStyled.js","./Results":"src/components/Results.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"node_modules/paginator/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./styles/PersonStyled":"src/components/styles/PersonStyled.js","./Results":"src/components/Results.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg","./Spinner":"src/components/Spinner.js"}],"node_modules/paginator/index.js":[function(require,module,exports) {
 module.exports = Paginator;
 
 // Paginator constructor
@@ -39792,7 +39931,6 @@ const ResultsPage = ({
   match
 }) => {
   const queryValue = match.params.searchQuery;
-  console.log(queryValue);
   let [results, setResults] = (0, _react.useState)([]);
   let [totalResults, setTotalResults] = (0, _react.useState)(0);
   let [isError, setIsError] = (0, _react.useState)(false);
@@ -39821,7 +39959,12 @@ const ResultsPage = ({
   (0, _react.useEffect)(() => {
     getResults();
   }, [queryValue]);
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", null, "Results page"), isError ? _react.default.createElement("p", {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", {
+    style: {
+      textAlign: "center",
+      color: "#ffffff"
+    }
+  }, "Results page"), isError ? _react.default.createElement("p", {
     className: "error-message"
   }, "No Results Found") : _react.default.createElement(_Results.default, {
     results: results,
@@ -39833,7 +39976,94 @@ const ResultsPage = ({
 var _default = (0, _reactRouterDom.withRouter)(ResultsPage);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","axios":"node_modules/axios/index.js","./Results":"src/components/Results.js","./PaginationComponent":"src/components/PaginationComponent.js"}],"src/components/App.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","axios":"node_modules/axios/index.js","./Results":"src/components/Results.js","./PaginationComponent":"src/components/PaginationComponent.js"}],"src/components/PopularMovies.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _Results = _interopRequireDefault(require("./Results"));
+
+var _Spinner = _interopRequireDefault(require("./Spinner"));
+
+const PopularMovies = () => {
+  let [popularMovies, setPopularMovies] = (0, _react.useState)([]);
+  let [isLoading, setIsLoading] = (0, _react.useState)(true);
+
+  const getPopular = async () => {
+    await _axios.default.get("https://api.themoviedb.org/3/movie/popular?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US&page=1").then(response => {
+      setPopularMovies(popularMovies = response.data.results);
+      setIsLoading(isLoading = false);
+    }).catch(err => console.log(`this is error ${err}`));
+  };
+
+  (0, _react.useEffect)(() => {
+    getPopular();
+  }, []);
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
+    style: {
+      textAlign: "center",
+      color: "#ffffff"
+    }
+  }, "Popular Movies"), _react.default.createElement(_Results.default, {
+    results: popularMovies
+  })));
+};
+
+var _default = PopularMovies;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./Results":"src/components/Results.js","./Spinner":"src/components/Spinner.js"}],"src/components/PeoplePage.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _PeopleBlock = _interopRequireDefault(require("./PeopleBlock"));
+
+var _Spinner = _interopRequireDefault(require("./Spinner"));
+
+const PeoplePage = () => {
+  let [popularPeople, setPopularPeople] = (0, _react.useState)([]);
+  let [isLoading, setIsLoading] = (0, _react.useState)(true);
+
+  const getPopularPeople = async () => {
+    await _axios.default.get("https://api.themoviedb.org/3/person/popular?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US&page=1").then(response => {
+      setPopularPeople(popularPeople = response.data.results);
+      setIsLoading(isLoading = false);
+    }).catch(err => console.log(`this is error ${err}`));
+  };
+
+  (0, _react.useEffect)(() => {
+    getPopularPeople();
+  }, []);
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_PeopleBlock.default, {
+    people: popularPeople
+  }));
+};
+
+var _default = PeoplePage;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./PeopleBlock":"src/components/PeopleBlock.js","./Spinner":"src/components/Spinner.js"}],"src/components/App.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39857,6 +40087,10 @@ var _Person = _interopRequireDefault(require("./Person"));
 
 var _ResultsPage = _interopRequireDefault(require("./ResultsPage"));
 
+var _PopularMovies = _interopRequireDefault(require("./PopularMovies"));
+
+var _PeoplePage = _interopRequireDefault(require("./PeoplePage"));
+
 var _styledComponents = require("styled-components");
 
 const App = () => {
@@ -39864,6 +40098,9 @@ const App = () => {
 	body {
 	font-family: "Baloo Chettan 2", cursive;
 	background-color: #0c6cb4;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 	}
 
 	.error-message{
@@ -39885,12 +40122,18 @@ const App = () => {
   }), _react.default.createElement(_reactRouterDom.Route, {
     path: "/search=:searchQuery",
     component: _ResultsPage.default
+  }), _react.default.createElement(_reactRouterDom.Route, {
+    path: "/popular",
+    component: _PopularMovies.default
+  }), _react.default.createElement(_reactRouterDom.Route, {
+    path: "/people",
+    component: _PeoplePage.default
   }))));
 };
 
 var _default = App;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Navigation":"src/components/Navigation.js","./Home":"src/components/Home.js","./Movie":"src/components/Movie.js","./Person":"src/components/Person.js","./ResultsPage":"src/components/ResultsPage.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Navigation":"src/components/Navigation.js","./Home":"src/components/Home.js","./Movie":"src/components/Movie.js","./Person":"src/components/Person.js","./ResultsPage":"src/components/ResultsPage.js","./PopularMovies":"src/components/PopularMovies.js","./PeoplePage":"src/components/PeoplePage.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39930,7 +40173,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51581" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52462" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

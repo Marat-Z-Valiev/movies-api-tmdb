@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import GridLoader from "react-spinners/GridLoader";
 import PeopleContainerStyled from "./styles/PeopleContainerStyled";
@@ -12,26 +11,7 @@ const SpinnerStyled = styled.div`
 	}
 `;
 
-const People = ({movieId}) => {
-	let [people, setPeople] = useState([]);
-	let [isLoading, setIsLoading] = useState(true);
-
-	const getActors = async () => {
-		await axios
-			.get(
-				`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=f8efee7e451d2ca98ae50114ad74aeeb`
-			)
-			.then(response => {
-				setPeople((people = response.data.cast));
-				setIsLoading((isLoading = false));
-			})
-			.catch(err => console.log(`this is error ${err}`));
-	};
-
-	useEffect(() => {
-		getActors();
-	}, []);
-
+const PeopleBlock = ({people, isLoading}) => {
 	return (
 		<>
 			{isLoading ? (
@@ -40,7 +20,7 @@ const People = ({movieId}) => {
 				</SpinnerStyled>
 			) : (
 				<PeopleContainerStyled>
-					{Object.keys(people.slice(0, 6)).map(key => (
+					{Object.keys(people).map(key => (
 						<div key={people[key].id} className="person">
 							<Link to={`/personId=${people[key].id}`}>
 								{people[key].profile_path == null ? (
@@ -65,4 +45,4 @@ const People = ({movieId}) => {
 	);
 };
 
-export default People;
+export default PeopleBlock;

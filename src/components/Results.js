@@ -4,12 +4,17 @@ import ResultsContainerStyled from "./styles/ResultsContainerStyled";
 import PropTypes from "prop-types";
 
 const Results = ({totalResults, results}) => {
+	const sortedArray = results.sort((a, b) =>
+		a.release_date && b.release_date
+			? b.release_date.split("-")[0] - a.release_date.split("-")[0]
+			: ""
+	);
 	// const modifiedReleaseDate = results.map(result => {
 	// 	result.release_date.split("-")[0];
 	// });
-	const sortedArray = results.sort(
-		(a, b) => b.release_date.split("-")[0] - a.release_date.split("-")[0]
-	);
+	// const sortedArray = results.sort(
+	// 	(a, b) => b.release_date.split("-")[0] - a.release_date.split("-")[0]
+	// );
 	return (
 		<>
 			{totalResults ? (
