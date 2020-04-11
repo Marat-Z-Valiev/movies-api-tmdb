@@ -7,6 +7,6 @@
 		"@babel/plugin-transform-modules-commonjs",
 		"@babel/plugin-transform-object-assign",
 		"@babel/plugin-transform-runtime",
-		"emotion"
+		"babel-plugin-styled-components"
 	]
 }

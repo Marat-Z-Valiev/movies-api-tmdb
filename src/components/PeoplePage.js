@@ -24,7 +24,10 @@ const PeoplePage = () => {
 	}, []);
 
 	return (
-		<>{isLoading ? <Spinner /> : <PeopleBlock people={popularPeople} />}</>
+		<>
+			<h1 style={{textAlign: "center", color: "#ffffff"}}>People</h1>
+			{isLoading ? <Spinner /> : <PeopleBlock people={popularPeople} />}
+		</>
 	);
 };
 

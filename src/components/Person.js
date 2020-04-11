@@ -50,7 +50,7 @@ const Person = ({match}) => {
 				<Spinner />
 			) : (
 				<>
-					<h1 style={{textAlign: "center"}}>Person page</h1>
+					<h1 style={{textAlign: "center"}}>Actor page</h1>
 					<PersonStyled>
 						<div>
 							{profile_path == null ? (

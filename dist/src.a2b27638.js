@@ -35340,10 +35340,10 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-const InputStyles = _styledComponents.default.input`
-	border: 2px solid black;
-	padding: 10px;
-`;
+const InputStyles = _styledComponents.default.input.withConfig({
+  displayName: "Input__InputStyles",
+  componentId: "w8unso-0"
+})(["border:2px solid black;padding:10px;"]);
 
 const Input = ({
   handleChange,
@@ -35396,32 +35396,11 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-const ButtonStyled = _styledComponents.default.button`
-	display: inline-block;
-	font-family: "Baloo Chettan 2", cursive;
-	font-size: 1rem;
-	padding: 0.3em;
-	margin: 0 0.3em 0.3em 0;
-	border-radius: 0.4em;
-	box-sizing: border-box;
-	font-weight: 400;
-	color: #ffffff;
-	background-color: #751aff;
-	box-shadow: inset 0 -0.6em 1em -0.35em rgba(0, 0, 0, 0.17),
-		inset 0 0.6em 2em -0.3em rgba(255, 255, 255, 0.15),
-		inset 0 0 0em 0.05em rgba(255, 255, 255, 0.12);
-	text-align: center;
-	position: relative;
+const ButtonStyled = _styledComponents.default.button.withConfig({
+  displayName: "ButtonStyled",
+  componentId: "w8aex0-0"
+})(["display:inline-block;font-family:\"Baloo Chettan 2\",cursive;font-size:1rem;padding:0.3em;margin:0 0.3em 0.3em 0;border-radius:0.4em;box-sizing:border-box;font-weight:400;color:#ffffff;background-color:#751aff;box-shadow:inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);text-align:center;position:relative;&:hover{cursor:pointer;}:disabled{opacity:0.5;cursor:no-drop;}"]);
 
-	&:hover {
-		cursor: pointer;
-	}
-
-	:disabled {
-		opacity: 0.5;
-		cursor: no-drop;
-	}
-`;
 var _default = ButtonStyled;
 exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Button.js":[function(require,module,exports) {
@@ -35535,41 +35514,11 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-const NavStyled = _styledComponents.default.nav`
-	display: flex;
-	background-color: #3f51b5;
-	height: 60px;
-	z-index: 200;
-	width: 100%;
+const NavStyled = _styledComponents.default.nav.withConfig({
+  displayName: "NavStyled",
+  componentId: "sc-1y27wdx-0"
+})(["display:flex;background-color:#3f51b5;height:60px;width:100%;box-shadow:0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);.all-links{display:flex;justify-content:space-around;align-items:center;width:100vw;h1{font-size:2.3rem;}li{list-style:none;font-size:1.3rem;}a{text-decoration:none;color:#ffffff;&:hover{color:#11ee1c;text-decoration:underline;}}a.active{color:#11ee1c;}}"]);
 
-	.all-links {
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		width: 100vw;
-
-		* {
-			color: #ffffff;
-		}
-
-		h1 {
-			font-size: 2.3rem;
-		}
-
-		li {
-			list-style: none;
-			font-size: 1.3rem;
-		}
-		a {
-			text-decoration: none;
-
-			&:hover {
-				color: #ffffff;
-				text-decoration: underline;
-			}
-		}
-	}
-`;
 var _default = NavStyled;
 exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Navigation.js":[function(require,module,exports) {
@@ -35577,12 +35526,14 @@ exports.default = _default;
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -35591,13 +35542,26 @@ var _Search = _interopRequireDefault(require("./Search"));
 var _NavStyled = _interopRequireDefault(require("./styles/NavStyled"));
 
 const Navigation = () => {
-  return _react.default.createElement(_NavStyled.default, null, _react.default.createElement("ul", {
+  (0, _react.useEffect)(() => {
+    document.getElementById("app").style.marginTop = `${document.querySelector(".navbar").offsetHeight + 40}px`;
+  }, []);
+  const stickyStyle = {
+    position: "fixed",
+    top: "0",
+    left: "auto",
+    right: "0",
+    width: "100%"
+  };
+  return _react.default.createElement(_NavStyled.default, {
+    className: "navbar",
+    style: stickyStyle
+  }, _react.default.createElement("ul", {
     className: "all-links"
-  }, _react.default.createElement("li", null, _react.default.createElement(_reactRouterDom.Link, {
+  }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
-  }, _react.default.createElement("h1", null, "Movies"))), _react.default.createElement(_reactRouterDom.Link, {
+  }, _react.default.createElement("li", null, _react.default.createElement("h1", null, "Movies"))), _react.default.createElement(_reactRouterDom.NavLink, {
     to: "/popular"
-  }, _react.default.createElement("li", null, "Popular")), _react.default.createElement(_reactRouterDom.Link, {
+  }, _react.default.createElement("li", null, "Popular")), _react.default.createElement(_reactRouterDom.NavLink, {
     to: "./people"
   }, _react.default.createElement("li", null, "People")), _react.default.createElement("li", {
     className: "search"
@@ -35606,7 +35570,7 @@ const Navigation = () => {
 
 var _default = Navigation;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Search":"src/components/Search.js","./styles/NavStyled":"src/components/styles/NavStyled.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Search":"src/components/Search.js","./styles/NavStyled":"src/components/styles/NavStyled.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -37172,39 +37136,11 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-const ResultItemStyled = _styledComponents.default.div`
-	display: grid;
-	justify-items: center;
+const ResultItemStyled = _styledComponents.default.div.withConfig({
+  displayName: "ResultItemStyled",
+  componentId: "sy95q7-0"
+})(["display:grid;justify-items:center;h2,h3{text-align:center;margin:0;}h3{margin-bottom:15px;}img{border:2px solid black;justify-self:center;}.no-image{width:346px;height:517px;}@media (min-width:320px) and (max-width:425px){h3{margin-bottom:20px;}img{margin-bottom:20px;}}"]);
 
-	h2,
-	h3 {
-		text-align: center;
-		margin: 0;
-	}
-
-	h3 {
-		margin-bottom: 15px;
-	}
-
-	img {
-		border: 2px solid black;
-		justify-self: center;
-	}
-
-	.no-image {
-		width: 346px;
-		height: 517px;
-	}
-
-	@media (min-width: 320px) and (max-width: 425px) {
-		h3 {
-			margin-bottom: 20px;
-		}
-		img {
-			margin-bottom: 20px;
-		}
-	}
-`;
 var _default = ResultItemStyled;
 exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/images/no-image-available.jpg":[function(require,module,exports) {
@@ -37270,22 +37206,11 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-const ResultsContainerStyled = _styledComponents.default.div`
-	display: grid;
-	justify-content: center;
-	grid-template-columns: repeat(auto-fill, minmax(333px, 1fr));
-	grid-gap: 40px 20px;
-	padding: 30px;
-	grid-template-rows: 1fr min-content;
+const ResultsContainerStyled = _styledComponents.default.div.withConfig({
+  displayName: "ResultsContainerStyled",
+  componentId: "jryem8-0"
+})(["display:grid;justify-content:center;grid-template-columns:repeat(auto-fill,minmax(333px,1fr));grid-gap:40px 20px;padding:30px;grid-template-rows:1fr min-content;@media (min-width:320px) and (max-width:425px){display:block;}"]);
 
-	/* .result-tile:last-child {
-		grid-column: 2;
-	} */
-
-	@media (min-width: 320px) and (max-width: 425px) {
-		display: block;
-	}
-`;
 var _default = ResultsContainerStyled;
 exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Results.js":[function(require,module,exports) {
@@ -38840,11 +38765,10 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _GridLoader = _interopRequireDefault(require("react-spinners/GridLoader"));
 
-const SpinnerStyled = _styledComponents.default.div`
-	div:nth-child(1) {
-		margin: 0 auto;
-	}
-`;
+const SpinnerStyled = _styledComponents.default.div.withConfig({
+  displayName: "Spinner__SpinnerStyled",
+  componentId: "sc-11jqix7-0"
+})(["div:nth-child(1){margin:0 auto;}"]);
 
 const Spinner = () => {
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(SpinnerStyled, null, _react.default.createElement(_GridLoader.default, null)), ";");
@@ -38905,35 +38829,11 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-const MovieStyled = _styledComponents.default.div`
-	display: grid;
-	grid-template-columns: 30% 70%;
+const MovieStyled = _styledComponents.default.div.withConfig({
+  displayName: "MovieStyled",
+  componentId: "sc-157i9ak-0"
+})(["display:grid;grid-template-columns:30% 70%;img{margin-left:35px;}.movie-details{display:grid;grid-template-columns:repeat(3,33%);grid-template-rows:30% 70%;h2{text-align:center;}.far,.fas{margin-right:10px;}}.overview{grid-column-start:1;grid-column-end:4;justify-self:center;font-size:1.5rem;}"]);
 
-	img {
-		margin-left: 35px;
-	}
-
-	.movie-details {
-		display: grid;
-		grid-template-columns: repeat(3, 33%);
-		grid-template-rows: 30% 70%;
-
-		h2 {
-			text-align: center;
-		}
-
-		.far,
-		.fas {
-			margin-right: 10px;
-		}
-	}
-	.overview {
-		grid-column-start: 1;
-		grid-column-end: 4;
-		justify-self: center;
-		font-size: 1.5rem;
-	}
-`;
 var _default = MovieStyled;
 exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/styles/PeopleContainerStyled.js":[function(require,module,exports) {
@@ -38948,31 +38848,11 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-const PeopleContainerStyled = _styledComponents.default.div`
-	display: grid;
-	margin: 0 auto;
-	grid-template-columns: repeat(3, 1fr);
-	grid-gap: 20px;
-	justify-content: center;
-	justify-items: center;
-	width: 80%;
-	min-width: 500px;
+const PeopleContainerStyled = _styledComponents.default.div.withConfig({
+  displayName: "PeopleContainerStyled",
+  componentId: "sc-143cw12-0"
+})(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-content:center;justify-items:center;width:80%;min-width:500px;.person{text-align:center;padding:0;border:1px solid #ddd;img{width:80%;padding:20px;&:hover{box-shadow:0 0 2px 1px rgba(0,140,186,0.5);}}}"]);
 
-	.person {
-		text-align: center;
-		padding: 0;
-		border: 1px solid #ddd;
-
-		img {
-			width: 80%;
-			padding: 20px;
-
-			&:hover {
-				box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-			}
-		}
-	}
-`;
 var _default = PeopleContainerStyled;
 exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PeopleBlock.js":[function(require,module,exports) {
@@ -38997,11 +38877,10 @@ var _PeopleContainerStyled = _interopRequireDefault(require("./styles/PeopleCont
 
 var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
 
-const SpinnerStyled = _styledComponents.default.div`
-	div:nth-child(1) {
-		margin: 0 auto;
-	}
-`;
+const SpinnerStyled = _styledComponents.default.div.withConfig({
+  displayName: "PeopleBlock__SpinnerStyled",
+  componentId: "sc-123thgk-0"
+})(["div:nth-child(1){margin:0 auto;}"]);
 
 const PeopleBlock = ({
   people,
@@ -39044,21 +38923,20 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _Spinner = _interopRequireDefault(require("./Spinner"));
 
-const StyledVideo = _styledComponents.default.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-`;
+const StyledVideo = _styledComponents.default.div.withConfig({
+  displayName: "Video__StyledVideo",
+  componentId: "rh4qy9-0"
+})(["display:flex;flex-direction:column;align-items:center;margin-bottom:100px;"]);
 
 const Video = ({
   movieId
 }) => {
-  let [videos, setVideos] = (0, _react.useState)([]);
+  let [video, setVideo] = (0, _react.useState)({});
   let [isLoading, setIsLoading] = (0, _react.useState)(true);
 
   const getVideos = async () => {
     await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`).then(response => {
-      setVideos(videos = response.data.results);
+      setVideo(video = response.data.results[0]);
       setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));
   };
@@ -39066,13 +38944,18 @@ const Video = ({
   (0, _react.useEffect)(() => {
     getVideos();
   }, []);
-  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledVideo, null, videos.length ? Object.keys(videos.slice(0, 1)).map(key => _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", null, videos[key].type), _react.default.createElement("iframe", {
-    title: videos[key].name,
+  const {
+    type,
+    name,
+    key
+  } = video;
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledVideo, null, video ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", null, type), _react.default.createElement("iframe", {
+    title: name,
     width: "800",
     height: "450",
-    src: `https://www.youtube.com/embed/${videos[key].key}?rel=0&fs=0`,
-    frameborder: "0"
-  }))) : "")));
+    src: `https://www.youtube.com/embed/${key}?rel=0&fs=0`,
+    frameBorder: "0"
+  })) : "")));
 };
 
 var _default = Video;
@@ -39180,24 +39063,11 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-const PersonStyled = _styledComponents.default.div`
-	display: flex;
-	flex-direction: row;
+const PersonStyled = _styledComponents.default.div.withConfig({
+  displayName: "PersonStyled",
+  componentId: "sc-1xl28r5-0"
+})(["display:flex;flex-direction:row;img{margin-left:40px;}.info{text-align:left;margin-left:10px;padding-left:15px;p{font-size:1.2rem;}}.fas{margin-right:10px;}"]);
 
-	.info {
-		text-align: left;
-		margin-left: 10px;
-		padding-left: 15px;
-
-		p {
-			font-size: 1.2rem;
-		}
-	}
-
-	.fas {
-		margin-right: 10px;
-	}
-`;
 var _default = PersonStyled;
 exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Person.js":[function(require,module,exports) {
@@ -39261,7 +39131,7 @@ const Person = ({
     style: {
       textAlign: "center"
     }
-  }, "Person page"), _react.default.createElement(_PersonStyled.default, null, _react.default.createElement("div", null, profile_path == null ? _react.default.createElement("img", {
+  }, "Actor page"), _react.default.createElement(_PersonStyled.default, null, _react.default.createElement("div", null, profile_path == null ? _react.default.createElement("img", {
     className: "no-image",
     src: _noImageAvailable.default,
     alt: "no image available"
@@ -39817,47 +39687,18 @@ exports.PaginationStyled = exports.PaginationBlockStyled = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-const PaginationBlockStyled = _styledComponents.default.div`
-	display: flex;
-	justify-content: center;
+const PaginationBlockStyled = _styledComponents.default.div.withConfig({
+  displayName: "PaginationStyled__PaginationBlockStyled",
+  componentId: "sc-1frbiz5-0"
+})(["display:flex;justify-content:center;@media (min-width:320px) and (max-width:425px){font-size:0.5rem;}"]);
 
-	@media (min-width: 320px) and (max-width: 425px) {
-		font-size: 0.5rem;
-	}
-`;
 exports.PaginationBlockStyled = PaginationBlockStyled;
-const PaginationStyled = _styledComponents.default.div`
-	.pagination {
-		display: flex;
-		flex-direction: row;
-		border-color: #ddd;
-		border-radius: 8px;
-		background-color: #ffffff;
-		padding-left: 0;
-	}
 
-	li {
-		list-style: none;
-		margin: 0;
-	}
+const PaginationStyled = _styledComponents.default.div.withConfig({
+  displayName: "PaginationStyled",
+  componentId: "sc-1frbiz5-1"
+})([".pagination{display:flex;flex-direction:row;border-color:#ddd;border-radius:8px;background-color:#ffffff;padding-left:0;}li{list-style:none;margin:0;}.pagination li.active{background-color:#4285f4;color:white;}.pagination li:hover:not(.active){background-color:#ddd;}.pagination a{color:#00000b;font-size:1.2rem;float:left;padding:8px 16px;text-decoration:none;}"]);
 
-	.pagination li.active {
-		background-color: #4285f4;
-		color: white;
-	}
-
-	.pagination li:hover:not(.active) {
-		background-color: #ddd;
-	}
-
-	.pagination a {
-		color: #00000b;
-		font-size: 1.2rem;
-		float: left;
-		padding: 8px 16px;
-		text-decoration: none;
-	}
-`;
 exports.PaginationStyled = PaginationStyled;
 },{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PaginationComponent.js":[function(require,module,exports) {
 "use strict";
@@ -40056,7 +39897,12 @@ const PeoplePage = () => {
   (0, _react.useEffect)(() => {
     getPopularPeople();
   }, []);
-  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_PeopleBlock.default, {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
+    style: {
+      textAlign: "center",
+      color: "#ffffff"
+    }
+  }, "People"), isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_PeopleBlock.default, {
     people: popularPeople
   }));
 };

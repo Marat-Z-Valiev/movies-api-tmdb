@@ -4,6 +4,10 @@ const PersonStyled = styled.div`
 	display: flex;
 	flex-direction: row;
 
+	img {
+		margin-left: 40px;
+	}
+
 	.info {
 		text-align: left;
 		margin-left: 10px;

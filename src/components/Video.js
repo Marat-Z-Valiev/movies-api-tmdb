@@ -7,10 +7,11 @@ const StyledVideo = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-bottom: 100px;
 `;
 
 const Video = ({movieId}) => {
-	let [videos, setVideos] = useState([]);
+	let [video, setVideo] = useState({});
 	let [isLoading, setIsLoading] = useState(true);
 
 	const getVideos = async () => {
@@ -19,7 +20,7 @@ const Video = ({movieId}) => {
 				`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`
 			)
 			.then(response => {
-				setVideos((videos = response.data.results));
+				setVideo((video = response.data.results[0]));
 				setIsLoading((isLoading = false));
 			})
 			.catch(err => console.log(`this is error ${err}`));
@@ -29,6 +30,8 @@ const Video = ({movieId}) => {
 		getVideos();
 	}, []);
 
+	const {type, name, key} = video;
+
 	return (
 		<>
 			{isLoading ? (
@@ -36,20 +39,20 @@ const Video = ({movieId}) => {
 			) : (
 				<>
 					<StyledVideo>
-						{videos.length
-							? Object.keys(videos.slice(0, 1)).map(key => (
-									<>
-										<h2>{videos[key].type}</h2>
-										<iframe
-											title={videos[key].name}
-											width="800"
-											height="450"
-											src={`https://www.youtube.com/embed/${videos[key].key}?rel=0&fs=0`}
-											frameborder="0"
-										></iframe>
-									</>
-							  ))
-							: ""}
+						{video ? (
+							<>
+								<h2>{type}</h2>
+								<iframe
+									title={name}
+									width="800"
+									height="450"
+									src={`https://www.youtube.com/embed/${key}?rel=0&fs=0`}
+									frameBorder="0"
+								></iframe>
+							</>
+						) : (
+							""
+						)}
 					</StyledVideo>
 				</>
 			)}

@@ -4,18 +4,15 @@ const NavStyled = styled.nav`
 	display: flex;
 	background-color: #3f51b5;
 	height: 60px;
-	z-index: 200;
 	width: 100%;
+	box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+		0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 
 	.all-links {
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
 		width: 100vw;
-
-		* {
-			color: #ffffff;
-		}
 
 		h1 {
 			font-size: 2.3rem;
@@ -27,11 +24,15 @@ const NavStyled = styled.nav`
 		}
 		a {
 			text-decoration: none;
+			color: #ffffff;
 
 			&:hover {
-				color: #ffffff;
+				color: #11ee1c;
 				text-decoration: underline;
 			}
+		}
+		a.active {
+			color: #11ee1c;
 		}
 	}
 `;
