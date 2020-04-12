@@ -10,17 +10,18 @@ const Search = ({history}) => {
 	// Handle onChange event on the input
 	const handleChange = event => {
 		const {value} = event.currentTarget;
-		console.log(value);
 		if (!value) {
 			setIsDisabled((isDisabled = true));
 		} else {
 			setIsDisabled((isDisabled = false));
 		}
 		setSearchQuery((searchQuery = value));
+		setValue((defaultValue = value));
 	};
 
 	const handleClick = () => {
 		history.push(`/search=${searchQuery}`);
+		document.querySelector(".input").value = "";
 	};
 
 	return (

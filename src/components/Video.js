@@ -12,6 +12,7 @@ const StyledVideo = styled.div`
 
 const Video = ({movieId}) => {
 	let [video, setVideo] = useState({});
+	let [isVideo, setIsVideo] = useState(true);
 	let [isLoading, setIsLoading] = useState(true);
 
 	const getVideos = async () => {
@@ -20,8 +21,15 @@ const Video = ({movieId}) => {
 				`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`
 			)
 			.then(response => {
-				setVideo((video = response.data.results[0]));
-				setIsLoading((isLoading = false));
+				if (response.data.results.length) {
+					setVideo((video = response.data.results[0]));
+					setIsVideo((isVideo = true));
+					setIsLoading((isLoading = false));
+				} else {
+					setIsLoading((isLoading = false));
+					video = {};
+					setIsVideo((isVideo = false));
+				}
 			})
 			.catch(err => console.log(`this is error ${err}`));
 	};
@@ -39,7 +47,7 @@ const Video = ({movieId}) => {
 			) : (
 				<>
 					<StyledVideo>
-						{video ? (
+						{isVideo ? (
 							<>
 								<h2>{type}</h2>
 								<iframe

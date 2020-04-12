@@ -1,23 +1,14 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import styled from "styled-components";
-import GridLoader from "react-spinners/GridLoader";
 import PeopleContainerStyled from "./styles/PeopleContainerStyled";
+import Spinner from "./Spinner";
 import noImage from "../images/no-image-available.jpg";
-
-const SpinnerStyled = styled.div`
-	div:nth-child(1) {
-		margin: 0 auto;
-	}
-`;
 
 const PeopleBlock = ({people, isLoading}) => {
 	return (
 		<>
 			{isLoading ? (
-				<SpinnerStyled>
-					<GridLoader />
-				</SpinnerStyled>
+				<Spinner />
 			) : (
 				<PeopleContainerStyled>
 					{Object.keys(people).map(key => (

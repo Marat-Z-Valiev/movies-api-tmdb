@@ -22,11 +22,13 @@ const Input = ({handleChange, handleClick}) => {
 		if (event.key === "Enter") {
 			handleFunction();
 			setPlaceholderText((placeholderText = "Enter search query"));
+			document.querySelector(".input").value = "";
 		}
 		return;
 	};
 	return (
 		<InputStyles
+			className="input"
 			type="text"
 			onChange={handleChange}
 			onFocus={handleFocus}

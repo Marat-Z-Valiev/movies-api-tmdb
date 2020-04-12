@@ -42,7 +42,7 @@ const Person = ({match}) => {
 		getMovieCreidts();
 	}, []);
 
-	const {profile_path, name, birthday, biography} = personInfo;
+	const {profile_path, name, birthday, biography, gender} = personInfo;
 
 	return (
 		<>
@@ -50,7 +50,9 @@ const Person = ({match}) => {
 				<Spinner />
 			) : (
 				<>
-					<h1 style={{textAlign: "center"}}>Actor page</h1>
+					<h1 style={{textAlign: "center"}}>
+						{gender === 1 ? "Actress" : "Actor"} page
+					</h1>
 					<PersonStyled>
 						<div>
 							{profile_path == null ? (
@@ -82,6 +84,9 @@ const Person = ({match}) => {
 							<p>{biography}</p>
 						</div>
 					</PersonStyled>
+					<h2 style={{textAlign: "center", fontSize: "1.8rem"}}>
+						Cast In Movies
+					</h2>
 					<Results results={movieCredits.slice(0, 6)}></Results>
 				</>
 			)}

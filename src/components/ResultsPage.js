@@ -13,13 +13,11 @@ const ResultsPage = ({match}) => {
 	let [results, setResults] = useState([]);
 	let [totalResults, setTotalResults] = useState(0);
 	let [isError, setIsError] = useState(false);
-	let [isLoading, setIsLoading] = useState(false);
-	let [isDisabled, setIsDisabled] = useState(true);
 	let [showPagination, setShowPagination] = useState(false);
 	let [currentPage, setCurrentPage] = useState(1);
 	const [resultsPerPage] = useState(10);
 
-	const getResults = async currentPage => {
+	const getResults = async (queryValue, currentPage) => {
 		await axios
 			.get(
 				`${baseUrl}${apiKey}&language=en-US&query=${queryValue}&page=${currentPage}`
@@ -29,11 +27,9 @@ const ResultsPage = ({match}) => {
 					setIsError((isError = false));
 					setResults((results = response.data.results));
 					setTotalResults((totalResults = response.data.total_results));
-					setIsLoading((isLoading = false));
 					setShowPagination((showPagination = true));
 				} else {
 					setIsError((isError = true));
-					setIsLoading((isLoading = false));
 					setShowPagination((showPagination = false));
 				}
 			})
@@ -41,13 +37,18 @@ const ResultsPage = ({match}) => {
 	};
 
 	useEffect(() => {
-		getResults();
+		getResults(queryValue, currentPage);
 	}, [queryValue]);
+
+	const handlePageChange = pageNumber => {
+		setCurrentPage((currentPage = pageNumber));
+		getResults(queryValue, pageNumber);
+	};
 
 	return (
 		<>
 			<h2 style={{textAlign: "center", color: "#ffffff"}}>Results page</h2>
-			{/* {showPagination ? (
+			{showPagination ? (
 				<PaginationComponent
 					currentPage={currentPage}
 					handlePageChange={handlePageChange}
@@ -56,7 +57,7 @@ const ResultsPage = ({match}) => {
 				/>
 			) : (
 				""
-			)} */}
+			)}
 			{isError ? (
 				<p className="error-message">No Results Found</p>
 			) : (
@@ -66,7 +67,7 @@ const ResultsPage = ({match}) => {
 					isError={isError}
 				/>
 			)}
-			{/* {showPagination ? (
+			{showPagination ? (
 				<PaginationComponent
 					currentPage={currentPage}
 					handlePageChange={handlePageChange}
@@ -75,7 +76,7 @@ const ResultsPage = ({match}) => {
 				/>
 			) : (
 				""
-			)} */}
+			)}
 		</>
 	);
 };

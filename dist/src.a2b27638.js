@@ -35363,12 +35363,14 @@ const Input = ({
     if (event.key === "Enter") {
       handleFunction();
       setPlaceholderText(placeholderText = "Enter search query");
+      document.querySelector(".input").value = "";
     }
 
     return;
   };
 
   return _react.default.createElement(InputStyles, {
+    className: "input",
     type: "text",
     onChange: handleChange,
     onFocus: handleFocus,
@@ -35475,7 +35477,6 @@ const Search = ({
     const {
       value
     } = event.currentTarget;
-    console.log(value);
 
     if (!value) {
       setIsDisabled(isDisabled = true);
@@ -35484,10 +35485,12 @@ const Search = ({
     }
 
     setSearchQuery(searchQuery = value);
+    setValue(defaultValue = value);
   };
 
   const handleClick = () => {
     history.push(`/search=${searchQuery}`);
+    document.querySelector(".input").value = "";
   };
 
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Input.default, {
@@ -38869,24 +38872,17 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _GridLoader = _interopRequireDefault(require("react-spinners/GridLoader"));
-
 var _PeopleContainerStyled = _interopRequireDefault(require("./styles/PeopleContainerStyled"));
 
-var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
+var _Spinner = _interopRequireDefault(require("./Spinner"));
 
-const SpinnerStyled = _styledComponents.default.div.withConfig({
-  displayName: "PeopleBlock__SpinnerStyled",
-  componentId: "sc-123thgk-0"
-})(["div:nth-child(1){margin:0 auto;}"]);
+var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
 
 const PeopleBlock = ({
   people,
   isLoading
 }) => {
-  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(SpinnerStyled, null, _react.default.createElement(_GridLoader.default, null)) : _react.default.createElement(_PeopleContainerStyled.default, null, Object.keys(people).map(key => _react.default.createElement("div", {
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_PeopleContainerStyled.default, null, Object.keys(people).map(key => _react.default.createElement("div", {
     key: people[key].id,
     className: "person"
   }, _react.default.createElement(_reactRouterDom.Link, {
@@ -38903,7 +38899,7 @@ const PeopleBlock = ({
 
 var _default = PeopleBlock;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","react-spinners/GridLoader":"node_modules/react-spinners/GridLoader.js","./styles/PeopleContainerStyled":"src/components/styles/PeopleContainerStyled.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Video.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./styles/PeopleContainerStyled":"src/components/styles/PeopleContainerStyled.js","./Spinner":"src/components/Spinner.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Video.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38932,12 +38928,20 @@ const Video = ({
   movieId
 }) => {
   let [video, setVideo] = (0, _react.useState)({});
+  let [isVideo, setIsVideo] = (0, _react.useState)(true);
   let [isLoading, setIsLoading] = (0, _react.useState)(true);
 
   const getVideos = async () => {
     await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`).then(response => {
-      setVideo(video = response.data.results[0]);
-      setIsLoading(isLoading = false);
+      if (response.data.results.length) {
+        setVideo(video = response.data.results[0]);
+        setIsVideo(isVideo = true);
+        setIsLoading(isLoading = false);
+      } else {
+        setIsLoading(isLoading = false);
+        video = {};
+        setIsVideo(isVideo = false);
+      }
     }).catch(err => console.log(`this is error ${err}`));
   };
 
@@ -38949,7 +38953,7 @@ const Video = ({
     name,
     key
   } = video;
-  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledVideo, null, video ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", null, type), _react.default.createElement("iframe", {
+  return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledVideo, null, isVideo ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", null, type), _react.default.createElement("iframe", {
     title: name,
     width: "800",
     height: "450",
@@ -39125,13 +39129,14 @@ const Person = ({
     profile_path,
     name,
     birthday,
-    biography
+    biography,
+    gender
   } = personInfo;
   return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
     style: {
       textAlign: "center"
     }
-  }, "Actor page"), _react.default.createElement(_PersonStyled.default, null, _react.default.createElement("div", null, profile_path == null ? _react.default.createElement("img", {
+  }, gender === 1 ? "Actress" : "Actor", " page"), _react.default.createElement(_PersonStyled.default, null, _react.default.createElement("div", null, profile_path == null ? _react.default.createElement("img", {
     className: "no-image",
     src: _noImageAvailable.default,
     alt: "no image available"
@@ -39145,7 +39150,12 @@ const Person = ({
       color: "#ffffff"
     },
     className: "fas fa-birthday-cake"
-  }), birthday) : "", _react.default.createElement("p", null, biography))), _react.default.createElement(_Results.default, {
+  }), birthday) : "", _react.default.createElement("p", null, biography))), _react.default.createElement("h2", {
+    style: {
+      textAlign: "center",
+      fontSize: "1.8rem"
+    }
+  }, "Cast In Movies"), _react.default.createElement(_Results.default, {
     results: movieCredits.slice(0, 6)
   })));
 };
@@ -39775,43 +39785,55 @@ const ResultsPage = ({
   let [results, setResults] = (0, _react.useState)([]);
   let [totalResults, setTotalResults] = (0, _react.useState)(0);
   let [isError, setIsError] = (0, _react.useState)(false);
-  let [isLoading, setIsLoading] = (0, _react.useState)(false);
-  let [isDisabled, setIsDisabled] = (0, _react.useState)(true);
   let [showPagination, setShowPagination] = (0, _react.useState)(false);
   let [currentPage, setCurrentPage] = (0, _react.useState)(1);
   const [resultsPerPage] = (0, _react.useState)(10);
 
-  const getResults = async currentPage => {
+  const getResults = async (queryValue, currentPage) => {
     await _axios.default.get(`${baseUrl}${apiKey}&language=en-US&query=${queryValue}&page=${currentPage}`).then(response => {
       if (response.data.results.length) {
         setIsError(isError = false);
         setResults(results = response.data.results);
         setTotalResults(totalResults = response.data.total_results);
-        setIsLoading(isLoading = false);
         setShowPagination(showPagination = true);
       } else {
         setIsError(isError = true);
-        setIsLoading(isLoading = false);
         setShowPagination(showPagination = false);
       }
     }).catch(err => console.log(`this is error ${err}`));
   };
 
   (0, _react.useEffect)(() => {
-    getResults();
+    getResults(queryValue, currentPage);
   }, [queryValue]);
+
+  const handlePageChange = pageNumber => {
+    setCurrentPage(currentPage = pageNumber);
+    getResults(queryValue, pageNumber);
+  };
+
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", {
     style: {
       textAlign: "center",
       color: "#ffffff"
     }
-  }, "Results page"), isError ? _react.default.createElement("p", {
+  }, "Results page"), showPagination ? _react.default.createElement(_PaginationComponent.default, {
+    currentPage: currentPage,
+    handlePageChange: handlePageChange,
+    resultsPerPage: resultsPerPage,
+    totalResults: totalResults
+  }) : "", isError ? _react.default.createElement("p", {
     className: "error-message"
   }, "No Results Found") : _react.default.createElement(_Results.default, {
     results: results,
     totalResults: totalResults,
     isError: isError
-  }));
+  }), showPagination ? _react.default.createElement(_PaginationComponent.default, {
+    currentPage: currentPage,
+    handlePageChange: handlePageChange,
+    resultsPerPage: resultsPerPage,
+    totalResults: totalResults
+  }) : "");
 };
 
 var _default = (0, _reactRouterDom.withRouter)(ResultsPage);
