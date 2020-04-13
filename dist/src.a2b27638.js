@@ -35343,26 +35343,26 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 const InputStyles = _styledComponents.default.input.withConfig({
   displayName: "Input__InputStyles",
   componentId: "w8unso-0"
-})(["border:2px solid black;padding:10px;"]);
+})(["border:2px solid black;padding:10px;margin-right:10px;"]);
 
 const Input = ({
   handleChange,
   handleClick
 }) => {
-  let [placeholderText, setPlaceholderText] = (0, _react.useState)("Enter search query");
+  let [placeholderText, setPlaceholderText] = (0, _react.useState)("Search");
 
   const handleFocus = () => {
     setPlaceholderText(placeholderText = "");
   };
 
   const handleOnBlur = () => {
-    setPlaceholderText(placeholderText = "Enter search query");
+    setPlaceholderText(placeholderText = "Search");
   };
 
   const handleKeyPress = (event, handleFunction) => {
     if (event.key === "Enter") {
       handleFunction();
-      setPlaceholderText(placeholderText = "Enter search query");
+      setPlaceholderText(placeholderText = "Search");
       document.querySelector(".input").value = "";
     }
 
@@ -35520,7 +35520,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 const NavStyled = _styledComponents.default.nav.withConfig({
   displayName: "NavStyled",
   componentId: "sc-1y27wdx-0"
-})(["display:flex;background-color:#3f51b5;height:60px;width:100%;box-shadow:0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);.all-links{display:flex;justify-content:space-around;align-items:center;width:100vw;h1{font-size:2.3rem;}li{list-style:none;font-size:1.3rem;}a{text-decoration:none;color:#ffffff;&:hover{color:#11ee1c;text-decoration:underline;}}a.active{color:#11ee1c;}}"]);
+})(["display:flex;background-color:#3f51b5;height:60px;width:100%;box-shadow:0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);z-index:5;.all-links{display:flex;justify-content:space-around;align-items:center;width:100vw;h1{font-size:2.3rem;}li{list-style:none;font-size:1.3rem;}a{text-decoration:none;color:#ffffff;&:hover{color:#11ee1c;text-decoration:underline;}}a.active{color:#11ee1c;}}"]);
 
 var _default = NavStyled;
 exports.default = _default;
@@ -37142,7 +37142,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 const ResultItemStyled = _styledComponents.default.div.withConfig({
   displayName: "ResultItemStyled",
   componentId: "sy95q7-0"
-})(["display:grid;justify-items:center;h2,h3{text-align:center;margin:0;}h3{margin-bottom:15px;}img{border:2px solid black;justify-self:center;}.no-image{width:346px;height:517px;}@media (min-width:320px) and (max-width:425px){h3{margin-bottom:20px;}img{margin-bottom:20px;}}"]);
+})(["display:grid;justify-items:center;h2,h3{text-align:center;margin:0;}h3{margin-bottom:15px;}img{border:2px solid black;justify-self:center;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}}}.no-image{width:346px;height:517px;}@media (min-width:320px) and (max-width:425px){h3{margin-bottom:20px;}img{margin-bottom:20px;}}"]);
 
 var _default = ResultItemStyled;
 exports.default = _default;
@@ -37238,13 +37238,7 @@ const Results = ({
   totalResults,
   results
 }) => {
-  const sortedArray = results.sort((a, b) => a.release_date && b.release_date ? b.release_date.split("-")[0] - a.release_date.split("-")[0] : ""); // const modifiedReleaseDate = results.map(result => {
-  // 	result.release_date.split("-")[0];
-  // });
-  // const sortedArray = results.sort(
-  // 	(a, b) => b.release_date.split("-")[0] - a.release_date.split("-")[0]
-  // );
-
+  const sortedArray = results.sort((a, b) => a.release_date && b.release_date ? b.release_date.split("-")[0] - a.release_date.split("-")[0] : "");
   return _react.default.createElement(_react.default.Fragment, null, totalResults ? _react.default.createElement("p", {
     style: {
       textAlign: "center",
@@ -38854,11 +38848,11 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 const PeopleContainerStyled = _styledComponents.default.div.withConfig({
   displayName: "PeopleContainerStyled",
   componentId: "sc-143cw12-0"
-})(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-content:center;justify-items:center;width:80%;min-width:500px;.person{text-align:center;padding:0;border:1px solid #ddd;img{width:80%;padding:20px;&:hover{box-shadow:0 0 2px 1px rgba(0,140,186,0.5);}}}"]);
+})(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-content:center;justify-items:center;width:80%;min-width:500px;.person{display:grid;text-align:center;padding:0;border:1px solid #ddd;max-width:80%;background-color:#ffffff;border-radius:15px;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}img{margin:0;width:100%;border-radius:15px 15px 0 0;}.name{padding:0;align-self:flex-end;}}"]);
 
 var _default = PeopleContainerStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PeopleBlock.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PeopleContainer.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38878,7 +38872,7 @@ var _Spinner = _interopRequireDefault(require("./Spinner"));
 
 var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
 
-const PeopleBlock = ({
+const PeopleContainer = ({
   people,
   isLoading
 }) => {
@@ -38894,10 +38888,12 @@ const PeopleBlock = ({
   }) : _react.default.createElement("img", {
     src: `https://image.tmdb.org/t/p/w342/${people[key].profile_path}`,
     alt: people[key].name
-  })), _react.default.createElement("h2", null, people[key].name)))));
+  })), _react.default.createElement("h2", {
+    className: "name"
+  }, people[key].name)))));
 };
 
-var _default = PeopleBlock;
+var _default = PeopleContainer;
 exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./styles/PeopleContainerStyled":"src/components/styles/PeopleContainerStyled.js","./Spinner":"src/components/Spinner.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Video.js":[function(require,module,exports) {
 "use strict";
@@ -38922,7 +38918,7 @@ var _Spinner = _interopRequireDefault(require("./Spinner"));
 const StyledVideo = _styledComponents.default.div.withConfig({
   displayName: "Video__StyledVideo",
   componentId: "rh4qy9-0"
-})(["display:flex;flex-direction:column;align-items:center;margin-bottom:100px;"]);
+})(["display:flex;flex-direction:column;align-items:center;margin-bottom:100px;h2{font-size:2em;}"]);
 
 const Video = ({
   movieId
@@ -38957,14 +38953,14 @@ const Video = ({
     title: name,
     width: "800",
     height: "450",
-    src: `https://www.youtube.com/embed/${key}?rel=0&fs=0`,
+    src: `https://www.youtube.com/embed/${key}?modestbranding=1&showinfo=0&rel=0&iv_load_policy=3`,
     frameBorder: "0"
   })) : "")));
 };
 
 var _default = Video;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./Spinner":"src/components/Spinner.js"}],"src/components/Movie.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./Spinner":"src/components/Spinner.js"}],"src/components/MoviePage.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38982,13 +38978,13 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _MovieStyled = _interopRequireDefault(require("./styles/MovieStyled"));
 
-var _PeopleBlock = _interopRequireDefault(require("./PeopleBlock"));
+var _PeopleContainer = _interopRequireDefault(require("./PeopleContainer"));
 
 var _Video = _interopRequireDefault(require("./Video"));
 
 var _Spinner = _interopRequireDefault(require("./Spinner"));
 
-const Movie = ({
+const MoviePage = ({
   match
 }) => {
   const movieId = match.params.id;
@@ -39041,21 +39037,21 @@ const Movie = ({
     className: "far fa-clock fa-lg"
   }), runtime, " mins"), _react.default.createElement("div", {
     className: "overview"
-  }, _react.default.createElement("p", null, overview)))), _react.default.createElement("h1", {
+  }, _react.default.createElement("p", null, overview)))), people.length ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
     style: {
       textAlign: "center"
     }
-  }, "Cast"), _react.default.createElement(_PeopleBlock.default, {
+  }, "Cast"), _react.default.createElement(_PeopleContainer.default, {
     people: people.slice(0, 6),
     isLoading: isLoading
-  }), _react.default.createElement(_Video.default, {
+  })) : "", _react.default.createElement(_Video.default, {
     movieId: movieId
   })));
 };
 
-var _default = Movie;
+var _default = MoviePage;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./styles/MovieStyled":"src/components/styles/MovieStyled.js","./PeopleBlock":"src/components/PeopleBlock.js","./Video":"src/components/Video.js","./Spinner":"src/components/Spinner.js"}],"src/components/styles/PersonStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./styles/MovieStyled":"src/components/styles/MovieStyled.js","./PeopleContainer":"src/components/PeopleContainer.js","./Video":"src/components/Video.js","./Spinner":"src/components/Spinner.js"}],"src/components/styles/PersonStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39817,7 +39813,11 @@ const ResultsPage = ({
       textAlign: "center",
       color: "#ffffff"
     }
-  }, "Results page"), showPagination ? _react.default.createElement(_PaginationComponent.default, {
+  }, "Results page"), _react.default.createElement("h2", {
+    style: {
+      textAlign: "center"
+    }
+  }, `Showing results for "${queryValue}"`), showPagination ? _react.default.createElement(_PaginationComponent.default, {
     currentPage: currentPage,
     handlePageChange: handlePageChange,
     resultsPerPage: resultsPerPage,
@@ -39901,7 +39901,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _PeopleBlock = _interopRequireDefault(require("./PeopleBlock"));
+var _PeopleContainer = _interopRequireDefault(require("./PeopleContainer"));
 
 var _Spinner = _interopRequireDefault(require("./Spinner"));
 
@@ -39924,14 +39924,14 @@ const PeoplePage = () => {
       textAlign: "center",
       color: "#ffffff"
     }
-  }, "People"), isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_PeopleBlock.default, {
+  }, "People"), isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_PeopleContainer.default, {
     people: popularPeople
   }));
 };
 
 var _default = PeoplePage;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./PeopleBlock":"src/components/PeopleBlock.js","./Spinner":"src/components/Spinner.js"}],"src/components/App.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./PeopleContainer":"src/components/PeopleContainer.js","./Spinner":"src/components/Spinner.js"}],"src/components/App.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39949,7 +39949,7 @@ var _Navigation = _interopRequireDefault(require("./Navigation"));
 
 var _Home = _interopRequireDefault(require("./Home"));
 
-var _Movie = _interopRequireDefault(require("./Movie"));
+var _MoviePage = _interopRequireDefault(require("./MoviePage"));
 
 var _Person = _interopRequireDefault(require("./Person"));
 
@@ -39983,7 +39983,7 @@ const App = () => {
     component: _Home.default
   }), _react.default.createElement(_reactRouterDom.Route, {
     path: "/movieId=:id",
-    component: _Movie.default
+    component: _MoviePage.default
   }), _react.default.createElement(_reactRouterDom.Route, {
     path: "/personId=:id",
     component: _Person.default
@@ -40001,7 +40001,7 @@ const App = () => {
 
 var _default = App;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Navigation":"src/components/Navigation.js","./Home":"src/components/Home.js","./Movie":"src/components/Movie.js","./Person":"src/components/Person.js","./ResultsPage":"src/components/ResultsPage.js","./PopularMovies":"src/components/PopularMovies.js","./PeoplePage":"src/components/PeoplePage.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Navigation":"src/components/Navigation.js","./Home":"src/components/Home.js","./MoviePage":"src/components/MoviePage.js","./Person":"src/components/Person.js","./ResultsPage":"src/components/ResultsPage.js","./PopularMovies":"src/components/PopularMovies.js","./PeoplePage":"src/components/PeoplePage.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -40041,7 +40041,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52462" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49713" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

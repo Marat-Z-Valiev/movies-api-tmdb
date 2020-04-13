@@ -5,23 +5,24 @@ import PropTypes from "prop-types";
 const InputStyles = styled.input`
 	border: 2px solid black;
 	padding: 10px;
+	margin-right: 10px;
 `;
 
 const Input = ({handleChange, handleClick}) => {
-	let [placeholderText, setPlaceholderText] = useState("Enter search query");
+	let [placeholderText, setPlaceholderText] = useState("Search");
 
 	const handleFocus = () => {
 		setPlaceholderText((placeholderText = ""));
 	};
 
 	const handleOnBlur = () => {
-		setPlaceholderText((placeholderText = "Enter search query"));
+		setPlaceholderText((placeholderText = "Search"));
 	};
 
 	const handleKeyPress = (event, handleFunction) => {
 		if (event.key === "Enter") {
 			handleFunction();
-			setPlaceholderText((placeholderText = "Enter search query"));
+			setPlaceholderText((placeholderText = "Search"));
 			document.querySelector(".input").value = "";
 		}
 		return;
@@ -33,7 +34,7 @@ const Input = ({handleChange, handleClick}) => {
 			onChange={handleChange}
 			onFocus={handleFocus}
 			onBlur={handleOnBlur}
-			onKeyPress={event => handleKeyPress(event, handleClick)}
+			onKeyPress={(event) => handleKeyPress(event, handleClick)}
 			placeholder={placeholderText}
 		/>
 	);
@@ -41,7 +42,7 @@ const Input = ({handleChange, handleClick}) => {
 
 Input.propTypes = {
 	// handleChange: PropTypes.func.isRequired,
-	handleClick: PropTypes.func.isRequired
+	handleClick: PropTypes.func.isRequired,
 };
 
 export default Input;

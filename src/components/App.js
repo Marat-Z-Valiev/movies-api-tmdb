@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Navigation from "./Navigation";
 import Home from "./Home";
-import Movie from "./Movie";
+import MoviePage from "./MoviePage";
 import Person from "./Person";
 import ResultsPage from "./ResultsPage";
 import PopularMovies from "./PopularMovies";
@@ -33,7 +33,7 @@ const App = () => {
 				<Navigation></Navigation>
 				<Switch>
 					<Route exact path="/" component={Home} />
-					<Route path="/movieId=:id" component={Movie} />
+					<Route path="/movieId=:id" component={MoviePage} />
 					<Route path="/personId=:id" component={Person} />
 					<Route path="/search=:searchQuery" component={ResultsPage} />
 					<Route path="/popular" component={PopularMovies}></Route>

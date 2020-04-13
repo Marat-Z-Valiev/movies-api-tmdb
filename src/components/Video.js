@@ -8,6 +8,10 @@ const StyledVideo = styled.div`
 	flex-direction: column;
 	align-items: center;
 	margin-bottom: 100px;
+
+	h2 {
+		font-size: 2em;
+	}
 `;
 
 const Video = ({movieId}) => {
@@ -20,7 +24,7 @@ const Video = ({movieId}) => {
 			.get(
 				`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`
 			)
-			.then(response => {
+			.then((response) => {
 				if (response.data.results.length) {
 					setVideo((video = response.data.results[0]));
 					setIsVideo((isVideo = true));
@@ -31,7 +35,7 @@ const Video = ({movieId}) => {
 					setIsVideo((isVideo = false));
 				}
 			})
-			.catch(err => console.log(`this is error ${err}`));
+			.catch((err) => console.log(`this is error ${err}`));
 	};
 
 	useEffect(() => {
@@ -54,7 +58,7 @@ const Video = ({movieId}) => {
 									title={name}
 									width="800"
 									height="450"
-									src={`https://www.youtube.com/embed/${key}?rel=0&fs=0`}
+									src={`https://www.youtube.com/embed/${key}?modestbranding=1&showinfo=0&rel=0&iv_load_policy=3`}
 									frameBorder="0"
 								></iframe>
 							</>

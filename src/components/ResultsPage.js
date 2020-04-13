@@ -48,6 +48,9 @@ const ResultsPage = ({match}) => {
 	return (
 		<>
 			<h2 style={{textAlign: "center", color: "#ffffff"}}>Results page</h2>
+			<h2 style={{textAlign: "center"}}>
+				{`Showing results for "${queryValue}"`}
+			</h2>
 			{showPagination ? (
 				<PaginationComponent
 					currentPage={currentPage}

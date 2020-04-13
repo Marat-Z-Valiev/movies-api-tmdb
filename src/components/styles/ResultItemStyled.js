@@ -17,6 +17,13 @@ const ResultItemStyled = styled.div`
 	img {
 		border: 2px solid black;
 		justify-self: center;
+		opacity: 1;
+		transition: opacity 0.25s ease-in-out;
+
+		&:hover {
+			opacity: 0.7;
+		}
+	}
 	}
 
 	.no-image {

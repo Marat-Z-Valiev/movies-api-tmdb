@@ -11,17 +11,28 @@ const PeopleContainerStyled = styled.div`
 	min-width: 500px;
 
 	.person {
+		display: grid;
 		text-align: center;
 		padding: 0;
 		border: 1px solid #ddd;
+		max-width: 80%;
+		background-color: #ffffff;
+		border-radius: 15px;
+		opacity: 1;
+		transition: opacity 0.25s ease-in-out;
+
+		&:hover {
+			opacity: 0.7;
+		}
 
 		img {
-			width: 80%;
-			padding: 20px;
-
-			&:hover {
-				box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-			}
+			margin: 0;
+			width: 100%;
+			border-radius: 15px 15px 0 0;
+		}
+		.name {
+			padding: 0;
+			align-self: flex-end;
 		}
 	}
 `;

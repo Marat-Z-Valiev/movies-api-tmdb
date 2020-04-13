@@ -8,10 +8,6 @@ const ResultsContainerStyled = styled.div`
 	padding: 30px;
 	grid-template-rows: 1fr min-content;
 
-	/* .result-tile:last-child {
-		grid-column: 2;
-	} */
-
 	@media (min-width: 320px) and (max-width: 425px) {
 		display: block;
 	}

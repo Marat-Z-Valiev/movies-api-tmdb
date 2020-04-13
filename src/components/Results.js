@@ -9,12 +9,7 @@ const Results = ({totalResults, results}) => {
 			? b.release_date.split("-")[0] - a.release_date.split("-")[0]
 			: ""
 	);
-	// const modifiedReleaseDate = results.map(result => {
-	// 	result.release_date.split("-")[0];
-	// });
-	// const sortedArray = results.sort(
-	// 	(a, b) => b.release_date.split("-")[0] - a.release_date.split("-")[0]
-	// );
+
 	return (
 		<>
 			{totalResults ? (

@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import MovieStyled from "./styles/MovieStyled";
-import PeopleBlock from "./PeopleBlock";
+import PeopleContainer from "./PeopleContainer";
 import Video from "./Video";
 import Spinner from "./Spinner";
 
-const Movie = ({match}) => {
+const MoviePage = ({match}) => {
 	const movieId = match.params.id;
 	let [movie, setMovie] = useState({});
 	let [people, setPeople] = useState([]);
@@ -16,11 +16,11 @@ const Movie = ({match}) => {
 			.get(
 				`https://api.themoviedb.org/3/movie/${movieId}?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`
 			)
-			.then(response => {
+			.then((response) => {
 				setMovie((movie = response.data));
 				setIsLoading((isLoading = false));
 			})
-			.catch(err => console.log(`this is error ${err}`));
+			.catch((err) => console.log(`this is error ${err}`));
 	};
 
 	const getActors = async () => {
@@ -28,11 +28,11 @@ const Movie = ({match}) => {
 			.get(
 				`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=f8efee7e451d2ca98ae50114ad74aeeb`
 			)
-			.then(response => {
+			.then((response) => {
 				setPeople((people = response.data.cast));
 				setIsLoading((isLoading = false));
 			})
-			.catch(err => console.log(`this is error ${err}`));
+			.catch((err) => console.log(`this is error ${err}`));
 	};
 
 	useEffect(() => {
@@ -49,7 +49,7 @@ const Movie = ({match}) => {
 		vote_average,
 		release_date,
 		runtime,
-		overview
+		overview,
 	} = movie;
 
 	return (
@@ -82,8 +82,17 @@ const Movie = ({match}) => {
 							</div>
 						</div>
 					</MovieStyled>
-					<h1 style={{textAlign: "center"}}>Cast</h1>
-					<PeopleBlock people={people.slice(0, 6)} isLoading={isLoading} />
+					{people.length ? (
+						<>
+							<h1 style={{textAlign: "center"}}>Cast</h1>
+							<PeopleContainer
+								people={people.slice(0, 6)}
+								isLoading={isLoading}
+							/>
+						</>
+					) : (
+						""
+					)}
 					<Video movieId={movieId}></Video>
 				</>
 			)}
@@ -91,4 +100,4 @@ const Movie = ({match}) => {
 	);
 };
 
-export default Movie;
+export default MoviePage;

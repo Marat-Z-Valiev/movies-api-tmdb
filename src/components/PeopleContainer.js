@@ -4,14 +4,14 @@ import PeopleContainerStyled from "./styles/PeopleContainerStyled";
 import Spinner from "./Spinner";
 import noImage from "../images/no-image-available.jpg";
 
-const PeopleBlock = ({people, isLoading}) => {
+const PeopleContainer = ({people, isLoading}) => {
 	return (
 		<>
 			{isLoading ? (
 				<Spinner />
 			) : (
 				<PeopleContainerStyled>
-					{Object.keys(people).map(key => (
+					{Object.keys(people).map((key) => (
 						<div key={people[key].id} className="person">
 							<Link to={`/personId=${people[key].id}`}>
 								{people[key].profile_path == null ? (
@@ -27,7 +27,7 @@ const PeopleBlock = ({people, isLoading}) => {
 									/>
 								)}
 							</Link>
-							<h2>{people[key].name}</h2>
+							<h2 className="name">{people[key].name}</h2>
 						</div>
 					))}
 				</PeopleContainerStyled>
@@ -36,4 +36,4 @@ const PeopleBlock = ({people, isLoading}) => {
 	);
 };
 
-export default PeopleBlock;
+export default PeopleContainer;
