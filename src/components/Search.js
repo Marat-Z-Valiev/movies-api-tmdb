@@ -3,12 +3,12 @@ import {withRouter} from "react-router-dom";
 import Input from "./Input";
 import Button from "./Button";
 
-const Search = ({history}) => {
+const Search = ({history, closeMenu}) => {
 	let [searchQuery, setSearchQuery] = useState("");
 	let [isDisabled, setIsDisabled] = useState(true);
 
 	// Handle onChange event on the input
-	const handleChange = event => {
+	const handleChange = (event) => {
 		const {value} = event.currentTarget;
 		if (!value) {
 			setIsDisabled((isDisabled = true));
@@ -16,7 +16,6 @@ const Search = ({history}) => {
 			setIsDisabled((isDisabled = false));
 		}
 		setSearchQuery((searchQuery = value));
-		setValue((defaultValue = value));
 	};
 
 	const handleClick = () => {
@@ -27,7 +26,11 @@ const Search = ({history}) => {
 	return (
 		<>
 			<Input handleChange={handleChange} handleClick={handleClick} />
-			<Button handleClick={handleClick} isDisabled={isDisabled} />
+			<Button
+				handleClick={handleClick}
+				closeMenu={closeMenu}
+				isDisabled={isDisabled}
+			/>
 		</>
 	);
 };

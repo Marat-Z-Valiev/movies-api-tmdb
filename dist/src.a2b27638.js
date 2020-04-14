@@ -35424,7 +35424,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 const Button = ({
   handleClick,
   isLoading,
-  isDisabled
+  isDisabled,
+  closeMenu
 }) => {
   const handleKeyPress = (event, handleFunction) => {
     if (event.key === "Enter") {
@@ -35432,10 +35433,15 @@ const Button = ({
     }
   };
 
+  const runFunctions = () => {
+    closeMenu();
+    handleClick();
+  };
+
   return _react.default.createElement(_ButtonStyled.default, {
     type: "button",
-    onClick: handleClick,
-    onKeyPress: event => handleKeyPress(event, handleClick),
+    onClick: runFunctions,
+    onKeyPress: event => handleKeyPress(event(), handleClick()),
     disabled: isDisabled
   }, isLoading ? "Loading" : "Search");
 };
@@ -35468,7 +35474,8 @@ var _Input = _interopRequireDefault(require("./Input"));
 var _Button = _interopRequireDefault(require("./Button"));
 
 const Search = ({
-  history
+  history,
+  closeMenu
 }) => {
   let [searchQuery, setSearchQuery] = (0, _react.useState)("");
   let [isDisabled, setIsDisabled] = (0, _react.useState)(true); // Handle onChange event on the input
@@ -35485,7 +35492,6 @@ const Search = ({
     }
 
     setSearchQuery(searchQuery = value);
-    setValue(defaultValue = value);
   };
 
   const handleClick = () => {
@@ -35498,6 +35504,7 @@ const Search = ({
     handleClick: handleClick
   }), _react.default.createElement(_Button.default, {
     handleClick: handleClick,
+    closeMenu: closeMenu,
     isDisabled: isDisabled
   }));
 };
@@ -35520,7 +35527,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 const NavStyled = _styledComponents.default.nav.withConfig({
   displayName: "NavStyled",
   componentId: "sc-1y27wdx-0"
-})(["display:flex;background-color:#3f51b5;height:60px;width:100%;box-shadow:0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);z-index:5;.all-links{display:flex;justify-content:space-around;align-items:center;width:100vw;h1{font-size:2.3rem;}li{list-style:none;font-size:1.3rem;}a{text-decoration:none;color:#ffffff;&:hover{color:#11ee1c;text-decoration:underline;}}a.active{color:#11ee1c;}}"]);
+})([".menu{display:flex;justify-content:space-around;align-items:center;background-color:#3f51b5;width:100vw;height:60px;width:100%;box-shadow:0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);z-index:5;margin-top:0;.toggle{display:none;}h1{font-size:2.3rem;}li{list-style:none;font-size:1.3rem;}a{text-decoration:none;color:#ffffff;&:hover{color:#11ee1c;text-decoration:underline;}}a.active{color:#11ee1c;}@media (min-width:320px) and (max-width:425px){flex-direction:row;justify-content:space-between;align-items:center;flex-wrap:wrap;width:100%;z-index:5;height:115px;box-shadow:none;.logo{margin-left:20px;}.toggle{display:block;order:1;button{background:transparent;border:none;color:#ffffff;margin-right:20px;}}.item,.search{width:100%;text-align:center;order:2;padding:15px 5px;transform:translateX(-100%);transition:transform 0.5s ease-out;background-color:#3f51b5;}.open{display:block;transform:translateY(0);}}}"]);
 
 var _default = NavStyled;
 exports.default = _default;
@@ -35546,7 +35553,7 @@ var _NavStyled = _interopRequireDefault(require("./styles/NavStyled"));
 
 const Navigation = () => {
   (0, _react.useEffect)(() => {
-    document.getElementById("app").style.marginTop = `${document.querySelector(".navbar").offsetHeight + 40}px`;
+    document.getElementById("app").style.marginTop = `${document.querySelector(".menu").offsetHeight + 40}px`;
   }, []);
   const stickyStyle = {
     position: "fixed",
@@ -35555,20 +35562,58 @@ const Navigation = () => {
     right: "0",
     width: "100%"
   };
-  return _react.default.createElement(_NavStyled.default, {
-    className: "navbar",
+
+  const toggleMenu = () => {
+    const liElements = document.querySelectorAll(".item");
+    liElements.forEach(element => {
+      element.classList.toggle("open");
+    });
+    const search = document.querySelector(".search");
+    search.classList.toggle("open");
+  };
+
+  const closeMenu = () => {
+    document.querySelector(".hamburger-button").click();
+  };
+
+  const closeMenuAfterClick = () => {
+    const liElements = document.querySelectorAll(".item");
+    liElements.forEach(element => {
+      element.addEventListener("click", closeMenu);
+    });
+  };
+
+  (0, _react.useEffect)(() => {
+    closeMenuAfterClick();
+  }, []);
+  return _react.default.createElement(_NavStyled.default, null, _react.default.createElement("ul", {
+    className: "menu",
     style: stickyStyle
-  }, _react.default.createElement("ul", {
-    className: "all-links"
+  }, _react.default.createElement("li", {
+    className: "logo"
   }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
-  }, _react.default.createElement("li", null, _react.default.createElement("h1", null, "Movies"))), _react.default.createElement(_reactRouterDom.NavLink, {
+  }, _react.default.createElement("h1", null, "Movies"))), _react.default.createElement("li", {
+    className: "item"
+  }, _react.default.createElement(_reactRouterDom.NavLink, {
     to: "/popular"
-  }, _react.default.createElement("li", null, "Popular")), _react.default.createElement(_reactRouterDom.NavLink, {
+  }, "Popular")), _react.default.createElement("li", {
+    className: "item"
+  }, _react.default.createElement(_reactRouterDom.NavLink, {
     to: "./people"
-  }, _react.default.createElement("li", null, "People")), _react.default.createElement("li", {
+  }, "People")), _react.default.createElement("li", {
     className: "search"
-  }, _react.default.createElement(_Search.default, null))));
+  }, _react.default.createElement(_Search.default, {
+    closeMenu: closeMenu
+  })), _react.default.createElement("li", {
+    className: "toggle"
+  }, _react.default.createElement("button", {
+    type: "button",
+    className: "hamburger-button",
+    onClick: toggleMenu
+  }, _react.default.createElement("i", {
+    className: "fas fa-bars fa-3x"
+  })))));
 };
 
 var _default = Navigation;
