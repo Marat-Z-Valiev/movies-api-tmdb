@@ -9,14 +9,12 @@ const Home = () => {
 
 	const fetchTrending = async () => {
 		await axios
-			.get(
-				"https://api.themoviedb.org/3/trending/movie/week?api_key=f8efee7e451d2ca98ae50114ad74aeeb"
-			)
-			.then(response => {
+			.get(".netlify/functions/getTrendingMovies")
+			.then((response) => {
 				setResult((returnedResults = response.data.results));
 				setIsLoading((isLoading = false));
 			})
-			.catch(err => console.log(`this is error ${err}`));
+			.catch((err) => console.log(`this is error ${err}`));
 	};
 
 	useEffect(() => {
