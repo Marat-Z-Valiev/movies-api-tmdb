@@ -67,7 +67,6 @@ const NavStyled = styled.nav`
 
 			.item,
 			.search {
-				/* display: none; */
 				width: 100%;
 				text-align: center;
 				order: 2;

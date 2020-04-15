@@ -4,29 +4,47 @@ const MovieStyled = styled.div`
 	display: grid;
 	grid-template-columns: 30% 70%;
 
+	@media (min-width: 320px) and (max-width: 425px) {
+		grid-template-columns: 1fr;
+		justify-content: center;
+	}
+
 	img {
 		margin-left: 35px;
 	}
 
-	.movie-details {
-		display: grid;
-		grid-template-columns: repeat(3, 33%);
-		grid-template-rows: 30% 70%;
+	.movie-stats {
+		display: flex;
+		justify-content: space-around;
 
-		h2 {
-			text-align: center;
+		@media (min-width: 320px) and (max-width: 425px) {
+			flex-direction: column;
+			margin-top: 30px;
 		}
+	}
 
-		.far,
-		.fas {
-			margin-right: 10px;
-		}
+	@media (min-width: 320px) and (max-width: 425px) {
+		grid-template-columns: 1fr;
+	}
+
+	h2 {
+		text-align: center;
+	}
+
+	.far,
+	.fas {
+		margin-right: 10px;
 	}
 	.overview {
 		grid-column-start: 1;
 		grid-column-end: 4;
 		justify-self: center;
 		font-size: 1.5rem;
+
+		@media (min-width: 320px) and (max-width: 425px) {
+			padding: 20px;
+			text-align: center;
+		}
 	}
 `;
 

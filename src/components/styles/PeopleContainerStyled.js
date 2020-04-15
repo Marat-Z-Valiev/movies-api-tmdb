@@ -5,10 +5,12 @@ const PeopleContainerStyled = styled.div`
 	margin: 0 auto;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 20px;
-	justify-content: center;
 	justify-items: center;
 	width: 80%;
-	min-width: 500px;
+
+	@media (min-width: 320px) and (max-width: 425px) {
+		grid-template-columns: 1fr;
+	}
 
 	.person {
 		display: grid;

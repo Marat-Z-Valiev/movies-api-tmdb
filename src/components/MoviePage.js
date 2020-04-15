@@ -65,18 +65,20 @@ const MoviePage = ({match}) => {
 							alt={title}
 						/>
 						<div className="movie-details">
-							<h2>
-								<i className="far fa-calendar-alt fa-lg" />
-								{release_date}
-							</h2>
-							<h2>
-								<i className="fas fa-star fa-lg" />
-								{vote_average == 0 ? "" : `Popularity ${vote_average} / 10`}
-							</h2>
-							<h2>
-								<i className="far fa-clock fa-lg" />
-								{runtime} mins
-							</h2>
+							<div className="movie-stats">
+								<h2>
+									<i className="far fa-calendar-alt fa-lg" />
+									{release_date}
+								</h2>
+								<h2>
+									<i className="fas fa-star fa-lg" />
+									{vote_average == 0 ? "" : `Popularity ${vote_average} / 10`}
+								</h2>
+								<h2>
+									<i className="far fa-clock fa-lg" />
+									{runtime} mins
+								</h2>
+							</div>
 							<div className="overview">
 								<p>{overview}</p>
 							</div>

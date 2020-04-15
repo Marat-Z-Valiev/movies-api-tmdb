@@ -38874,7 +38874,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 const MovieStyled = _styledComponents.default.div.withConfig({
   displayName: "MovieStyled",
   componentId: "sc-157i9ak-0"
-})(["display:grid;grid-template-columns:30% 70%;img{margin-left:35px;}.movie-details{display:grid;grid-template-columns:repeat(3,33%);grid-template-rows:30% 70%;h2{text-align:center;}.far,.fas{margin-right:10px;}}.overview{grid-column-start:1;grid-column-end:4;justify-self:center;font-size:1.5rem;}"]);
+})(["display:grid;grid-template-columns:30% 70%;@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;justify-content:center;}img{margin-left:35px;}.movie-stats{display:flex;justify-content:space-around;@media (min-width:320px) and (max-width:425px){flex-direction:column;margin-top:30px;}}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}h2{text-align:center;}.far,.fas{margin-right:10px;}.overview{grid-column-start:1;grid-column-end:4;justify-self:center;font-size:1.5rem;@media (min-width:320px) and (max-width:425px){padding:20px;text-align:center;}}"]);
 
 var _default = MovieStyled;
 exports.default = _default;
@@ -38893,7 +38893,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 const PeopleContainerStyled = _styledComponents.default.div.withConfig({
   displayName: "PeopleContainerStyled",
   componentId: "sc-143cw12-0"
-})(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-content:center;justify-items:center;width:80%;min-width:500px;.person{display:grid;text-align:center;padding:0;border:1px solid #ddd;max-width:80%;background-color:#ffffff;border-radius:15px;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}img{margin:0;width:100%;border-radius:15px 15px 0 0;}.name{padding:0;align-self:flex-end;}}"]);
+})(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-items:center;width:80%;@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}.person{display:grid;text-align:center;padding:0;border:1px solid #ddd;max-width:80%;background-color:#ffffff;border-radius:15px;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}img{margin:0;width:100%;border-radius:15px 15px 0 0;}.name{padding:0;align-self:flex-end;}}"]);
 
 var _default = PeopleContainerStyled;
 exports.default = _default;
@@ -38963,7 +38963,7 @@ var _Spinner = _interopRequireDefault(require("./Spinner"));
 const StyledVideo = _styledComponents.default.div.withConfig({
   displayName: "Video__StyledVideo",
   componentId: "rh4qy9-0"
-})(["display:flex;flex-direction:column;align-items:center;margin-bottom:100px;h2{font-size:2em;}"]);
+})(["width:100%;height:0;padding-bottom:56.25%;position:relative;margin-bottom:100px;iframe{position:absolute;width:100%;height:100%;}h2{font-size:2em;text-align:center;}"]);
 
 const Video = ({
   movieId
@@ -39074,13 +39074,15 @@ const MoviePage = ({
     alt: title
   }), _react.default.createElement("div", {
     className: "movie-details"
+  }, _react.default.createElement("div", {
+    className: "movie-stats"
   }, _react.default.createElement("h2", null, _react.default.createElement("i", {
     className: "far fa-calendar-alt fa-lg"
   }), release_date), _react.default.createElement("h2", null, _react.default.createElement("i", {
     className: "fas fa-star fa-lg"
   }), vote_average == 0 ? "" : `Popularity ${vote_average} / 10`), _react.default.createElement("h2", null, _react.default.createElement("i", {
     className: "far fa-clock fa-lg"
-  }), runtime, " mins"), _react.default.createElement("div", {
+  }), runtime, " mins")), _react.default.createElement("div", {
     className: "overview"
   }, _react.default.createElement("p", null, overview)))), people.length ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
     style: {
@@ -40086,7 +40088,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49713" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52530" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
