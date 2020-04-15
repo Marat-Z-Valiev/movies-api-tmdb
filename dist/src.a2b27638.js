@@ -38874,7 +38874,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 const MovieStyled = _styledComponents.default.div.withConfig({
   displayName: "MovieStyled",
   componentId: "sc-157i9ak-0"
-})(["display:grid;grid-template-columns:30% 70%;@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;justify-content:center;}img{margin-left:35px;}.movie-stats{display:flex;justify-content:space-around;@media (min-width:320px) and (max-width:425px){flex-direction:column;margin-top:30px;}}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}h2{text-align:center;}.far,.fas{margin-right:10px;}.overview{grid-column-start:1;grid-column-end:4;justify-self:center;font-size:1.5rem;@media (min-width:320px) and (max-width:425px){padding:20px;text-align:center;}}"]);
+})(["display:grid;grid-template-columns:30% 70%;@media (min-width:768px) and (max-width:1024px){grid-template-columns:1fr;}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;justify-content:center;}img{margin-left:35px;@media (min-width:768px) and (max-width:1024px){margin:0 auto;}}.movie-stats{display:flex;justify-content:space-around;@media (min-width:768px) and (max-width:1024px){margin-top:30px;}@media (min-width:320px) and (max-width:425px){flex-direction:column;margin-top:30px;}}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}h2{text-align:center;}.far,.fas{margin-right:10px;}.overview{grid-column-start:1;grid-column-end:4;justify-self:center;font-size:1.5rem;@media (min-width:768px) and (max-width:1024px){padding:20px;}@media (min-width:320px) and (max-width:425px){padding:20px;text-align:center;}}"]);
 
 var _default = MovieStyled;
 exports.default = _default;
@@ -38893,7 +38893,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 const PeopleContainerStyled = _styledComponents.default.div.withConfig({
   displayName: "PeopleContainerStyled",
   componentId: "sc-143cw12-0"
-})(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-items:center;width:80%;@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}.person{display:grid;text-align:center;padding:0;border:1px solid #ddd;max-width:80%;background-color:#ffffff;border-radius:15px;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}img{margin:0;width:100%;border-radius:15px 15px 0 0;}.name{padding:0;align-self:flex-end;}}"]);
+})(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-items:center;width:80%;@media (max-width:768px){width:auto;}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}.person{display:grid;text-align:center;padding:0;border:1px solid #ddd;max-width:80%;background-color:#ffffff;border-radius:15px;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}img{margin:0;width:100%;border-radius:15px 15px 0 0;}.name{padding:0;align-self:flex-end;}}"]);
 
 var _default = PeopleContainerStyled;
 exports.default = _default;
@@ -38963,7 +38963,7 @@ var _Spinner = _interopRequireDefault(require("./Spinner"));
 const StyledVideo = _styledComponents.default.div.withConfig({
   displayName: "Video__StyledVideo",
   componentId: "rh4qy9-0"
-})(["width:100%;height:0;padding-bottom:56.25%;position:relative;margin-bottom:100px;iframe{position:absolute;width:100%;height:100%;}h2{font-size:2em;text-align:center;}"]);
+})(["display:flex;flex-direction:column;align-items:center;margin-top:50px;margin-bottom:100px;h2{font-size:2em;text-align:center;}"]);
 
 const Video = ({
   movieId
@@ -38994,10 +38994,11 @@ const Video = ({
     name,
     key
   } = video;
+  let windowWidth = window.innerWidth;
   return _react.default.createElement(_react.default.Fragment, null, isLoading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledVideo, null, isVideo ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", null, type), _react.default.createElement("iframe", {
     title: name,
-    width: "800",
-    height: "450",
+    width: windowWidth > 425 ? 800 : 400,
+    height: windowWidth > 425 ? 450 : 225,
     src: `https://www.youtube.com/embed/${key}?modestbranding=1&showinfo=0&rel=0&iv_load_policy=3`,
     frameBorder: "0"
   })) : "")));

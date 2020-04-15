@@ -4,20 +4,11 @@ import styled from "styled-components";
 import Spinner from "./Spinner";
 
 const StyledVideo = styled.div`
-	/* display: flex;
+	display: flex;
 	flex-direction: column;
-	align-items: center; */
-	width: 100%;
-	height: 0;
-	padding-bottom: 56.25%;
-	position: relative;
+	align-items: center;
+	margin-top: 50px;
 	margin-bottom: 100px;
-
-	iframe {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
 
 	h2 {
 		font-size: 2em;
@@ -54,7 +45,7 @@ const Video = ({movieId}) => {
 	}, []);
 
 	const {type, name, key} = video;
-
+	let windowWidth = window.innerWidth;
 	return (
 		<>
 			{isLoading ? (
@@ -67,8 +58,8 @@ const Video = ({movieId}) => {
 								<h2>{type}</h2>
 								<iframe
 									title={name}
-									width="800"
-									height="450"
+									width={windowWidth > 425 ? 800 : 400}
+									height={windowWidth > 425 ? 450 : 225}
 									src={`https://www.youtube.com/embed/${key}?modestbranding=1&showinfo=0&rel=0&iv_load_policy=3`}
 									frameBorder="0"
 								></iframe>

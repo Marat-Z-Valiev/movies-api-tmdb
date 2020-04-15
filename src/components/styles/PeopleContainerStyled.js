@@ -8,6 +8,10 @@ const PeopleContainerStyled = styled.div`
 	justify-items: center;
 	width: 80%;
 
+	@media (max-width: 768px) {
+		width: auto;
+	}
+
 	@media (min-width: 320px) and (max-width: 425px) {
 		grid-template-columns: 1fr;
 	}
