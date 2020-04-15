@@ -9,7 +9,9 @@ const Home = () => {
 
 	const fetchTrending = async () => {
 		await axios
-			.get(".netlify/functions/getTrendingMovies")
+			.get(
+				`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
+			)
 			.then((response) => {
 				setResult((returnedResults = response.data.results));
 				setIsLoading((isLoading = false));
