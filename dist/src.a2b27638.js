@@ -38840,10 +38840,10 @@ var _Spinner = _interopRequireDefault(require("./Spinner"));
 
 const Home = () => {
   let [returnedResults, setResult] = (0, _react.useState)([]);
-  let [isLoading, setIsLoading] = (0, _react.useState)(true);
+  let [isLoading, setIsLoading] = (0, _react.useState)(true); // `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
 
   const fetchTrending = async () => {
-    await _axios.default.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=${"a63832b8aamsh7a85645505609ddp1be412jsn1bc17d796591"}`).then(response => {
+    await _axios.default.get("../../.netlify/functions/getTrendingMovies.js").then(response => {
       setResult(returnedResults = response.data.results);
       setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));
@@ -40089,7 +40089,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52530" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58563" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

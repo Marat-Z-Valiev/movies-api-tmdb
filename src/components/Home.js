@@ -7,11 +7,11 @@ const Home = () => {
 	let [returnedResults, setResult] = useState([]);
 	let [isLoading, setIsLoading] = useState(true);
 
+	// `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
+
 	const fetchTrending = async () => {
 		await axios
-			.get(
-				`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
-			)
+			.get("../../.netlify/functions/getTrendingMovies.js")
 			.then((response) => {
 				setResult((returnedResults = response.data.results));
 				setIsLoading((isLoading = false));
