@@ -39114,7 +39114,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 const PersonStyled = _styledComponents.default.div.withConfig({
   displayName: "PersonStyled",
   componentId: "sc-1xl28r5-0"
-})(["display:flex;flex-direction:row;img{margin-left:40px;}.info{text-align:left;margin-left:10px;padding-left:15px;p{font-size:1.2rem;}}.fas{margin-right:10px;}"]);
+})(["display:flex;flex-direction:row;@media (min-width:320px) and (max-width:425px){flex-direction:column;}img{margin-left:40px;}.info{text-align:left;margin-left:10px;padding-left:15px;@media (min-width:320px) and (max-width:425px){text-align:center;}p{font-size:1.2rem;@media (min-width:320px) and (max-width:425px){padding:10px;}}}.fas{margin-right:10px;}"]);
 
 var _default = PersonStyled;
 exports.default = _default;
