@@ -11,7 +11,7 @@ const Home = () => {
 
 	const fetchTrending = async () => {
 		await axios
-			.get("../../.netlify/functions/getTrendingMovies.js")
+			.get("../../.netlify/functions/getTrending")
 			.then((response) => {
 				setResult((returnedResults = response.data.results));
 				setIsLoading((isLoading = false));

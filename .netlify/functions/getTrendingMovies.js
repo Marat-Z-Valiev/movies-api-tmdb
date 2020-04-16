@@ -1,5 +1,3 @@
-import fetch from "node-fetch";
-
 const movieDbApiRootUrl = "https://api.themoviedb.org/3";
 const movieDbApiKey = process.env.API_KEY; // Here we hide value in environment
 

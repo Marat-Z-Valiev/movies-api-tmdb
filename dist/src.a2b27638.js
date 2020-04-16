@@ -38843,7 +38843,7 @@ const Home = () => {
   let [isLoading, setIsLoading] = (0, _react.useState)(true); // `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
 
   const fetchTrending = async () => {
-    await _axios.default.get("../../.netlify/functions/getTrendingMovies.js").then(response => {
+    await _axios.default.get("../../.netlify/functions/getTrending").then(response => {
       setResult(returnedResults = response.data.results);
       setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));
