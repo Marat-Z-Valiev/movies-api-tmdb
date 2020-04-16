@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {withRouter} from "react-router-dom";
 import axios from "axios";
+import PropTypes from "prop-types";
 import Results from "./Results";
 import PaginationComponent from "./PaginationComponent";
 
-const apiKey = "f8efee7e451d2ca98ae50114ad74aeeb";
+const apiKey = process.env.API_KEY;
 
 const baseUrl = "https://api.themoviedb.org/3/search/movie?api_key=";
 
@@ -22,7 +23,7 @@ const ResultsPage = ({match}) => {
 			.get(
 				`${baseUrl}${apiKey}&language=en-US&query=${queryValue}&page=${currentPage}`
 			)
-			.then(response => {
+			.then((response) => {
 				if (response.data.results.length) {
 					setIsError((isError = false));
 					setResults((results = response.data.results));
@@ -33,14 +34,14 @@ const ResultsPage = ({match}) => {
 					setShowPagination((showPagination = false));
 				}
 			})
-			.catch(err => console.log(`this is error ${err}`));
+			.catch((err) => console.log(`this is error ${err}`));
 	};
 
 	useEffect(() => {
 		getResults(queryValue, currentPage);
 	}, [queryValue]);
 
-	const handlePageChange = pageNumber => {
+	const handlePageChange = (pageNumber) => {
 		setCurrentPage((currentPage = pageNumber));
 		getResults(queryValue, pageNumber);
 	};
@@ -82,6 +83,10 @@ const ResultsPage = ({match}) => {
 			)}
 		</>
 	);
+};
+
+ResultsPage.propTypes = {
+	match: PropTypes.object.isRequired,
 };
 
 export default withRouter(ResultsPage);

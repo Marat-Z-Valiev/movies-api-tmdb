@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {withRouter} from "react-router-dom";
+import PropTypes from "prop-types";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -33,6 +34,11 @@ const Search = ({history, closeMenu}) => {
 			/>
 		</>
 	);
+};
+
+Search.propTYpes = {
+	history: PropTypes.array.isRequired,
+	closeMenu: PropTypes.func,
 };
 
 export default withRouter(Search);

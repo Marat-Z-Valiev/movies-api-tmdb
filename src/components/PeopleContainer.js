@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 import PeopleContainerStyled from "./styles/PeopleContainerStyled";
 import Spinner from "./Spinner";
 import noImage from "../images/no-image-available.jpg";
@@ -34,6 +35,11 @@ const PeopleContainer = ({people, isLoading}) => {
 			)}
 		</>
 	);
+};
+
+PeopleContainer.propTypes = {
+	people: PropTypes.array.isRequired,
+	isLoading: PropTypes.bool,
 };
 
 export default PeopleContainer;

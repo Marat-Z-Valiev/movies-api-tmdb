@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import MovieStyled from "./styles/MovieStyled";
 import PeopleContainer from "./PeopleContainer";
 import Video from "./Video";
@@ -14,7 +15,7 @@ const MoviePage = ({match}) => {
 	const getMovie = async () => {
 		await axios
 			.get(
-				`https://api.themoviedb.org/3/movie/${movieId}?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`
+				`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`
 			)
 			.then((response) => {
 				setMovie((movie = response.data));
@@ -26,7 +27,7 @@ const MoviePage = ({match}) => {
 	const getActors = async () => {
 		await axios
 			.get(
-				`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=f8efee7e451d2ca98ae50114ad74aeeb`
+				`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.API_KEY}`
 			)
 			.then((response) => {
 				setPeople((people = response.data.cast));
@@ -100,6 +101,10 @@ const MoviePage = ({match}) => {
 			)}
 		</>
 	);
+};
+
+MoviePage.propTypes = {
+	match: PropTypes.object.isRequired,
 };
 
 export default MoviePage;

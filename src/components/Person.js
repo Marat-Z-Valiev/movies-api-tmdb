@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import PersonStyled from "./styles/PersonStyled";
 import Results from "./Results";
 import noImage from "../images/no-image-available.jpg";
@@ -16,11 +17,11 @@ const Person = ({match}) => {
 			.get(
 				`https://api.themoviedb.org/3/person/${personId}?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`
 			)
-			.then(response => {
+			.then((response) => {
 				setPersonInfo((personInfo = response.data));
 				setIsLoading((isLoading = false));
 			})
-			.catch(err => console.log(`this is error ${err}`));
+			.catch((err) => console.log(`this is error ${err}`));
 	};
 
 	const getMovieCreidts = async () => {
@@ -28,10 +29,10 @@ const Person = ({match}) => {
 			.get(
 				`https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`
 			)
-			.then(response => {
+			.then((response) => {
 				setMovieCredits((movieCredits = response.data.cast));
 			})
-			.catch(err => console.log(`this is error ${err}`));
+			.catch((err) => console.log(`this is error ${err}`));
 	};
 
 	useEffect(() => {
@@ -92,6 +93,10 @@ const Person = ({match}) => {
 			)}
 		</>
 	);
+};
+
+Person.propTypes = {
+	match: PropTypes.object.isRequired,
 };
 
 export default Person;

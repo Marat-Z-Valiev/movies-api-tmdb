@@ -35343,7 +35343,7 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 const InputStyles = _styledComponents.default.input.withConfig({
   displayName: "Input__InputStyles",
   componentId: "w8unso-0"
-})(["border:2px solid black;padding:10px;margin-right:10px;"]);
+})(["border:2px solid black;padding:10px;margin-right:10px;border-radius:15px;"]);
 
 const Input = ({
   handleChange,
@@ -35381,7 +35381,7 @@ const Input = ({
 };
 
 Input.propTypes = {
-  // handleChange: PropTypes.func.isRequired,
+  handleChange: _propTypes.default.func.isRequired,
   handleClick: _propTypes.default.func.isRequired
 };
 var _default = Input;
@@ -35423,7 +35423,6 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 const Button = ({
   handleClick,
-  isLoading,
   isDisabled,
   closeMenu
 }) => {
@@ -35443,13 +35442,13 @@ const Button = ({
     onClick: runFunctions,
     onKeyPress: event => handleKeyPress(event(), handleClick()),
     disabled: isDisabled
-  }, isLoading ? "Loading" : "Search");
+  }, "Search");
 };
 
 Button.propTypes = {
-  handleClick: _propTypes.default.func,
-  isLoading: _propTypes.default.bool,
-  isDisabled: _propTypes.default.bool
+  handleClick: _propTypes.default.func.isRequired,
+  isDisabled: _propTypes.default.bool,
+  closeMenu: _propTypes.default.func
 };
 var _default = Button;
 exports.default = _default;
@@ -35468,6 +35467,8 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Input = _interopRequireDefault(require("./Input"));
 
@@ -35509,10 +35510,15 @@ const Search = ({
   }));
 };
 
+Search.propTYpes = {
+  history: _propTypes.default.array.isRequired,
+  closeMenu: _propTypes.default.func
+};
+
 var _default = (0, _reactRouterDom.withRouter)(Search);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Input":"src/components/Input.js","./Button":"src/components/Button.js"}],"src/components/styles/NavStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"node_modules/prop-types/index.js","./Input":"src/components/Input.js","./Button":"src/components/Button.js"}],"src/components/styles/NavStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38911,6 +38917,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 var _PeopleContainerStyled = _interopRequireDefault(require("./styles/PeopleContainerStyled"));
 
 var _Spinner = _interopRequireDefault(require("./Spinner"));
@@ -38938,9 +38946,13 @@ const PeopleContainer = ({
   }, people[key].name)))));
 };
 
+PeopleContainer.propTypes = {
+  people: _propTypes.default.array.isRequired,
+  isLoading: _propTypes.default.bool
+};
 var _default = PeopleContainer;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./styles/PeopleContainerStyled":"src/components/styles/PeopleContainerStyled.js","./Spinner":"src/components/Spinner.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Video.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"node_modules/prop-types/index.js","./styles/PeopleContainerStyled":"src/components/styles/PeopleContainerStyled.js","./Spinner":"src/components/Spinner.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Video.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38955,6 +38967,8 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
@@ -38973,7 +38987,7 @@ const Video = ({
   let [isLoading, setIsLoading] = (0, _react.useState)(true);
 
   const getVideos = async () => {
-    await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`).then(response => {
+    await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${"f8efee7e451d2ca98ae50114ad74aeeb"}&language=en-US`).then(response => {
       if (response.data.results.length) {
         setVideo(video = response.data.results[0]);
         setIsVideo(isVideo = true);
@@ -39004,9 +39018,12 @@ const Video = ({
   })) : "")));
 };
 
+Video.propTypes = {
+  movieId: _propTypes.default.string.isRequired
+};
 var _default = Video;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./Spinner":"src/components/Spinner.js"}],"src/components/MoviePage.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./Spinner":"src/components/Spinner.js"}],"src/components/MoviePage.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39021,6 +39038,8 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _MovieStyled = _interopRequireDefault(require("./styles/MovieStyled"));
 
@@ -39039,14 +39058,14 @@ const MoviePage = ({
   let [isLoading, setIsLoading] = (0, _react.useState)(true);
 
   const getMovie = async () => {
-    await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`).then(response => {
+    await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${"f8efee7e451d2ca98ae50114ad74aeeb"}&language=en-US`).then(response => {
       setMovie(movie = response.data);
       setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));
   };
 
   const getActors = async () => {
-    await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=f8efee7e451d2ca98ae50114ad74aeeb`).then(response => {
+    await _axios.default.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${"f8efee7e451d2ca98ae50114ad74aeeb"}`).then(response => {
       setPeople(people = response.data.cast);
       setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));
@@ -39097,9 +39116,12 @@ const MoviePage = ({
   })));
 };
 
+MoviePage.propTypes = {
+  match: _propTypes.default.object.isRequired
+};
 var _default = MoviePage;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./styles/MovieStyled":"src/components/styles/MovieStyled.js","./PeopleContainer":"src/components/PeopleContainer.js","./Video":"src/components/Video.js","./Spinner":"src/components/Spinner.js"}],"src/components/styles/PersonStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","./styles/MovieStyled":"src/components/styles/MovieStyled.js","./PeopleContainer":"src/components/PeopleContainer.js","./Video":"src/components/Video.js","./Spinner":"src/components/Spinner.js"}],"src/components/styles/PersonStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39133,6 +39155,8 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _PersonStyled = _interopRequireDefault(require("./styles/PersonStyled"));
 
@@ -39204,9 +39228,12 @@ const Person = ({
   })));
 };
 
+Person.propTypes = {
+  match: _propTypes.default.object.isRequired
+};
 var _default = Person;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./styles/PersonStyled":"src/components/styles/PersonStyled.js","./Results":"src/components/Results.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg","./Spinner":"src/components/Spinner.js"}],"node_modules/paginator/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","./styles/PersonStyled":"src/components/styles/PersonStyled.js","./Results":"src/components/Results.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg","./Spinner":"src/components/Spinner.js"}],"node_modules/paginator/index.js":[function(require,module,exports) {
 module.exports = Paginator;
 
 // Paginator constructor
@@ -39815,6 +39842,8 @@ var _reactRouterDom = require("react-router-dom");
 
 var _axios = _interopRequireDefault(require("axios"));
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 var _Results = _interopRequireDefault(require("./Results"));
 
 var _PaginationComponent = _interopRequireDefault(require("./PaginationComponent"));
@@ -39884,10 +39913,14 @@ const ResultsPage = ({
   }) : "");
 };
 
+ResultsPage.propTypes = {
+  match: _propTypes.default.object.isRequired
+};
+
 var _default = (0, _reactRouterDom.withRouter)(ResultsPage);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","axios":"node_modules/axios/index.js","./Results":"src/components/Results.js","./PaginationComponent":"src/components/PaginationComponent.js"}],"src/components/PopularMovies.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","./Results":"src/components/Results.js","./PaginationComponent":"src/components/PaginationComponent.js"}],"src/components/PopularMovies.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39912,7 +39945,7 @@ const PopularMovies = () => {
   let [isLoading, setIsLoading] = (0, _react.useState)(true);
 
   const getPopular = async () => {
-    await _axios.default.get("https://api.themoviedb.org/3/movie/popular?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US&page=1").then(response => {
+    await _axios.default.get(`https://api.themoviedb.org/3/movie/popular?api_key=${"f8efee7e451d2ca98ae50114ad74aeeb"}&language=en-US&page=1`).then(response => {
       setPopularMovies(popularMovies = response.data.results);
       setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));

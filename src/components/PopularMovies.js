@@ -10,13 +10,13 @@ const PopularMovies = () => {
 	const getPopular = async () => {
 		await axios
 			.get(
-				"https://api.themoviedb.org/3/movie/popular?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US&page=1"
+				`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
 			)
-			.then(response => {
+			.then((response) => {
 				setPopularMovies((popularMovies = response.data.results));
 				setIsLoading((isLoading = false));
 			})
-			.catch(err => console.log(`this is error ${err}`));
+			.catch((err) => console.log(`this is error ${err}`));
 	};
 
 	useEffect(() => {

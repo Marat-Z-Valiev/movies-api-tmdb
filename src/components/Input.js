@@ -6,6 +6,7 @@ const InputStyles = styled.input`
 	border: 2px solid black;
 	padding: 10px;
 	margin-right: 10px;
+	border-radius: 15px;
 `;
 
 const Input = ({handleChange, handleClick}) => {
@@ -41,7 +42,7 @@ const Input = ({handleChange, handleClick}) => {
 };
 
 Input.propTypes = {
-	// handleChange: PropTypes.func.isRequired,
+	handleChange: PropTypes.func.isRequired,
 	handleClick: PropTypes.func.isRequired,
 };
 

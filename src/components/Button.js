@@ -2,7 +2,7 @@ import React from "react";
 import ButtonStyled from "./styles/ButtonStyled";
 import PropTypes from "prop-types";
 
-const Button = ({handleClick, isLoading, isDisabled, closeMenu}) => {
+const Button = ({handleClick, isDisabled, closeMenu}) => {
 	const handleKeyPress = (event, handleFunction) => {
 		if (event.key === "Enter") {
 			handleFunction;
@@ -20,15 +20,15 @@ const Button = ({handleClick, isLoading, isDisabled, closeMenu}) => {
 			onKeyPress={(event) => handleKeyPress(event(), handleClick())}
 			disabled={isDisabled}
 		>
-			{isLoading ? "Loading" : "Search"}
+			Search
 		</ButtonStyled>
 	);
 };
 
 Button.propTypes = {
-	handleClick: PropTypes.func,
-	isLoading: PropTypes.bool,
+	handleClick: PropTypes.func.isRequired,
 	isDisabled: PropTypes.bool,
+	closeMenu: PropTypes.func,
 };
 
 export default Button;
