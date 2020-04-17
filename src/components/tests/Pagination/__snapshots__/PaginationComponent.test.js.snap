@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PaginationComponent should render correctly 1`] = `
-<styled.div>
-  <styled.div>
+<PaginationStyled__PaginationBlockStyled>
+  <PaginationStyled>
     <Pagination
       activeClass="active"
       activePage={1}
@@ -18,6 +18,6 @@ exports[`PaginationComponent should render correctly 1`] = `
       prevPageText="⟨"
       totalItemsCount={100}
     />
-  </styled.div>
-</styled.div>
+  </PaginationStyled>
+</PaginationStyled__PaginationBlockStyled>
 `;

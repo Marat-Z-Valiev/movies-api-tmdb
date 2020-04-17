@@ -1,12 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Input should render correctly 1`] = `
-<styled.input
+<Input__InputStyles
+  className="input"
   onBlur={[Function]}
   onChange={[Function]}
   onFocus={[Function]}
   onKeyPress={[Function]}
-  placeholder="Enter search query"
+  placeholder="Search"
   type="text"
 />
 `;
