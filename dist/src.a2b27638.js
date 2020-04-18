@@ -35322,7 +35322,7 @@ if ("development" !== 'production' && "development" !== 'test' && typeof window 
 
 var _default = styled;
 exports.default = _default;
-},{"react-is":"node_modules/react-is/index.js","react":"node_modules/react/index.js","shallowequal":"node_modules/shallowequal/index.js","@emotion/stylis":"node_modules/@emotion/stylis/dist/stylis.browser.esm.js","@emotion/unitless":"node_modules/@emotion/unitless/dist/unitless.browser.esm.js","@emotion/is-prop-valid":"node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","hoist-non-react-statics":"node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js","process":"node_modules/process/browser.js"}],"src/components/Input.js":[function(require,module,exports) {
+},{"react-is":"node_modules/react-is/index.js","react":"node_modules/react/index.js","shallowequal":"node_modules/shallowequal/index.js","@emotion/stylis":"node_modules/@emotion/stylis/dist/stylis.browser.esm.js","@emotion/unitless":"node_modules/@emotion/unitless/dist/unitless.browser.esm.js","@emotion/is-prop-valid":"node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","hoist-non-react-statics":"node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js","process":"node_modules/process/browser.js"}],"src/components/Input/Input.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -35342,12 +35342,13 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 const InputStyles = _styledComponents.default.input.withConfig({
   displayName: "Input__InputStyles",
-  componentId: "w8unso-0"
+  componentId: "sc-1vg20ah-0"
 })(["border:2px solid black;padding:10px;margin-right:10px;border-radius:15px;"]);
 
 const Input = ({
   handleChange,
-  handleClick
+  handleClick,
+  closeMenu
 }) => {
   let [placeholderText, setPlaceholderText] = (0, _react.useState)("Search");
 
@@ -35359,9 +35360,14 @@ const Input = ({
     setPlaceholderText(placeholderText = "Search");
   };
 
-  const handleKeyPress = (event, handleFunction) => {
+  const runFunctions = () => {
+    closeMenu();
+    handleClick();
+  };
+
+  const handleKeyPress = event => {
     if (event.key === "Enter") {
-      handleFunction();
+      runFunctions();
       setPlaceholderText(placeholderText = "Search");
       document.querySelector(".input").value = "";
     }
@@ -35375,7 +35381,7 @@ const Input = ({
     onChange: handleChange,
     onFocus: handleFocus,
     onBlur: handleOnBlur,
-    onKeyPress: event => handleKeyPress(event, handleClick),
+    onKeyPress: event => handleKeyPress(event),
     placeholder: placeholderText
   });
 };
@@ -35386,7 +35392,7 @@ Input.propTypes = {
 };
 var _default = Input;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/styles/ButtonStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/Button/ButtonStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -35400,12 +35406,12 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 const ButtonStyled = _styledComponents.default.button.withConfig({
   displayName: "ButtonStyled",
-  componentId: "w8aex0-0"
+  componentId: "j2c7ts-0"
 })(["display:inline-block;font-family:\"Baloo Chettan 2\",cursive;font-size:1rem;padding:0.3em;margin:0 0.3em 0.3em 0;border-radius:0.4em;box-sizing:border-box;font-weight:400;color:#ffffff;background-color:#751aff;box-shadow:inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);text-align:center;position:relative;&:hover{cursor:pointer;}:disabled{opacity:0.5;cursor:no-drop;}"]);
 
 var _default = ButtonStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Button.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Button/Button.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -35417,7 +35423,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _ButtonStyled = _interopRequireDefault(require("./styles/ButtonStyled"));
+var _ButtonStyled = _interopRequireDefault(require("./ButtonStyled"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -35426,12 +35432,6 @@ const Button = ({
   isDisabled,
   closeMenu
 }) => {
-  const handleKeyPress = (event, handleFunction) => {
-    if (event.key === "Enter") {
-      handleFunction;
-    }
-  };
-
   const runFunctions = () => {
     closeMenu();
     handleClick();
@@ -35440,7 +35440,6 @@ const Button = ({
   return _react.default.createElement(_ButtonStyled.default, {
     type: "button",
     onClick: runFunctions,
-    onKeyPress: event => handleKeyPress(event(), handleClick()),
     disabled: isDisabled
   }, "Search");
 };
@@ -35452,7 +35451,7 @@ Button.propTypes = {
 };
 var _default = Button;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","./styles/ButtonStyled":"src/components/styles/ButtonStyled.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/Search.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","./ButtonStyled":"src/components/Button/ButtonStyled.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/Search/Search.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -35470,9 +35469,9 @@ var _reactRouterDom = require("react-router-dom");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Input = _interopRequireDefault(require("./Input"));
+var _Input = _interopRequireDefault(require("../Input/Input"));
 
-var _Button = _interopRequireDefault(require("./Button"));
+var _Button = _interopRequireDefault(require("../Button/Button"));
 
 const Search = ({
   history,
@@ -35502,11 +35501,12 @@ const Search = ({
 
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Input.default, {
     handleChange: handleChange,
-    handleClick: handleClick
+    handleClick: handleClick,
+    closeMenu: closeMenu
   }), _react.default.createElement(_Button.default, {
     handleClick: handleClick,
-    closeMenu: closeMenu,
-    isDisabled: isDisabled
+    isDisabled: isDisabled,
+    closeMenu: closeMenu
   }));
 };
 
@@ -35518,7 +35518,7 @@ Search.propTYpes = {
 var _default = (0, _reactRouterDom.withRouter)(Search);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"node_modules/prop-types/index.js","./Input":"src/components/Input.js","./Button":"src/components/Button.js"}],"src/components/styles/NavStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"node_modules/prop-types/index.js","../Input/Input":"src/components/Input/Input.js","../Button/Button":"src/components/Button/Button.js"}],"src/components/Navigation/NavigationStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -35531,13 +35531,13 @@ exports.default = void 0;
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 const NavStyled = _styledComponents.default.nav.withConfig({
-  displayName: "NavStyled",
-  componentId: "sc-1y27wdx-0"
+  displayName: "NavigationStyled__NavStyled",
+  componentId: "sc-80880r-0"
 })([".menu{display:flex;justify-content:space-around;align-items:center;background-color:#3f51b5;width:100vw;height:60px;width:100%;box-shadow:0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);z-index:5;margin-top:0;.toggle{display:none;}h1{font-size:2.3rem;}li{list-style:none;font-size:1.3rem;}a{text-decoration:none;color:#ffffff;&:hover{color:#11ee1c;text-decoration:underline;}}a.active{color:#11ee1c;}@media (min-width:320px) and (max-width:425px){flex-direction:row;justify-content:space-between;align-items:center;flex-wrap:wrap;width:100%;z-index:5;height:115px;box-shadow:none;.logo{margin-left:20px;}.toggle{display:block;order:1;button{background:transparent;border:none;color:#ffffff;margin-right:20px;}}.item,.search{width:100%;text-align:center;order:2;padding:15px 5px;transform:translateX(-100%);transition:transform 0.5s ease-out;background-color:#3f51b5;}.open{display:block;transform:translateY(0);}}}"]);
 
 var _default = NavStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Navigation.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Navigation/Navigation.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -35553,9 +35553,9 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _Search = _interopRequireDefault(require("./Search"));
+var _Search = _interopRequireDefault(require("../Search/Search"));
 
-var _NavStyled = _interopRequireDefault(require("./styles/NavStyled"));
+var _NavigationStyled = _interopRequireDefault(require("./NavigationStyled"));
 
 const Navigation = () => {
   (0, _react.useEffect)(() => {
@@ -35584,6 +35584,7 @@ const Navigation = () => {
 
   const closeMenuAfterClick = () => {
     const liElements = document.querySelectorAll(".item");
+    const logo = document.querySelector(".logo");
     liElements.forEach(element => {
       element.addEventListener("click", closeMenu);
     });
@@ -35592,7 +35593,7 @@ const Navigation = () => {
   (0, _react.useEffect)(() => {
     closeMenuAfterClick();
   }, []);
-  return _react.default.createElement(_NavStyled.default, null, _react.default.createElement("ul", {
+  return _react.default.createElement(_NavigationStyled.default, null, _react.default.createElement("ul", {
     className: "menu",
     style: stickyStyle
   }, _react.default.createElement("li", {
@@ -35624,7 +35625,7 @@ const Navigation = () => {
 
 var _default = Navigation;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Search":"src/components/Search.js","./styles/NavStyled":"src/components/styles/NavStyled.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../Search/Search":"src/components/Search/Search.js","./NavigationStyled":"src/components/Navigation/NavigationStyled.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -37178,7 +37179,7 @@ module.exports.default = axios;
 
 },{"./utils":"node_modules/axios/lib/utils.js","./helpers/bind":"node_modules/axios/lib/helpers/bind.js","./core/Axios":"node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"node_modules/axios/lib/core/mergeConfig.js","./defaults":"node_modules/axios/lib/defaults.js","./cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"node_modules/axios/lib/helpers/spread.js"}],"node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/components/styles/ResultItemStyled.js":[function(require,module,exports) {
+},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/components/ResultItem/ResultItemStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -37192,7 +37193,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 const ResultItemStyled = _styledComponents.default.div.withConfig({
   displayName: "ResultItemStyled",
-  componentId: "sy95q7-0"
+  componentId: "sc-14t8i0q-0"
 })(["display:grid;justify-items:center;h2,h3{text-align:center;margin:0;}h3{margin-bottom:15px;}img{border:2px solid black;justify-self:center;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}}}.no-image{width:346px;height:517px;}@media (min-width:320px) and (max-width:425px){h3{margin-bottom:20px;}img{margin-bottom:20px;}}"]);
 
 var _default = ResultItemStyled;
@@ -37201,7 +37202,7 @@ exports.default = _default;
 "use strict";
 
 module.exports = "/no-image-available.676cb25e.jpg";
-},{}],"src/components/ResultItem.js":[function(require,module,exports) {
+},{}],"src/components/ResultItem/ResultItem.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -37217,9 +37218,9 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _ResultItemStyled = _interopRequireDefault(require("./styles/ResultItemStyled"));
+var _ResultItemStyled = _interopRequireDefault(require("./ResultItemStyled"));
 
-var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
+var _noImageAvailable = _interopRequireDefault(require("../../images/no-image-available.jpg"));
 
 const ResultItem = ({
   result
@@ -37248,7 +37249,7 @@ ResultItem.propTypes = {
 };
 var _default = ResultItem;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./styles/ResultItemStyled":"src/components/styles/ResultItemStyled.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/styles/ResultsContainerStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./ResultItemStyled":"src/components/ResultItem/ResultItemStyled.js","../../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Results/ResultsContainerStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -37262,12 +37263,12 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 const ResultsContainerStyled = _styledComponents.default.div.withConfig({
   displayName: "ResultsContainerStyled",
-  componentId: "jryem8-0"
+  componentId: "y8dhwe-0"
 })(["display:grid;justify-content:center;grid-template-columns:repeat(auto-fill,minmax(333px,1fr));grid-gap:40px 20px;padding:30px;grid-template-rows:1fr min-content;@media (min-width:320px) and (max-width:425px){display:block;}"]);
 
 var _default = ResultsContainerStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Results.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Results/Results.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -37279,9 +37280,9 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _ResultItem = _interopRequireDefault(require("./ResultItem"));
+var _ResultItem = _interopRequireDefault(require("../ResultItem/ResultItem"));
 
-var _ResultsContainerStyled = _interopRequireDefault(require("./styles/ResultsContainerStyled"));
+var _ResultsContainerStyled = _interopRequireDefault(require("./ResultsContainerStyled"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -37309,7 +37310,7 @@ Results.propTypes = {
 };
 var _default = Results;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","./ResultItem":"src/components/ResultItem.js","./styles/ResultsContainerStyled":"src/components/styles/ResultsContainerStyled.js","prop-types":"node_modules/prop-types/index.js"}],"node_modules/@emotion/sheet/dist/sheet.browser.esm.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","../ResultItem/ResultItem":"src/components/ResultItem/ResultItem.js","./ResultsContainerStyled":"src/components/Results/ResultsContainerStyled.js","prop-types":"node_modules/prop-types/index.js"}],"node_modules/@emotion/sheet/dist/sheet.browser.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38797,7 +38798,7 @@ var Loader = /** @class */ (function (_super) {
 exports.default = Loader;
 var templateObject_1, templateObject_2, templateObject_3;
 
-},{"react":"node_modules/react/index.js","@emotion/core":"node_modules/@emotion/core/dist/core.browser.esm.js","./helpers":"node_modules/react-spinners/helpers/index.js"}],"src/components/Spinner.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@emotion/core":"node_modules/@emotion/core/dist/core.browser.esm.js","./helpers":"node_modules/react-spinners/helpers/index.js"}],"src/components/Spinner/Spinner.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38815,7 +38816,7 @@ var _GridLoader = _interopRequireDefault(require("react-spinners/GridLoader"));
 
 const SpinnerStyled = _styledComponents.default.div.withConfig({
   displayName: "Spinner__SpinnerStyled",
-  componentId: "sc-11jqix7-0"
+  componentId: "sc-48ybhk-0"
 })(["div:nth-child(1){margin:0 auto;}"]);
 
 const Spinner = () => {
@@ -38824,7 +38825,7 @@ const Spinner = () => {
 
 var _default = Spinner;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","react-spinners/GridLoader":"node_modules/react-spinners/GridLoader.js"}],"src/components/Home.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","react-spinners/GridLoader":"node_modules/react-spinners/GridLoader.js"}],"src/components/Home/Home.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38840,9 +38841,9 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _Results = _interopRequireDefault(require("./Results"));
+var _Results = _interopRequireDefault(require("../Results/Results"));
 
-var _Spinner = _interopRequireDefault(require("./Spinner"));
+var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
 
 const Home = () => {
   let [returnedResults, setResult] = (0, _react.useState)([]);
@@ -38865,7 +38866,7 @@ const Home = () => {
 
 var _default = Home;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./Results":"src/components/Results.js","./Spinner":"src/components/Spinner.js"}],"src/components/styles/MovieStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","../Results/Results":"src/components/Results/Results.js","../Spinner/Spinner":"src/components/Spinner/Spinner.js"}],"src/components/MoviePage/MovieStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38879,12 +38880,12 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 const MovieStyled = _styledComponents.default.div.withConfig({
   displayName: "MovieStyled",
-  componentId: "sc-157i9ak-0"
+  componentId: "ip4b14-0"
 })(["display:grid;grid-template-columns:30% 70%;@media (min-width:768px) and (max-width:1024px){grid-template-columns:1fr;}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;justify-content:center;}img{margin-left:35px;@media (min-width:768px) and (max-width:1024px){margin:0 auto;}}.movie-stats{display:flex;justify-content:space-around;@media (min-width:768px) and (max-width:1024px){margin-top:30px;}@media (min-width:320px) and (max-width:425px){flex-direction:column;margin-top:30px;}}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}h2{text-align:center;}.far,.fas{margin-right:10px;}.overview{grid-column-start:1;grid-column-end:4;justify-self:center;font-size:1.5rem;@media (min-width:768px) and (max-width:1024px){padding:20px;}@media (min-width:320px) and (max-width:425px){padding:20px;text-align:center;}}"]);
 
 var _default = MovieStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/styles/PeopleContainerStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PeopleContainer/PeopleContainerStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38898,12 +38899,12 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 const PeopleContainerStyled = _styledComponents.default.div.withConfig({
   displayName: "PeopleContainerStyled",
-  componentId: "sc-143cw12-0"
+  componentId: "sc-1xs4iks-0"
 })(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-items:center;width:80%;@media (max-width:768px){width:auto;}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}.person{display:grid;text-align:center;padding:0;border:1px solid #ddd;max-width:80%;background-color:#ffffff;border-radius:15px;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}img{margin:0;width:100%;border-radius:15px 15px 0 0;}.name{padding:0;align-self:flex-end;}}"]);
 
 var _default = PeopleContainerStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PeopleContainer.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PeopleContainer/PeopleContainer.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38919,11 +38920,11 @@ var _reactRouterDom = require("react-router-dom");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _PeopleContainerStyled = _interopRequireDefault(require("./styles/PeopleContainerStyled"));
+var _PeopleContainerStyled = _interopRequireDefault(require("./PeopleContainerStyled"));
 
-var _Spinner = _interopRequireDefault(require("./Spinner"));
+var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
 
-var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
+var _noImageAvailable = _interopRequireDefault(require("../../images/no-image-available.jpg"));
 
 const PeopleContainer = ({
   people,
@@ -38952,7 +38953,7 @@ PeopleContainer.propTypes = {
 };
 var _default = PeopleContainer;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"node_modules/prop-types/index.js","./styles/PeopleContainerStyled":"src/components/styles/PeopleContainerStyled.js","./Spinner":"src/components/Spinner.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Video.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"node_modules/prop-types/index.js","./PeopleContainerStyled":"src/components/PeopleContainer/PeopleContainerStyled.js","../Spinner/Spinner":"src/components/Spinner/Spinner.js","../../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Video/Video.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -38972,11 +38973,11 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _Spinner = _interopRequireDefault(require("./Spinner"));
+var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
 
 const StyledVideo = _styledComponents.default.div.withConfig({
   displayName: "Video__StyledVideo",
-  componentId: "rh4qy9-0"
+  componentId: "bxi2yo-0"
 })(["display:flex;flex-direction:column;align-items:center;margin-top:50px;margin-bottom:100px;h2{font-size:2em;text-align:center;}"]);
 
 const Video = ({
@@ -39023,7 +39024,7 @@ Video.propTypes = {
 };
 var _default = Video;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./Spinner":"src/components/Spinner.js"}],"src/components/MoviePage.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../Spinner/Spinner":"src/components/Spinner/Spinner.js"}],"src/components/MoviePage/MoviePage.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39041,13 +39042,13 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _MovieStyled = _interopRequireDefault(require("./styles/MovieStyled"));
+var _MovieStyled = _interopRequireDefault(require("./MovieStyled"));
 
-var _PeopleContainer = _interopRequireDefault(require("./PeopleContainer"));
+var _PeopleContainer = _interopRequireDefault(require("../PeopleContainer/PeopleContainer"));
 
-var _Video = _interopRequireDefault(require("./Video"));
+var _Video = _interopRequireDefault(require("../Video/Video"));
 
-var _Spinner = _interopRequireDefault(require("./Spinner"));
+var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
 
 const MoviePage = ({
   match
@@ -39121,7 +39122,7 @@ MoviePage.propTypes = {
 };
 var _default = MoviePage;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","./styles/MovieStyled":"src/components/styles/MovieStyled.js","./PeopleContainer":"src/components/PeopleContainer.js","./Video":"src/components/Video.js","./Spinner":"src/components/Spinner.js"}],"src/components/styles/PersonStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","./MovieStyled":"src/components/MoviePage/MovieStyled.js","../PeopleContainer/PeopleContainer":"src/components/PeopleContainer/PeopleContainer.js","../Video/Video":"src/components/Video/Video.js","../Spinner/Spinner":"src/components/Spinner/Spinner.js"}],"src/components/Person/PersonStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39135,12 +39136,12 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 const PersonStyled = _styledComponents.default.div.withConfig({
   displayName: "PersonStyled",
-  componentId: "sc-1xl28r5-0"
+  componentId: "sc-1gqciy8-0"
 })(["display:flex;flex-direction:row;@media (min-width:320px) and (max-width:425px){flex-direction:column;}img{margin-left:40px;}.info{text-align:left;margin-left:10px;padding-left:15px;@media (min-width:320px) and (max-width:425px){text-align:center;}p{font-size:1.2rem;@media (min-width:320px) and (max-width:425px){padding:10px;}}}.fas{margin-right:10px;}"]);
 
 var _default = PersonStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Person.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Person/Person.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39158,13 +39159,13 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _PersonStyled = _interopRequireDefault(require("./styles/PersonStyled"));
+var _PersonStyled = _interopRequireDefault(require("./PersonStyled"));
 
-var _Results = _interopRequireDefault(require("./Results"));
+var _Results = _interopRequireDefault(require("../Results/Results"));
 
-var _noImageAvailable = _interopRequireDefault(require("../images/no-image-available.jpg"));
+var _noImageAvailable = _interopRequireDefault(require("../../images/no-image-available.jpg"));
 
-var _Spinner = _interopRequireDefault(require("./Spinner"));
+var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
 
 const Person = ({
   match
@@ -39175,14 +39176,14 @@ const Person = ({
   let [isLoading, setIsLoading] = (0, _react.useState)(true);
 
   const getPersonInfo = async () => {
-    await _axios.default.get(`https://api.themoviedb.org/3/person/${personId}?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`).then(response => {
+    await _axios.default.get(`https://api.themoviedb.org/3/person/${personId}?api_key=${"f8efee7e451d2ca98ae50114ad74aeeb"}&language=en-US`).then(response => {
       setPersonInfo(personInfo = response.data);
       setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));
   };
 
   const getMovieCreidts = async () => {
-    _axios.default.get(`https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US`).then(response => {
+    _axios.default.get(`https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${"f8efee7e451d2ca98ae50114ad74aeeb"}&language=en-US`).then(response => {
       setMovieCredits(movieCredits = response.data.cast);
     }).catch(err => console.log(`this is error ${err}`));
   };
@@ -39233,7 +39234,7 @@ Person.propTypes = {
 };
 var _default = Person;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","./styles/PersonStyled":"src/components/styles/PersonStyled.js","./Results":"src/components/Results.js","../images/no-image-available.jpg":"src/images/no-image-available.jpg","./Spinner":"src/components/Spinner.js"}],"node_modules/paginator/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","./PersonStyled":"src/components/Person/PersonStyled.js","../Results/Results":"src/components/Results/Results.js","../../images/no-image-available.jpg":"src/images/no-image-available.jpg","../Spinner/Spinner":"src/components/Spinner/Spinner.js"}],"node_modules/paginator/index.js":[function(require,module,exports) {
 module.exports = Paginator;
 
 // Paginator constructor
@@ -39756,7 +39757,7 @@ _defineProperty(Pagination, "defaultProps", {
     return "#";
   }
 });
-},{"react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","paginator":"node_modules/paginator/index.js","./Page":"node_modules/react-js-pagination/dist/Page.js","classnames":"node_modules/classnames/index.js"}],"src/components/styles/PaginationStyled.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","paginator":"node_modules/paginator/index.js","./Page":"node_modules/react-js-pagination/dist/Page.js","classnames":"node_modules/classnames/index.js"}],"src/components/Pagination/PaginationStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39770,18 +39771,18 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 const PaginationBlockStyled = _styledComponents.default.div.withConfig({
   displayName: "PaginationStyled__PaginationBlockStyled",
-  componentId: "sc-1frbiz5-0"
+  componentId: "v1krjb-0"
 })(["display:flex;justify-content:center;@media (min-width:320px) and (max-width:425px){font-size:0.5rem;}"]);
 
 exports.PaginationBlockStyled = PaginationBlockStyled;
 
 const PaginationStyled = _styledComponents.default.div.withConfig({
   displayName: "PaginationStyled",
-  componentId: "sc-1frbiz5-1"
+  componentId: "v1krjb-1"
 })([".pagination{display:flex;flex-direction:row;border-color:#ddd;border-radius:8px;background-color:#ffffff;padding-left:0;}li{list-style:none;margin:0;}.pagination li.active{background-color:#4285f4;color:white;}.pagination li:hover:not(.active){background-color:#ddd;}.pagination a{color:#00000b;font-size:1.2rem;float:left;padding:8px 16px;text-decoration:none;}"]);
 
 exports.PaginationStyled = PaginationStyled;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PaginationComponent.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Pagination/PaginationComponent.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39795,7 +39796,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactJsPagination = _interopRequireDefault(require("react-js-pagination"));
 
-var _PaginationStyled = require("./styles/PaginationStyled");
+var _PaginationStyled = require("./PaginationStyled");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -39824,7 +39825,7 @@ PaginationComponent.propTypes = {
 };
 var _default = PaginationComponent;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-js-pagination":"node_modules/react-js-pagination/dist/Pagination.js","./styles/PaginationStyled":"src/components/styles/PaginationStyled.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/ResultsPage.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-js-pagination":"node_modules/react-js-pagination/dist/Pagination.js","./PaginationStyled":"src/components/Pagination/PaginationStyled.js","prop-types":"node_modules/prop-types/index.js"}],"src/components/ResultsPage/ResultsPage.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39844,9 +39845,9 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Results = _interopRequireDefault(require("./Results"));
+var _Results = _interopRequireDefault(require("../Results/Results"));
 
-var _PaginationComponent = _interopRequireDefault(require("./PaginationComponent"));
+var _PaginationComponent = _interopRequireDefault(require("../Pagination/PaginationComponent"));
 
 const apiKey = "f8efee7e451d2ca98ae50114ad74aeeb";
 const baseUrl = "https://api.themoviedb.org/3/search/movie?api_key=";
@@ -39920,7 +39921,7 @@ ResultsPage.propTypes = {
 var _default = (0, _reactRouterDom.withRouter)(ResultsPage);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","./Results":"src/components/Results.js","./PaginationComponent":"src/components/PaginationComponent.js"}],"src/components/PopularMovies.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","axios":"node_modules/axios/index.js","prop-types":"node_modules/prop-types/index.js","../Results/Results":"src/components/Results/Results.js","../Pagination/PaginationComponent":"src/components/Pagination/PaginationComponent.js"}],"src/components/PopularMovies/PopularMovies.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39936,9 +39937,9 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _Results = _interopRequireDefault(require("./Results"));
+var _Results = _interopRequireDefault(require("../Results/Results"));
 
-var _Spinner = _interopRequireDefault(require("./Spinner"));
+var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
 
 const PopularMovies = () => {
   let [popularMovies, setPopularMovies] = (0, _react.useState)([]);
@@ -39966,7 +39967,7 @@ const PopularMovies = () => {
 
 var _default = PopularMovies;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./Results":"src/components/Results.js","./Spinner":"src/components/Spinner.js"}],"src/components/PeoplePage.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","../Results/Results":"src/components/Results/Results.js","../Spinner/Spinner":"src/components/Spinner/Spinner.js"}],"src/components/PeoplePage/PeoplePage.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -39982,16 +39983,16 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _PeopleContainer = _interopRequireDefault(require("./PeopleContainer"));
+var _PeopleContainer = _interopRequireDefault(require("../PeopleContainer/PeopleContainer"));
 
-var _Spinner = _interopRequireDefault(require("./Spinner"));
+var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
 
 const PeoplePage = () => {
   let [popularPeople, setPopularPeople] = (0, _react.useState)([]);
   let [isLoading, setIsLoading] = (0, _react.useState)(true);
 
   const getPopularPeople = async () => {
-    await _axios.default.get("https://api.themoviedb.org/3/person/popular?api_key=f8efee7e451d2ca98ae50114ad74aeeb&language=en-US&page=1").then(response => {
+    await _axios.default.get(`https://api.themoviedb.org/3/person/popular?api_key=${"f8efee7e451d2ca98ae50114ad74aeeb"}&language=en-US&page=1`).then(response => {
       setPopularPeople(popularPeople = response.data.results);
       setIsLoading(isLoading = false);
     }).catch(err => console.log(`this is error ${err}`));
@@ -40012,7 +40013,7 @@ const PeoplePage = () => {
 
 var _default = PeoplePage;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","./PeopleContainer":"src/components/PeopleContainer.js","./Spinner":"src/components/Spinner.js"}],"src/components/App.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"node_modules/@babel/runtime/helpers/interopRequireWildcard.js","react":"node_modules/react/index.js","axios":"node_modules/axios/index.js","../PeopleContainer/PeopleContainer":"src/components/PeopleContainer/PeopleContainer.js","../Spinner/Spinner":"src/components/Spinner/Spinner.js"}],"src/components/App.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -40026,19 +40027,19 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _Navigation = _interopRequireDefault(require("./Navigation"));
+var _Navigation = _interopRequireDefault(require("./Navigation/Navigation"));
 
-var _Home = _interopRequireDefault(require("./Home"));
+var _Home = _interopRequireDefault(require("./Home/Home"));
 
-var _MoviePage = _interopRequireDefault(require("./MoviePage"));
+var _MoviePage = _interopRequireDefault(require("./MoviePage/MoviePage"));
 
-var _Person = _interopRequireDefault(require("./Person"));
+var _Person = _interopRequireDefault(require("./Person/Person"));
 
-var _ResultsPage = _interopRequireDefault(require("./ResultsPage"));
+var _ResultsPage = _interopRequireDefault(require("./ResultsPage/ResultsPage"));
 
-var _PopularMovies = _interopRequireDefault(require("./PopularMovies"));
+var _PopularMovies = _interopRequireDefault(require("./PopularMovies/PopularMovies"));
 
-var _PeoplePage = _interopRequireDefault(require("./PeoplePage"));
+var _PeoplePage = _interopRequireDefault(require("./PeoplePage/PeoplePage"));
 
 var _styledComponents = require("styled-components");
 
@@ -40082,7 +40083,7 @@ const App = () => {
 
 var _default = App;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Navigation":"src/components/Navigation.js","./Home":"src/components/Home.js","./MoviePage":"src/components/MoviePage.js","./Person":"src/components/Person.js","./ResultsPage":"src/components/ResultsPage.js","./PopularMovies":"src/components/PopularMovies.js","./PeoplePage":"src/components/PeoplePage.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Navigation/Navigation":"src/components/Navigation/Navigation.js","./Home/Home":"src/components/Home/Home.js","./MoviePage/MoviePage":"src/components/MoviePage/MoviePage.js","./Person/Person":"src/components/Person/Person.js","./ResultsPage/ResultsPage":"src/components/ResultsPage/ResultsPage.js","./PopularMovies/PopularMovies":"src/components/PopularMovies/PopularMovies.js","./PeoplePage/PeoplePage":"src/components/PeoplePage/PeoplePage.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -40122,7 +40123,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64276" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57807" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

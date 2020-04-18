@@ -1,12 +1,12 @@
 import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
-import Navigation from "./Navigation";
-import Home from "./Home";
-import MoviePage from "./MoviePage";
-import Person from "./Person";
-import ResultsPage from "./ResultsPage";
-import PopularMovies from "./PopularMovies";
-import PeoplePage from "./PeoplePage";
+import Navigation from "./Navigation/Navigation";
+import Home from "./Home/Home";
+import MoviePage from "./MoviePage/MoviePage";
+import Person from "./Person/Person";
+import ResultsPage from "./ResultsPage/ResultsPage";
+import PopularMovies from "./PopularMovies/PopularMovies";
+import PeoplePage from "./PeoplePage/PeoplePage";
 import {createGlobalStyle} from "styled-components";
 
 const App = () => {

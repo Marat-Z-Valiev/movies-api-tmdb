@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultItem should render correctly 1`] = `
+<ResultItemStyled>
+  <h2>
+    Popularity undefined / 10
+  </h2>
+  <h2 />
+  <h3 />
+  <Link
+    to="/movieId=undefined"
+  >
+    <img
+      src="https://image.tmdb.org/t/p/w342/undefined"
+    />
+  </Link>
+</ResultItemStyled>
+`;

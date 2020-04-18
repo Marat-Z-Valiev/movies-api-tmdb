@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Results should render correctly 1`] = `
+<Results
+  results={Array []}
+  totalResults={100}
+>
+  <p
+    style={
+      Object {
+        "color": "#ffffff",
+        "fontSize": "1.5rem",
+        "textAlign": "center",
+      }
+    }
+  >
+    Total results is 
+    100
+  </p>
+  <ResultsContainerStyled>
+    <div
+      className="ResultsContainerStyled-y8dhwe-0 hvuKs"
+    />
+  </ResultsContainerStyled>
+</Results>
+`;

@@ -47,5 +47,10 @@
 		"enzyme-to-json": "^3.4.4",
 		"jest": "^25.1.0",
 		"parcel-bundler": "^1.12.4"
+	},
+	"jest": {
+		"moduleNameMapper": {
+			"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/fileMock.js"
+		}
 	}
 }
