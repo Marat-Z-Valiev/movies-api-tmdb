@@ -1,5 +1,5 @@
 import React from "react";
-import {shallow, configure, mount} from "enzyme";
+import {shallow, configure} from "enzyme";
 import toJSON from "enzyme-to-json";
 import Adapter from "enzyme-adapter-react-16";
 import ResultItem from "../ResultItem";
@@ -11,7 +11,7 @@ describe("ResultItem", () => {
 		result: {},
 	};
 	it("should render correctly", () => {
-		const wrapper = shallow(<ResultItem {...props} noImage />);
+		const wrapper = shallow(<ResultItem {...props} />);
 		expect(toJSON(wrapper)).toMatchSnapshot();
 	});
 });

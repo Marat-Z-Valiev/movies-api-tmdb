@@ -35369,7 +35369,7 @@ const Input = ({
     if (event.key === "Enter") {
       runFunctions();
       setPlaceholderText(placeholderText = "Search");
-      document.querySelector(".input").value = "";
+      event.currentTarget.value = "";
     }
 
     return;
@@ -35388,7 +35388,8 @@ const Input = ({
 
 Input.propTypes = {
   handleChange: _propTypes.default.func.isRequired,
-  handleClick: _propTypes.default.func.isRequired
+  handleClick: _propTypes.default.func.isRequired,
+  closeMenu: _propTypes.default.func
 };
 var _default = Input;
 exports.default = _default;
@@ -35584,7 +35585,6 @@ const Navigation = () => {
 
   const closeMenuAfterClick = () => {
     const liElements = document.querySelectorAll(".item");
-    const logo = document.querySelector(".logo");
     liElements.forEach(element => {
       element.addEventListener("click", closeMenu);
     });

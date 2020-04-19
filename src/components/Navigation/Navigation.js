@@ -33,7 +33,6 @@ const Navigation = () => {
 
 	const closeMenuAfterClick = () => {
 		const liElements = document.querySelectorAll(".item");
-		const logo = document.querySelector(".logo");
 		liElements.forEach((element) => {
 			element.addEventListener("click", closeMenu);
 		});

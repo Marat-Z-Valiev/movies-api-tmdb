@@ -15,21 +15,20 @@ describe("Button", () => {
 	});
 
 	it("should trigger the handleClick function on click", () => {
-		const handleClick = jest.fn();
-		const closeMenu = jest.fn();
-		const runFunctions = jest.fn(() => {
-			handleClick, closeMenu;
-		});
-		const wrapper = mount(
-			<Button
-				handleClick={() => {
-					runFunctions;
-				}}
-				isDisabled={false}
-			/>
-		);
-		wrapper.simulate("click");
-		expect(runFunctions).toHaveBeenCalled();
+		const handleClickFunc = jest.fn();
+		const closeMenuFunc = jest.fn();
+
+		const props = {
+			handleClick: handleClickFunc,
+			closeMenu: closeMenuFunc,
+			isDisabled: false,
+		};
+
+		const wrapper = mount(<Button {...props} />);
+		const button = wrapper.find(Button).at(0);
+		button.simulate("click");
+		expect(handleClickFunc).toHaveBeenCalled();
+		expect(closeMenuFunc).toHaveBeenCalled();
 	});
 
 	it("should be disabled if isDisabled is true", () => {

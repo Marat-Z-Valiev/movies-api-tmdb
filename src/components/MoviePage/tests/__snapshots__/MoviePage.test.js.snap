@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MoviePage should render corretly 1`] = `
+<Fragment>
+  <Spinner />
+</Fragment>
+`;

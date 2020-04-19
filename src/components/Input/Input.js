@@ -29,7 +29,7 @@ const Input = ({handleChange, handleClick, closeMenu}) => {
 		if (event.key === "Enter") {
 			runFunctions();
 			setPlaceholderText((placeholderText = "Search"));
-			document.querySelector(".input").value = "";
+			event.currentTarget.value = "";
 		}
 		return;
 	};
@@ -49,6 +49,7 @@ const Input = ({handleChange, handleClick, closeMenu}) => {
 Input.propTypes = {
 	handleChange: PropTypes.func.isRequired,
 	handleClick: PropTypes.func.isRequired,
+	closeMenu: PropTypes.func,
 };
 
 export default Input;

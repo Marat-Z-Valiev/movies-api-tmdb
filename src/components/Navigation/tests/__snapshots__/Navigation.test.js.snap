@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navigation should render correctly 1`] = `
+<NavigationStyled__NavStyled>
+  <ul
+    className="menu"
+    style={
+      Object {
+        "left": "auto",
+        "position": "fixed",
+        "right": "0",
+        "top": "0",
+        "width": "100%",
+      }
+    }
+  >
+    <li
+      className="logo"
+    >
+      <Link
+        to="/"
+      >
+        <h1>
+          Movies
+        </h1>
+      </Link>
+    </li>
+    <li
+      className="item"
+    >
+      <NavLink
+        to="/popular"
+      >
+        Popular
+      </NavLink>
+    </li>
+    <li
+      className="item"
+    >
+      <NavLink
+        to="./people"
+      >
+        People
+      </NavLink>
+    </li>
+    <li
+      className="search"
+    >
+      <withRouter(Search)
+        closeMenu={[Function]}
+      />
+    </li>
+    <li
+      className="toggle"
+    >
+      <button
+        className="hamburger-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fas fa-bars fa-3x"
+        />
+      </button>
+    </li>
+  </ul>
+</NavigationStyled__NavStyled>
+`;
