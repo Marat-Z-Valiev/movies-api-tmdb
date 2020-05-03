@@ -1,32 +1,27 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {
+	fetchPopularPeople,
+	popularPeopleSelector,
+} from "../../store/slices/popularPeople";
 import PeopleContainer from "../PeopleContainer/PeopleContainer";
 import Spinner from "../Spinner/Spinner";
+import Error from "../Error/Error";
 
 const PeoplePage = () => {
-	let [popularPeople, setPopularPeople] = useState([]);
-	let [isLoading, setIsLoading] = useState(true);
-
-	const getPopularPeople = async () => {
-		await axios
-			.get(
-				`https://api.themoviedb.org/3/person/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
-			)
-			.then((response) => {
-				setPopularPeople((popularPeople = response.data.results));
-				setIsLoading((isLoading = false));
-			})
-			.catch((err) => console.log(`this is error ${err}`));
-	};
-
+	const dispatch = useDispatch();
+	const {loading, popularPeople, hasErrors} = useSelector(
+		popularPeopleSelector
+	);
 	useEffect(() => {
-		getPopularPeople();
-	}, []);
+		dispatch(fetchPopularPeople());
+	}, [dispatch]);
 
 	return (
 		<>
+			{hasErrors ? <Error /> : ""}
 			<h1 style={{textAlign: "center", color: "#ffffff"}}>People</h1>
-			{isLoading ? <Spinner /> : <PeopleContainer people={popularPeople} />}
+			{loading ? <Spinner /> : <PeopleContainer people={popularPeople} />}
 		</>
 	);
 };

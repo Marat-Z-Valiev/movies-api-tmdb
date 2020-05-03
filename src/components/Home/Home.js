@@ -1,29 +1,28 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {
+	fetchMovies,
+	trendingMoviesSelector,
+} from "../../store/slices/trendingMovies";
 import Results from "../Results/Results";
 import Spinner from "../Spinner/Spinner";
+import Error from "../Error/Error";
 
 const Home = () => {
-	let [returnedResults, setResult] = useState([]);
-	let [isLoading, setIsLoading] = useState(true);
-
-	const fetchTrending = async () => {
-		await axios
-			.get(
-				`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
-			)
-			.then((response) => {
-				setResult((returnedResults = response.data.results));
-				setIsLoading((isLoading = false));
-			})
-			.catch((err) => console.log(`this is error ${err}`));
-	};
-
+	const dispatch = useDispatch();
+	const {loading, trendingMovies, hasErrors} = useSelector(
+		trendingMoviesSelector
+	);
 	useEffect(() => {
-		fetchTrending();
-	}, []);
+		dispatch(fetchMovies());
+	}, [dispatch]);
 
-	return <>{isLoading ? <Spinner /> : <Results results={returnedResults} />}</>;
+	return (
+		<>
+			{hasErrors ? <Error /> : ""}
+			{loading ? <Spinner /> : <Results results={trendingMovies} />}
+		</>
+	);
 };
 
 export default Home;

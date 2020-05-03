@@ -1,48 +1,26 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import MovieStyled from "./MovieStyled";
 import PeopleContainer from "../PeopleContainer/PeopleContainer";
 import Video from "../Video/Video";
 import Spinner from "../Spinner/Spinner";
+import Error from "../Error/Error";
+import {fetchMovie, movieSelector} from "../../store/slices/movie";
+import {fetchMovieCast, castSelector} from "../../store/slices/movieCast";
 
 const MoviePage = ({match}) => {
 	const movieId = match.params.id;
-	let [movie, setMovie] = useState({});
-	let [people, setPeople] = useState([]);
-	let [isLoading, setIsLoading] = useState(true);
-
-	const getMovie = async () => {
-		await axios
-			.get(
-				`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`
-			)
-			.then((response) => {
-				setMovie((movie = response.data));
-				setIsLoading((isLoading = false));
-			})
-			.catch((err) => console.log(`this is error ${err}`));
-	};
-
-	const getActors = async () => {
-		await axios
-			.get(
-				`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.API_KEY}`
-			)
-			.then((response) => {
-				setPeople((people = response.data.cast));
-				setIsLoading((isLoading = false));
-			})
-			.catch((err) => console.log(`this is error ${err}`));
-	};
+	const dispatch = useDispatch();
+	const {loading, movie, hasErrors} = useSelector(movieSelector);
+	const {cast} = useSelector(castSelector);
+	useEffect(() => {
+		dispatch(fetchMovie(movieId));
+	}, [dispatch]);
 
 	useEffect(() => {
-		getMovie();
-	}, []);
-
-	useEffect(() => {
-		getActors();
-	}, []);
+		dispatch(fetchMovieCast(movieId));
+	}, [dispatch]);
 
 	const {
 		title,
@@ -55,7 +33,8 @@ const MoviePage = ({match}) => {
 
 	return (
 		<>
-			{isLoading ? (
+			{hasErrors ? <Error /> : ""}
+			{loading ? (
 				<Spinner />
 			) : (
 				<>
@@ -85,13 +64,10 @@ const MoviePage = ({match}) => {
 							</div>
 						</div>
 					</MovieStyled>
-					{people.length ? (
+					{cast.length ? (
 						<>
 							<h1 style={{textAlign: "center"}}>Cast</h1>
-							<PeopleContainer
-								people={people.slice(0, 6)}
-								isLoading={isLoading}
-							/>
+							<PeopleContainer people={cast.slice(0, 6)} isLoading={loading} />
 						</>
 					) : (
 						""

@@ -1,53 +1,37 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchPerson, personSelector} from "../../store/slices/person";
+import {
+	fetchMovieCredits,
+	movieCreditsSelector,
+} from "../../store/slices/movieCredits";
 import PropTypes from "prop-types";
 import PersonStyled from "./PersonStyled";
 import Results from "../Results/Results";
 import noImage from "../../images/no-image-available.jpg";
 import Spinner from "../Spinner/Spinner";
+import Error from "../Error/Error";
 
 const Person = ({match}) => {
 	const personId = match.params.id;
-	let [personInfo, setPersonInfo] = useState({});
-	let [movieCredits, setMovieCredits] = useState([]);
-	let [isLoading, setIsLoading] = useState(true);
-
-	const getPersonInfo = async () => {
-		await axios
-			.get(
-				`https://api.themoviedb.org/3/person/${personId}?api_key=${process.env.API_KEY}&language=en-US`
-			)
-			.then((response) => {
-				setPersonInfo((personInfo = response.data));
-				setIsLoading((isLoading = false));
-			})
-			.catch((err) => console.log(`this is error ${err}`));
-	};
-
-	const getMovieCreidts = async () => {
-		axios
-			.get(
-				`https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${process.env.API_KEY}&language=en-US`
-			)
-			.then((response) => {
-				setMovieCredits((movieCredits = response.data.cast));
-			})
-			.catch((err) => console.log(`this is error ${err}`));
-	};
+	const dispatch = useDispatch();
+	const {loading, person, hasErrors} = useSelector(personSelector);
+	const {movieCredits} = useSelector(movieCreditsSelector);
 
 	useEffect(() => {
-		getPersonInfo();
-	}, []);
+		dispatch(fetchPerson(personId));
+	}, [dispatch]);
 
 	useEffect(() => {
-		getMovieCreidts();
-	}, []);
+		dispatch(fetchMovieCredits(personId));
+	}, [dispatch]);
 
-	const {profile_path, name, birthday, biography, gender} = personInfo;
+	const {profile_path, name, birthday, biography, gender} = person;
 
 	return (
 		<>
-			{isLoading ? (
+			{hasErrors ? <Error /> : ""}
+			{loading ? (
 				<Spinner />
 			) : (
 				<>

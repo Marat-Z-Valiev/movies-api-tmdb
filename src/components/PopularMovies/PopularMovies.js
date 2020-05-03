@@ -1,31 +1,27 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import Results from "../Results/Results";
 import Spinner from "../Spinner/Spinner";
+import Error from "../Error/Error";
+import {
+	fetchPopularMovies,
+	popularMoviesSelector,
+} from "../../store/slices/popularMovies";
 
 const PopularMovies = () => {
-	let [popularMovies, setPopularMovies] = useState([]);
-	let [isLoading, setIsLoading] = useState(true);
-
-	const getPopular = async () => {
-		await axios
-			.get(
-				`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
-			)
-			.then((response) => {
-				setPopularMovies((popularMovies = response.data.results));
-				setIsLoading((isLoading = false));
-			})
-			.catch((err) => console.log(`this is error ${err}`));
-	};
+	const dispatch = useDispatch();
+	const {loading, popularMovies, hasErrors} = useSelector(
+		popularMoviesSelector
+	);
 
 	useEffect(() => {
-		getPopular();
-	}, []);
+		dispatch(fetchPopularMovies());
+	}, [dispatch]);
 
 	return (
 		<>
-			{isLoading ? (
+			{hasErrors ? <Error /> : ""}
+			{loading ? (
 				<Spinner />
 			) : (
 				<>

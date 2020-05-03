@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Spinner from "../Spinner/Spinner";
+import Error from "../Error/Error";
+import {fetchVideo, videoSelector} from "../../store/slices/video";
 
 const StyledVideo = styled.div`
 	display: flex;
@@ -18,43 +20,23 @@ const StyledVideo = styled.div`
 `;
 
 const Video = ({movieId}) => {
-	let [video, setVideo] = useState({});
-	let [isVideo, setIsVideo] = useState(true);
-	let [isLoading, setIsLoading] = useState(true);
-
-	const getVideos = async () => {
-		await axios
-			.get(
-				`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${process.env.API_KEY}&language=en-US`
-			)
-			.then((response) => {
-				if (response.data.results.length) {
-					setVideo((video = response.data.results[0]));
-					setIsVideo((isVideo = true));
-					setIsLoading((isLoading = false));
-				} else {
-					setIsLoading((isLoading = false));
-					video = {};
-					setIsVideo((isVideo = false));
-				}
-			})
-			.catch((err) => console.log(`this is error ${err}`));
-	};
-
+	const dispatch = useDispatch();
+	const {loading, video, hasErrors} = useSelector(videoSelector);
 	useEffect(() => {
-		getVideos();
-	}, []);
+		dispatch(fetchVideo(movieId));
+	}, [dispatch]);
 
 	const {type, name, key} = video;
 	let windowWidth = window.innerWidth;
 	return (
 		<>
-			{isLoading ? (
+			{hasErrors ? <Error /> : ""}
+			{loading ? (
 				<Spinner />
 			) : (
 				<>
 					<StyledVideo>
-						{isVideo ? (
+						{type ? (
 							<>
 								<h2>{type}</h2>
 								<iframe
