@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import fadeInAnimation from "../../animation/fadeInAnimation";
 
 const ResultsContainerStyled = styled.div`
 	display: grid;
@@ -7,6 +8,7 @@ const ResultsContainerStyled = styled.div`
 	grid-gap: 40px 20px;
 	padding: 30px;
 	grid-template-rows: 1fr min-content;
+	${fadeInAnimation};
 
 	@media (min-width: 320px) and (max-width: 425px) {
 		display: block;

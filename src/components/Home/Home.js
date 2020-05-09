@@ -18,10 +18,10 @@ const Home = () => {
 	}, [dispatch]);
 
 	return (
-		<>
+		<div>
 			{hasErrors ? <Error /> : ""}
 			{loading ? <Spinner /> : <Results results={trendingMovies} />}
-		</>
+		</div>
 	);
 };
 

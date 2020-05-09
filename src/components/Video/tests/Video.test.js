@@ -15,7 +15,7 @@ describe("Video", () => {
 	it("should render correctly", () => {
 		store = mockStore(initialState);
 		const props = {
-			id: "5555",
+			movieId: "5555",
 		};
 		const wrapper = shallow(
 			<Provider store={store}>

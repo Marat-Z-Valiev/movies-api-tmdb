@@ -29,6 +29,9 @@ const movieSlice = createSlice({
 export const {getMovie, getMovieSuccess, getMovieFailure} = movieSlice.actions;
 
 export const movieSelector = (state) => state.movie;
+export const selectIsLoading = (state) => state.movie.loading;
+export const selectError = (state) => state.movie.hasErrors;
+
 export default movieSlice.reducer;
 
 export function fetchMovie(movieId) {

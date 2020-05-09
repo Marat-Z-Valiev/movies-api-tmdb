@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import fadeInAnimation from "../../animation/fadeInAnimation";
 
 const MovieStyled = styled.div`
 	display: grid;
 	grid-template-columns: 30% 70%;
+	${fadeInAnimation}
 
 	@media (min-width: 768px) and (max-width: 1024px) {
 		grid-template-columns: 1fr;

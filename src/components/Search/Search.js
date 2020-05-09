@@ -22,6 +22,8 @@ const Search = ({history, closeMenu}) => {
 	const handleClick = () => {
 		history.push(`/search=${searchQuery}`);
 		document.querySelector(".input").value = "";
+		setSearchQuery((searchQuery = ""));
+		setIsDisabled((isDisabled = true));
 	};
 
 	return (

@@ -5,13 +5,13 @@ import PropTypes from "prop-types";
 
 const Results = ({totalResults, results}) => {
 	const sortedArray = results
+		// Ignore first index in the array since it's not part of results
 		.slice(0, results.length)
 		.sort((a, b) =>
 			a.release_date && b.release_date
 				? b.release_date.split("-")[0] - a.release_date.split("-")[0]
 				: ""
 		);
-
 	return (
 		<>
 			{totalResults ? (
@@ -23,7 +23,11 @@ const Results = ({totalResults, results}) => {
 			)}
 			<ResultsContainerStyled>
 				{Object.keys(sortedArray).map((key) => (
-					<ResultItem className="result-tile" key={key} result={results[key]} />
+					<ResultItem
+						className="result-tile"
+						key={key}
+						result={sortedArray[key]}
+					/>
 				))}
 			</ResultsContainerStyled>
 		</>

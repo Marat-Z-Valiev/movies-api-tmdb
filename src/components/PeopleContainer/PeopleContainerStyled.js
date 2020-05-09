@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import fadeInAnimation from "../../animation/fadeInAnimation";
 
 const PeopleContainerStyled = styled.div`
 	display: grid;
@@ -7,6 +8,7 @@ const PeopleContainerStyled = styled.div`
 	grid-gap: 20px;
 	justify-items: center;
 	width: 80%;
+	${fadeInAnimation}
 
 	@media (max-width: 768px) {
 		width: auto;

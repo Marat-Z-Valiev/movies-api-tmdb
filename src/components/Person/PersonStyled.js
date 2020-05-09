@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import fadeInAnimation from "../../animation/fadeInAnimation";
 
 const PersonStyled = styled.div`
 	display: flex;
 	flex-direction: row;
+	${fadeInAnimation}
 
 	@media (min-width: 320px) and (max-width: 425px) {
 		flex-direction: column;

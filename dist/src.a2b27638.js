@@ -36363,7 +36363,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchMovie = fetchMovie;
-exports.default = exports.movieSelector = exports.getMovieFailure = exports.getMovieSuccess = exports.getMovie = exports.initialState = void 0;
+exports.default = exports.selectError = exports.selectIsLoading = exports.movieSelector = exports.getMovieFailure = exports.getMovieSuccess = exports.getMovie = exports.initialState = void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
@@ -36407,6 +36407,14 @@ exports.getMovie = getMovie;
 const movieSelector = state => state.movie;
 
 exports.movieSelector = movieSelector;
+
+const selectIsLoading = state => state.movie.loading;
+
+exports.selectIsLoading = selectIsLoading;
+
+const selectError = state => state.movie.hasErrors;
+
+exports.selectError = selectError;
 var _default = movieSlice.reducer;
 exports.default = _default;
 
@@ -42682,6 +42690,8 @@ const Search = ({
   const handleClick = () => {
     history.push(`/search=${searchQuery}`);
     document.querySelector(".input").value = "";
+    setSearchQuery(searchQuery = "");
+    setIsDisabled(isDisabled = true);
   };
 
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Input.default, {
@@ -42879,7 +42889,39 @@ ResultItem.propTypes = {
 };
 var _default = ResultItem;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./ResultItemStyled":"src/components/ResultItem/ResultItemStyled.js","../../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/components/Results/ResultsContainerStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./ResultItemStyled":"src/components/ResultItem/ResultItemStyled.js","../../images/no-image-available.jpg":"src/images/no-image-available.jpg"}],"src/animation/fadeInAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _styledComponents = require("styled-components");
+
+const fadeIn = (0, _styledComponents.keyframes)`
+        0% {
+			opacity: 0;
+		}
+		25% {
+			opacity: 0.2;
+		}
+		50% {
+			opacity: 0.5;
+		}
+		75% {
+			opacity: 0.8;
+		}
+		100% {
+			opacity: 1;
+		}
+`;
+const fadeInAnimation = (0, _styledComponents.css)`
+	animation: ${fadeIn} 1.3s cubic-bezier(0.42, 0, 0.52, 0.46);
+`;
+var _default = fadeInAnimation;
+exports.default = _default;
+},{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Results/ResultsContainerStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -42891,14 +42933,16 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _fadeInAnimation = _interopRequireDefault(require("../../animation/fadeInAnimation"));
+
 const ResultsContainerStyled = _styledComponents.default.div.withConfig({
   displayName: "ResultsContainerStyled",
   componentId: "y8dhwe-0"
-})(["display:grid;justify-content:center;grid-template-columns:repeat(auto-fill,minmax(333px,1fr));grid-gap:40px 20px;padding:30px;grid-template-rows:1fr min-content;@media (min-width:320px) and (max-width:425px){display:block;}"]);
+})(["display:grid;justify-content:center;grid-template-columns:repeat(auto-fill,minmax(333px,1fr));grid-gap:40px 20px;padding:30px;grid-template-rows:1fr min-content;", ";@media (min-width:320px) and (max-width:425px){display:block;}"], _fadeInAnimation.default);
 
 var _default = ResultsContainerStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Results/Results.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../animation/fadeInAnimation":"src/animation/fadeInAnimation.js"}],"src/components/Results/Results.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -42920,7 +42964,8 @@ const Results = ({
   totalResults,
   results
 }) => {
-  const sortedArray = results.slice(0, results.length).sort((a, b) => a.release_date && b.release_date ? b.release_date.split("-")[0] - a.release_date.split("-")[0] : "");
+  const sortedArray = results // Ignore first index in the array since it's not part of results
+  .slice(0, results.length).sort((a, b) => a.release_date && b.release_date ? b.release_date.split("-")[0] - a.release_date.split("-")[0] : "");
   return _react.default.createElement(_react.default.Fragment, null, totalResults ? _react.default.createElement("p", {
     style: {
       textAlign: "center",
@@ -42930,7 +42975,7 @@ const Results = ({
   }, "Total results is ", totalResults) : "", _react.default.createElement(_ResultsContainerStyled.default, null, Object.keys(sortedArray).map(key => _react.default.createElement(_ResultItem.default, {
     className: "result-tile",
     key: key,
-    result: results[key]
+    result: sortedArray[key]
   }))));
 };
 
@@ -44442,12 +44487,14 @@ var _react = _interopRequireDefault(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _fadeInAnimation = _interopRequireDefault(require("../../animation/fadeInAnimation"));
+
 var _GridLoader = _interopRequireDefault(require("react-spinners/GridLoader"));
 
 const SpinnerStyled = _styledComponents.default.div.withConfig({
   displayName: "Spinner__SpinnerStyled",
   componentId: "sc-48ybhk-0"
-})(["div:nth-child(1){margin:0 auto;}"]);
+})(["div:nth-child(1){margin:0 auto;", "}"], _fadeInAnimation.default);
 
 const Spinner = () => {
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(SpinnerStyled, null, _react.default.createElement(_GridLoader.default, null)), ";");
@@ -44455,7 +44502,7 @@ const Spinner = () => {
 
 var _default = Spinner;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","react-spinners/GridLoader":"node_modules/react-spinners/GridLoader.js"}],"src/components/Error/Error.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../animation/fadeInAnimation":"src/animation/fadeInAnimation.js","react-spinners/GridLoader":"node_modules/react-spinners/GridLoader.js"}],"src/components/Error/Error.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -44513,7 +44560,7 @@ const Home = () => {
   (0, _react.useEffect)(() => {
     dispatch((0, _trendingMovies.fetchMovies)());
   }, [dispatch]);
-  return _react.default.createElement(_react.default.Fragment, null, hasErrors ? _react.default.createElement(_Error.default, null) : "", loading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_Results.default, {
+  return _react.default.createElement("div", null, hasErrors ? _react.default.createElement(_Error.default, null) : "", loading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_Results.default, {
     results: trendingMovies
   }));
 };
@@ -44532,14 +44579,16 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _fadeInAnimation = _interopRequireDefault(require("../../animation/fadeInAnimation"));
+
 const MovieStyled = _styledComponents.default.div.withConfig({
   displayName: "MovieStyled",
   componentId: "ip4b14-0"
-})(["display:grid;grid-template-columns:30% 70%;@media (min-width:768px) and (max-width:1024px){grid-template-columns:1fr;}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;justify-content:center;}img{margin-left:35px;@media (min-width:768px) and (max-width:1024px){margin:0 auto;}}.movie-stats{display:flex;justify-content:space-around;@media (min-width:768px) and (max-width:1024px){margin-top:30px;}@media (min-width:320px) and (max-width:425px){flex-direction:column;margin-top:30px;}}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}h2{text-align:center;}.far,.fas{margin-right:10px;}.overview{grid-column-start:1;grid-column-end:4;justify-self:center;font-size:1.5rem;@media (min-width:768px) and (max-width:1024px){padding:20px;}@media (min-width:320px) and (max-width:425px){padding:20px;text-align:center;}}"]);
+})(["display:grid;grid-template-columns:30% 70%;", " @media (min-width:768px) and (max-width:1024px){grid-template-columns:1fr;}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;justify-content:center;}img{margin-left:35px;@media (min-width:768px) and (max-width:1024px){margin:0 auto;}}.movie-stats{display:flex;justify-content:space-around;@media (min-width:768px) and (max-width:1024px){margin-top:30px;}@media (min-width:320px) and (max-width:425px){flex-direction:column;margin-top:30px;}}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}h2{text-align:center;}.far,.fas{margin-right:10px;}.overview{grid-column-start:1;grid-column-end:4;justify-self:center;font-size:1.5rem;@media (min-width:768px) and (max-width:1024px){padding:20px;}@media (min-width:320px) and (max-width:425px){padding:20px;text-align:center;}}"], _fadeInAnimation.default);
 
 var _default = MovieStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PeopleContainer/PeopleContainerStyled.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../animation/fadeInAnimation":"src/animation/fadeInAnimation.js"}],"src/components/PeopleContainer/PeopleContainerStyled.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -44551,14 +44600,16 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _fadeInAnimation = _interopRequireDefault(require("../../animation/fadeInAnimation"));
+
 const PeopleContainerStyled = _styledComponents.default.div.withConfig({
   displayName: "PeopleContainerStyled",
   componentId: "sc-1xs4iks-0"
-})(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-items:center;width:80%;@media (max-width:768px){width:auto;}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}.person{display:grid;text-align:center;padding:0;border:1px solid #ddd;max-width:80%;background-color:#ffffff;border-radius:15px;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}img{margin:0;width:100%;border-radius:15px 15px 0 0;}.name{padding:0;align-self:flex-end;}}"]);
+})(["display:grid;margin:0 auto;grid-template-columns:repeat(3,1fr);grid-gap:20px;justify-items:center;width:80%;", " @media (max-width:768px){width:auto;}@media (min-width:320px) and (max-width:425px){grid-template-columns:1fr;}.person{display:grid;text-align:center;padding:0;border:1px solid #ddd;max-width:80%;background-color:#ffffff;border-radius:15px;opacity:1;transition:opacity 0.25s ease-in-out;&:hover{opacity:0.7;}img{margin:0;width:100%;border-radius:15px 15px 0 0;}.name{padding:0;align-self:flex-end;}}"], _fadeInAnimation.default);
 
 var _default = PeopleContainerStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/PeopleContainer/PeopleContainer.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../animation/fadeInAnimation":"src/animation/fadeInAnimation.js"}],"src/components/PeopleContainer/PeopleContainer.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -44777,14 +44828,16 @@ exports.default = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _fadeInAnimation = _interopRequireDefault(require("../../animation/fadeInAnimation"));
+
 const PersonStyled = _styledComponents.default.div.withConfig({
   displayName: "PersonStyled",
   componentId: "sc-1gqciy8-0"
-})(["display:flex;flex-direction:row;@media (min-width:320px) and (max-width:425px){flex-direction:column;}img{margin-left:40px;}.info{text-align:left;margin-left:10px;padding-left:15px;@media (min-width:320px) and (max-width:425px){text-align:center;}p{font-size:1.2rem;@media (min-width:320px) and (max-width:425px){padding:10px;}}}.fas{margin-right:10px;}"]);
+})(["display:flex;flex-direction:row;", " @media (min-width:320px) and (max-width:425px){flex-direction:column;}img{margin-left:40px;}.info{text-align:left;margin-left:10px;padding-left:15px;@media (min-width:320px) and (max-width:425px){text-align:center;}p{font-size:1.2rem;@media (min-width:320px) and (max-width:425px){padding:10px;}}}.fas{margin-right:10px;}"], _fadeInAnimation.default);
 
 var _default = PersonStyled;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/Person/Person.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../animation/fadeInAnimation":"src/animation/fadeInAnimation.js"}],"src/components/Person/Person.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");

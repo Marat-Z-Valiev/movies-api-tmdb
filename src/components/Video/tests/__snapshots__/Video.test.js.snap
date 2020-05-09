@@ -33,7 +33,7 @@ exports[`Video should render correctly 1`] = `
   }
 >
   <Video
-    id="5555"
+    movieId="5555"
   />
 </ContextProvider>
 `;
