@@ -49,7 +49,7 @@ const Person = ({match}) => {
 							) : (
 								<img
 									src={`https://image.tmdb.org/t/p/w342/${profile_path}`}
-									alt={name}
+									alt=""
 								/>
 							)}
 						</div>

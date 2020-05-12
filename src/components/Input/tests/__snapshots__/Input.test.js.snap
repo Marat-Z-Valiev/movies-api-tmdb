@@ -2,12 +2,13 @@
 
 exports[`Input should render correctly 1`] = `
 <Input__InputStyles
+  aria-label="Search"
   className="input"
   onBlur={[Function]}
   onChange={[Function]}
   onFocus={[Function]}
   onKeyPress={[Function]}
   placeholder="Search"
-  type="text"
+  type="search"
 />
 `;

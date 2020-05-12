@@ -25,6 +25,7 @@ const PersonStyled = styled.div`
 
 		p {
 			font-size: 1.2rem;
+			font-weight: bold;
 
 			@media (min-width: 320px) and (max-width: 425px) {
 				padding: 10px;

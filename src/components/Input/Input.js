@@ -36,12 +36,13 @@ const Input = ({handleChange, handleClick, closeMenu}) => {
 	return (
 		<InputStyles
 			className="input"
-			type="text"
+			type="search"
 			onChange={handleChange}
 			onFocus={handleFocus}
 			onBlur={handleOnBlur}
 			onKeyPress={(event) => handleKeyPress(event)}
 			placeholder={placeholderText}
+			aria-label="Search"
 		/>
 	);
 };

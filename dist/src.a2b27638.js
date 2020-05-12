@@ -42625,12 +42625,13 @@ const Input = ({
 
   return _react.default.createElement(InputStyles, {
     className: "input",
-    type: "text",
+    type: "search",
     onChange: handleChange,
     onFocus: handleFocus,
     onBlur: handleOnBlur,
     onKeyPress: event => handleKeyPress(event),
-    placeholder: placeholderText
+    placeholder: placeholderText,
+    "aria-label": "Search"
   });
 };
 
@@ -44890,7 +44891,7 @@ var _fadeInAnimation = _interopRequireDefault(require("../../animation/fadeInAni
 const PersonStyled = _styledComponents.default.div.withConfig({
   displayName: "PersonStyled",
   componentId: "sc-1gqciy8-0"
-})(["display:flex;flex-direction:row;", " @media (min-width:320px) and (max-width:425px){flex-direction:column;}img{margin-left:40px;}.info{text-align:left;margin-left:10px;padding-left:15px;@media (min-width:320px) and (max-width:425px){text-align:center;}p{font-size:1.2rem;@media (min-width:320px) and (max-width:425px){padding:10px;}}}.fas{margin-right:10px;}"], _fadeInAnimation.default);
+})(["display:flex;flex-direction:row;", " @media (min-width:320px) and (max-width:425px){flex-direction:column;}img{margin-left:40px;}.info{text-align:left;margin-left:10px;padding-left:15px;@media (min-width:320px) and (max-width:425px){text-align:center;}p{font-size:1.2rem;font-weight:bold;@media (min-width:320px) and (max-width:425px){padding:10px;}}}.fas{margin-right:10px;}"], _fadeInAnimation.default);
 
 var _default = PersonStyled;
 exports.default = _default;
@@ -44962,7 +44963,7 @@ const Person = ({
     alt: "no image available"
   }) : _react.default.createElement("img", {
     src: `https://image.tmdb.org/t/p/w342/${profile_path}`,
-    alt: name
+    alt: ""
   })), _react.default.createElement("div", {
     className: "info"
   }, _react.default.createElement("h2", null, name), birthday ? _react.default.createElement("h2", null, _react.default.createElement("i", {
