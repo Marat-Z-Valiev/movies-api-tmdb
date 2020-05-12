@@ -36235,7 +36235,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchMovies = fetchMovies;
-exports.default = exports.trendingMoviesSelector = exports.getTrendingMoviesFailure = exports.getTrendingMoviesSuccess = exports.getTrendingMovies = exports.initialState = void 0;
+exports.default = exports.selectError = exports.selectIsLoading = exports.trendingMoviesSelector = exports.getTrendingMoviesFailure = exports.getTrendingMoviesSuccess = exports.getTrendingMovies = exports.initialState = void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
@@ -36279,6 +36279,14 @@ exports.getTrendingMovies = getTrendingMovies;
 const trendingMoviesSelector = state => state.trendingMovies;
 
 exports.trendingMoviesSelector = trendingMoviesSelector;
+
+const selectIsLoading = state => state.trendingMovies.loading;
+
+exports.selectIsLoading = selectIsLoading;
+
+const selectError = state => state.trendingMovies.hasErrors;
+
+exports.selectError = selectError;
 var _default = trendingMoviesSlice.reducer;
 exports.default = _default;
 
@@ -36299,7 +36307,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchPopularMovies = fetchPopularMovies;
-exports.default = exports.popularMoviesSelector = exports.getPopularMoviesFailure = exports.getPopularMoviesSuccess = exports.getPopularMovies = exports.initialState = void 0;
+exports.default = exports.selectError = exports.selectIsLoading = exports.popularMoviesSelector = exports.getPopularMoviesFailure = exports.getPopularMoviesSuccess = exports.getPopularMovies = exports.initialState = void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
@@ -36343,6 +36351,14 @@ exports.getPopularMovies = getPopularMovies;
 const popularMoviesSelector = state => state.popularMovies;
 
 exports.popularMoviesSelector = popularMoviesSelector;
+
+const selectIsLoading = state => state.popularMovies.loading;
+
+exports.selectIsLoading = selectIsLoading;
+
+const selectError = state => state.popularMovies.hasErrors;
+
+exports.selectError = selectError;
 var _default = popularMoviesSlice.reducer;
 exports.default = _default;
 
@@ -36435,7 +36451,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchMovieCast = fetchMovieCast;
-exports.default = exports.castSelector = exports.getCastFailure = exports.getCastSuccess = exports.getCast = exports.initialState = void 0;
+exports.default = exports.selectError = exports.selectIsLoading = exports.castSelector = exports.getCastFailure = exports.getCastSuccess = exports.getCast = exports.initialState = void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
@@ -36479,6 +36495,14 @@ exports.getCast = getCast;
 const castSelector = state => state.cast;
 
 exports.castSelector = castSelector;
+
+const selectIsLoading = state => state.cast.loading;
+
+exports.selectIsLoading = selectIsLoading;
+
+const selectError = state => state.cast.hasErrors;
+
+exports.selectError = selectError;
 var _default = castSlice.reducer;
 exports.default = _default;
 
@@ -36499,7 +36523,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchVideo = fetchVideo;
-exports.default = exports.videoSelector = exports.getVideoFailure = exports.getVideoSuccess = exports.getVideo = exports.initialState = void 0;
+exports.default = exports.selectError = exports.selectIsLoading = exports.videoSelector = exports.getVideoFailure = exports.getVideoSuccess = exports.getVideo = exports.initialState = void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
@@ -36543,6 +36567,14 @@ exports.getVideo = getVideo;
 const videoSelector = state => state.video;
 
 exports.videoSelector = videoSelector;
+
+const selectIsLoading = state => state.video.loading;
+
+exports.selectIsLoading = selectIsLoading;
+
+const selectError = state => state.video.hasErrors;
+
+exports.selectError = selectError;
 var _default = videoSlice.reducer;
 exports.default = _default;
 
@@ -36567,7 +36599,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchPopularPeople = fetchPopularPeople;
-exports.default = exports.popularPeopleSelector = exports.getPopularPeopleFailure = exports.getPopularPeopleSuccess = exports.getPopularPeople = exports.initialState = void 0;
+exports.default = exports.selectError = exports.selectIsLoading = exports.popularPeopleSelector = exports.getPopularPeopleFailure = exports.getPopularPeopleSuccess = exports.getPopularPeople = exports.initialState = void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
@@ -36611,6 +36643,14 @@ exports.getPopularPeople = getPopularPeople;
 const popularPeopleSelector = state => state.popularPeople;
 
 exports.popularPeopleSelector = popularPeopleSelector;
+
+const selectIsLoading = state => state.popularPeople.loading;
+
+exports.selectIsLoading = selectIsLoading;
+
+const selectError = state => state.popularPeople.hasErrors;
+
+exports.selectError = selectError;
 var _default = popularPeopleSlice.reducer;
 exports.default = _default;
 
@@ -36631,7 +36671,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchPerson = fetchPerson;
-exports.default = exports.personSelector = exports.getPersonFailure = exports.getPersonSuccess = exports.getPerson = exports.initialState = void 0;
+exports.default = exports.selectError = exports.selectIsLoading = exports.personSelector = exports.getPersonFailure = exports.getPersonSuccess = exports.getPerson = exports.initialState = void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
@@ -36675,6 +36715,14 @@ exports.getPerson = getPerson;
 const personSelector = state => state.person;
 
 exports.personSelector = personSelector;
+
+const selectIsLoading = state => state.person.loading;
+
+exports.selectIsLoading = selectIsLoading;
+
+const selectError = state => state.person.hasErrors;
+
+exports.selectError = selectError;
 var _default = personSlice.reducer;
 exports.default = _default;
 
@@ -36695,7 +36743,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchMovieCredits = fetchMovieCredits;
-exports.default = exports.movieCreditsSelector = exports.getMovieCreditsFailure = exports.getMovieCreditsSuccess = exports.getMovieCredits = exports.initialState = void 0;
+exports.default = exports.selectError = exports.selectIsLoading = exports.movieCreditsSelector = exports.getMovieCreditsFailure = exports.getMovieCreditsSuccess = exports.getMovieCredits = exports.initialState = void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
@@ -36739,6 +36787,14 @@ exports.getMovieCredits = getMovieCredits;
 const movieCreditsSelector = state => state.movieCredits;
 
 exports.movieCreditsSelector = movieCreditsSelector;
+
+const selectIsLoading = state => state.movieCredits.loading;
+
+exports.selectIsLoading = selectIsLoading;
+
+const selectError = state => state.movieCredits.hasErrors;
+
+exports.selectError = selectError;
 var _default = movieCreditsSlice.reducer;
 exports.default = _default;
 
@@ -44708,6 +44764,7 @@ const Video = ({
   } = video;
   let windowWidth = window.innerWidth;
   return _react.default.createElement(_react.default.Fragment, null, hasErrors ? _react.default.createElement(_Error.default, null) : "", loading ? _react.default.createElement(_Spinner.default, null) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledVideo, null, type ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", null, type), _react.default.createElement("iframe", {
+    allowFullScreen: "allowFullScreen",
     title: name,
     width: windowWidth > 425 ? 800 : 400,
     height: windowWidth > 425 ? 450 : 225,
@@ -45828,7 +45885,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64625" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51263" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

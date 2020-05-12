@@ -29,6 +29,8 @@ const castSlice = createSlice({
 export const {getCast, getCastSuccess, getCastFailure} = castSlice.actions;
 
 export const castSelector = (state) => state.cast;
+export const selectIsLoading = (state) => state.cast.loading;
+export const selectError = (state) => state.cast.hasErrors;
 export default castSlice.reducer;
 
 export function fetchMovieCast(movieId) {

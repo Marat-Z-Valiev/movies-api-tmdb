@@ -33,6 +33,8 @@ export const {
 } = popularMoviesSlice.actions;
 
 export const popularMoviesSelector = (state) => state.popularMovies;
+export const selectIsLoading = (state) => state.popularMovies.loading;
+export const selectError = (state) => state.popularMovies.hasErrors;
 export default popularMoviesSlice.reducer;
 
 export function fetchPopularMovies() {

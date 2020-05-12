@@ -29,6 +29,8 @@ const videoSlice = createSlice({
 export const {getVideo, getVideoSuccess, getVideoFailure} = videoSlice.actions;
 
 export const videoSelector = (state) => state.video;
+export const selectIsLoading = (state) => state.video.loading;
+export const selectError = (state) => state.video.hasErrors;
 export default videoSlice.reducer;
 
 export function fetchVideo(movieId) {

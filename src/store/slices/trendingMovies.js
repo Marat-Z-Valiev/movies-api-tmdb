@@ -33,6 +33,8 @@ export const {
 } = trendingMoviesSlice.actions;
 
 export const trendingMoviesSelector = (state) => state.trendingMovies;
+export const selectIsLoading = (state) => state.trendingMovies.loading;
+export const selectError = (state) => state.trendingMovies.hasErrors;
 export default trendingMoviesSlice.reducer;
 
 export function fetchMovies() {

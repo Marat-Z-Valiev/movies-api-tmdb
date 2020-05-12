@@ -33,6 +33,8 @@ export const {
 } = movieCreditsSlice.actions;
 
 export const movieCreditsSelector = (state) => state.movieCredits;
+export const selectIsLoading = (state) => state.movieCredits.loading;
+export const selectError = (state) => state.movieCredits.hasErrors;
 export default movieCreditsSlice.reducer;
 
 export function fetchMovieCredits(personId) {

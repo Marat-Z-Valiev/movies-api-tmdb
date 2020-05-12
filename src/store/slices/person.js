@@ -33,6 +33,8 @@ export const {
 } = personSlice.actions;
 
 export const personSelector = (state) => state.person;
+export const selectIsLoading = (state) => state.person.loading;
+export const selectError = (state) => state.person.hasErrors;
 export default personSlice.reducer;
 
 export function fetchPerson(personId) {

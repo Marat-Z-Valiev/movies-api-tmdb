@@ -33,6 +33,8 @@ export const {
 } = popularPeopleSlice.actions;
 
 export const popularPeopleSelector = (state) => state.popularPeople;
+export const selectIsLoading = (state) => state.popularPeople.loading;
+export const selectError = (state) => state.popularPeople.hasErrors;
 export default popularPeopleSlice.reducer;
 
 export function fetchPopularPeople() {

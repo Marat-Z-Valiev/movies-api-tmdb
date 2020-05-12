@@ -40,6 +40,7 @@ const Video = ({movieId}) => {
 							<>
 								<h2>{type}</h2>
 								<iframe
+									allowFullScreen="allowFullScreen"
 									title={name}
 									width={windowWidth > 425 ? 800 : 400}
 									height={windowWidth > 425 ? 450 : 225}
