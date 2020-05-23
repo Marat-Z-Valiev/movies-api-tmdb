@@ -19,7 +19,7 @@ exports[`Results should render correctly 1`] = `
   </p>
   <ResultsContainerStyled>
     <div
-      className="ResultsContainerStyled-y8dhwe-0 jiMYFW"
+      className="ResultsContainerStyled-sc-1p24i8x-0 kFiqOW"
     />
   </ResultsContainerStyled>
 </Results>

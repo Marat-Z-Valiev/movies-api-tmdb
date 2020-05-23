@@ -12,7 +12,7 @@ describe("PaginationComponent", () => {
 			<PaginationComponent
 				currentPage={1}
 				resultsPerPage={10}
-				totalResults={100}
+				totalResults={"100"}
 				handlePageChange={() => {}}
 			/>
 		);
